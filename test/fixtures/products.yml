@@ -16,4 +16,4 @@ two:
   photo_url: https://yeahforsure.org
   stock: 7
   active: true
-   merchant: merchants(:one)
+  merchant: merchants(:one)
