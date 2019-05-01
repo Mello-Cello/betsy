@@ -1,9 +1,9 @@
 require "test_helper"
 
 describe Merchant do
-  let(:merchant) { Merchant.new }
+  let(:merchant){merchants(:one)}
 
   it "must be valid" do
-    value(merchant).must_be :valid?
+    expect(merchant.valid?).must_equal true
   end
 end
