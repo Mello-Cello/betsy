@@ -1,3 +1,7 @@
+https://intangibly.herokuapp.com/ 
+https://git.heroku.com/intangibly.git
+https://trello.com/b/A38BQTVC/intagibelles 
+
 # bEtsy
 
 ## At a Glance
