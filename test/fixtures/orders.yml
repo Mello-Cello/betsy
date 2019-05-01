@@ -1,17 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  status: MyString
-  shopper_name: MyString
-  shopper_email: MyString
-  shopper_address: MyString
-  cc_four: MyString
-  cc_exp: MyString
+  status: completed
+  shopper_name: susie
+  shopper_email: dalmation@susy.org
+  shopper_address: 4455 mailing address
+  cc_four: 3434
+  cc_exp: 03022020
 
 two:
-  status: MyString
-  shopper_name: MyString
-  shopper_email: MyString
-  shopper_address: MyString
-  cc_four: MyString
-  cc_exp: MyString
+  status: completed
+  shopper_name: miranda
+  shopper_email: panda@hooo.com
+  shopper_address: 43244 tryagain address
+  cc_four: 2534
+  cc_exp: 09092020
