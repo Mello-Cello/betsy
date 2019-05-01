@@ -11,11 +11,11 @@ require "csv"
 
 CSV.open("merchant_data.csv", "w", :write_headers => true,
                                    :headers => ["username", "email", "uid", "provider"]) do |csv|
- 5.times do
-  username = Faker::Games::Pokemon.unique.name 
-  email = Faker::Internet.unique.email
-  uid = Faker::Number.unique.number(5)
-  provider = "github"
-  csv << [username, email, uid, provider]
- end
+  5.times do
+    username = Faker::Games::Pokemon.unique.name
+    email = Faker::Internet.unique.email
+    uid = Faker::Number.unique.number(5)
+    provider = "github"
+    csv << [username, email, uid, provider]
+  end
 end

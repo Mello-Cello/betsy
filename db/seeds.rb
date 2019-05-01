@@ -14,5 +14,15 @@ CSV.open("db/merchant_data.csv", headers: true).each_with_index do |line, i|
     uid: line["uid"],
     provider: line["provider"],
   )
-  merchant.save ? (puts "#{i + 1} merchant ") : failed_to_save << merchant 
+  merchant.save ? (puts "#{i + 1} merchant ") : failed_to_save << merchant
+end
+
+CSV.open("db/products_data.csv", headers: true).each_with_index do |line, i|
+  merchant = Merchant.find(rand(1..Merchant.count))
+  product = merchant.products.create(name: line["name"],
+                                     price: line["price"],
+                                     description: line["description"],
+                                     photo_url: line["photo_url"],
+                                     stock: line["stock"])
+  product.valid? ? (puts "#{i + 1} product") : failed_to_save << product
 end
