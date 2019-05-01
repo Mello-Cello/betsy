@@ -16,7 +16,6 @@ CSV.open("merchant_data.csv", "w", :write_headers => true,
   email = Faker::Internet.unique.email
   uid = Faker::Number.unique.number(5)
   provider = "github"
-
-   csv << [username, email, uid, provider]
+  csv << [username, email, uid, provider]
  end
 end
