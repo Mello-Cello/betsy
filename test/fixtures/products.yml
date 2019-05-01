@@ -1,17 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  price: 1
-  description: MyString
-  photo_url: MyString
-  stock: 1
-  active: false
+  name: bucket of rain
+  price: 1087
+  description: just like it sounds you sad person
+  photo_url: https://notonmyblock.com
+  stock: 8
+  active: true
+  merchant: merchants(:one)
 
 two:
-  name: MyString
-  price: 1
-  description: MyString
-  photo_url: MyString
-  stock: 1
-  active: false
+  name: sushine and rainbows
+  price: 1722
+  description: nice stuff wooowza
+  photo_url: https://yeahforsure.org
+  stock: 7
+  active: true
+   merchant: merchants(:one)
