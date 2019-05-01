@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: MyString
+  shopper_name: MyString
+  shopper_email: MyString
+  shopper_address: MyString
+  cc_four: MyString
+  cc_exp: MyString
+
+two:
+  status: MyString
+  shopper_name: MyString
+  shopper_email: MyString
+  shopper_address: MyString
+  cc_four: MyString
+  cc_exp: MyString
