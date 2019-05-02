@@ -29,9 +29,10 @@ describe Review do
       expect(review.errors[:rating]).must_equal ["is not included in the list"]
     end
   end
+
+  describe "relationship with product" do
+    it "belongs to a product" do
+      expect(review.product).must_equal products(:product_1)
+    end
+  end
 end
-
-# belongs_to :product
-
-# validates :rating, presence: true
-# validates_inclusion_of :rating, :in => [1, 2, 3, 4, 5]
