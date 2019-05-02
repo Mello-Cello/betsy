@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-reivew_1:
+review_1:
   rating: 4
   comment: impressive liked it a lot it was supppper good
   product: product_1
