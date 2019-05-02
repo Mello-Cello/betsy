@@ -30,7 +30,7 @@ end
 CSV.open("db/reviews_data.csv", headers: true).each_with_index do |line, i|
   product = Product.find(rand(1..Product.count))
   review = Review.new(rating: line["rating"],
-                      comment: line["comment"])
+                      comment: product.name + line["comment"])
   product.reviews << review
   review.valid? ? (puts "#{i + 1} review") : failed_to_save << review
 end
