@@ -2,9 +2,13 @@
 
 review_1:
 <<<<<<< HEAD
+<<<<<<< HEAD
   rating: 5
 =======
   rating: 4
+>>>>>>> fixtures
+=======
+  rating: 5
 >>>>>>> fixtures
   comment: impressive liked it a lot it was supppper good
   product: product_1
