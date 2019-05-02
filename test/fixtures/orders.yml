@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+orders_1:
   status: completed
   shopper_name: susie
   shopper_email: dalmation@susy.org
@@ -8,7 +8,7 @@ one:
   cc_four: 3434
   cc_exp: 03022020
 
-two:
+orders_2:
   status: completed
   shopper_name: miranda
   shopper_email: panda@hooo.com
