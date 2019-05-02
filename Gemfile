@@ -73,6 +73,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'guard'
   gem 'guard-minitest'
+  gem 'dotenv-rails'
 end
 
 group :test do
@@ -80,6 +81,9 @@ group :test do
   gem 'minitest-reporters'
 end
 
-
+gem 'simplecov', require: false, group: :test
 
 gem 'csv'
+
+gem "omniauth"
+gem "omniauth-github"

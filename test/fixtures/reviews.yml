@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  rating: 1
-  comment: MyString
+review_1:
+  rating: 5
+  comment: impressive liked it a lot it was supppper good
+  product: product_1
 
-two:
-  rating: 1
-  comment: MyString
+review_2:
+  rating: 2
+  comment: not so awesome sad face
+  product: product_1
