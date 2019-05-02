@@ -81,7 +81,7 @@ group :test do
   gem 'minitest-reporters'
 end
 
-
+gem 'simplecov', require: false, group: :test
 
 gem 'csv'
 
