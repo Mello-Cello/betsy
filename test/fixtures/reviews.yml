@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  rating: 4
+review_1:
+  rating: 5
   comment: impressive liked it a lot it was supppper good
-  product: products(:one)
+  product: product_1
 
-two:
+review_2:
   rating: 2
   comment: not so awesome sad face
-  product: products(:one)
+  product: product_1

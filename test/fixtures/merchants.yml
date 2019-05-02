@@ -1,12 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+merchant_1:
   username: pickchu
   email: pickhu@yahoo.com
   uid: 2342
   provider: github
 
-two:
+merchant_2:
   username: lemonlulu
   email: lululumen@yahoo.com
   uid: 5435
