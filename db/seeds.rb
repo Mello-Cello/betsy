@@ -26,3 +26,13 @@ CSV.open("db/products_data.csv", headers: true).each_with_index do |line, i|
                                      stock: line["stock"])
   product.valid? ? (puts "#{i + 1} product") : failed_to_save << product
 end
+
+CSV.open("db/reviews_data.csv", headers: true).each_with_index do |line, i|
+  product = Product.find(rand(1..Product.count))
+  review = Review.new(rating: line["rating"],
+                      comment: line["comment"])
+  product.reviews << review
+  review.valid? ? (puts "#{i + 1} review") : failed_to_save << review
+end
+
+puts "#{failed_to_save.count} failed to save"
