@@ -1,9 +1,9 @@
 require "test_helper"
 
 describe Item do
-  let(:item) { Item.new }
+  let(:item) { items(:item_1) }
 
   it "must be valid" do
-    value(item).must_be :valid?
+    expect(item.valid?).must_equal true
   end
 end
