@@ -2,10 +2,10 @@
 
 item_1:
   quantity: 5
-  order: orders(:one)
+  order: orders_1
   product: product_1
 
 item_2:
   quantity: 3 
-  order: orders(:one)
+  order: orders_1
   product: product_2
