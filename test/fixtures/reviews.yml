@@ -1,7 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 review_1:
+<<<<<<< HEAD
   rating: 5
+=======
+  rating: 4
+>>>>>>> fixtures
   comment: impressive liked it a lot it was supppper good
   product: product_1
 
