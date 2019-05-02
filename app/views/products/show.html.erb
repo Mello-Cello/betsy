@@ -1,2 +1,57 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
+<h2>Product show page</h2>
+
+<h2>
+  Name: <%= @product.name %>
+</h2>
+
+<h3>
+  Price: $ <%= @product.price / 100.0 %>
+</h3>
+
+<h3>
+  Description: <%= @product.description%>
+</h3>
+
+<h3>
+  Stock: <%= @product.stock%>
+</h3>
+
+<section>
+  <h4>
+    Categories
+  </h4>
+
+  <% if @product.categories.any? %>
+    <ul>
+
+      <% @product.categories.each do |category| %>
+        <li><%= category.name %></li>
+      <% end %>
+
+    </ul>
+  <% else %>
+    <p>There are no categories assigned to this product</p>
+  <% end %>
+</section>
+
+<section>
+  <h4>
+    Reviews
+  </h4>
+
+<% reviews = Review.where(product_id: @product.id)%>
+  <% if reviews.any? %>
+    <ul>
+
+      <% reviews.each do |review| %>
+        <li>Rating: <%= review.rating%></li>
+        <li>Comment: <%= review.comment%></li>
+        <li>Product: <%= review.product_id%></li>
+      <% end %>
+
+    </ul>
+  <% else %>
+    <p>There are no categories assigned to this product</p>
+  <% end %>
+</section>
+
