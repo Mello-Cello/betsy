@@ -1,13 +1,26 @@
 require "test_helper"
 
 describe Review do
-  let(:review) { Review.new }
+  let(:review) { reviews(:review_1) }
 
   it "must be valid" do
-    value(review).must_be :valid?
+    expect(review.valid?).must_be true
+  end
+
+  describe "validations" do
+    it "will not be valid if missing rating" do
+      # review.rating = nil 
+      expect(review.valid?).must_equal false
+    
+    end
+
+    it "will not be valid if rating is less than 1" do
+    end
+
+    it "will not be valid if rating is greater than 5" do
+    end
   end
 end
-
 
 # belongs_to :product
 
