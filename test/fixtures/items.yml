@@ -2,10 +2,10 @@
 
 item_1:
   quantity: 5
-  order: orders_1
+  order: order_1
   product: product_1
 
 item_2:
   quantity: 3 
-  order: orders_1
+  order: order_1
   product: product_2
