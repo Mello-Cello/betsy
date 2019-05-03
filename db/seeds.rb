@@ -19,7 +19,7 @@ end
 
 CSV.open("db/products_data.csv", headers: true).each_with_index do |line, i|
   merchant = Merchant.find(rand(1..Merchant.count))
-  product = merchant.products.create(name: line["name"],
+  product = merchant.products.create(name: line["name"].upcase,
                                      price: line["price"],
                                      description: line["description"],
                                      photo_url: line["photo_url"],
@@ -30,9 +30,19 @@ end
 CSV.open("db/reviews_data.csv", headers: true).each_with_index do |line, i|
   product = Product.find(rand(1..Product.count))
   review = Review.new(rating: line["rating"],
-                      comment: product.name + line["comment"])
+                      comment: product.name + " " + line["comment"])
   product.reviews << review
   review.valid? ? (puts "#{i + 1} review") : failed_to_save << review
+end
+
+i = 0
+CSV.open("db/categories_data.csv", headers: true).each do |line|
+  category = Category.new(name: line["name"])
+  10.times do |j|
+    product = Product.find(rand(1..Product.count))
+    product.categories << category unless product.categories.include?(category)
+    category.valid? ? (puts "#{i += 1} category-product relationships") : failed_to_save << review
+  end
 end
 
 puts "#{failed_to_save.count} failed to save"
