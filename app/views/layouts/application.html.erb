@@ -21,9 +21,11 @@
           <% elsif flash[:error] %>
             <%= flash[:error] %>
             <ul>
-              <%flash.each do |label, message|%>
+              <%flash.each do |label, problems|%>
                 <% if label != "error" %>
-                  <li><%=label%>: <%=message[0]%></li>
+                  <% problems.each do |problem| %>
+                   <li><%= label %>: <%= problem %></li>
+                  <% end %>
                 <% end %>
               <% end %>
             </ul>

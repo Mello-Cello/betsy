@@ -7,8 +7,10 @@ class ReviewsController < ApplicationController
       flash[:success] = "Review Successfully Added"
       redirect_to product_path(@product.id)
     else
-      flash[:failure] = "Could Not Add Review"
-      flash[:messages] = review.errors.messages
+      flash.now[:error] = "Could Not Add Review"
+      review.errors.messages.each do |label, message|
+        flash.now[label.to_sym] = message
+      end
       render "products/show", status: :bad_request
     end
   end
