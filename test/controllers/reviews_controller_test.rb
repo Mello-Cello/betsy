@@ -53,6 +53,16 @@ describe ReviewsController do
       end
 
       it "a merchant cannot create a review their own product" do
+        review_param = { review: { rating: 3,
+                                   comment: "wow so great" } }
+        product = products(:product_3)
+        expect {
+          post product_reviews_path(product), params: review_param
+        }.must_change "Review.count", 0
+
+        expect(flash[:error]).must_equal "Merchants cannot review their own product."
+   
+        must_respond_with :bad_request
       end
     end
   end

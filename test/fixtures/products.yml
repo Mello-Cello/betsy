@@ -17,3 +17,13 @@ product_2:
   stock: 7
   active: true
   merchant: merchant_2
+
+
+product_3:
+  name: nice things
+  price: 1722
+  description: nice stuff wooowza
+  photo_url: https://yeahforsure.org
+  stock: 7
+  active: true
+  merchant: merchant_1
