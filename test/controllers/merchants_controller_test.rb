@@ -1,19 +1,43 @@
 require "test_helper"
 
 describe MerchantsController do
-  it "should get create" do
-    get merchants_create_url
-    value(response).must_be :success?
+  describe "index" do
+    it "should get index" do
+      # Act
+      get merchants_path
+
+      # Assert
+      must_respond_with :success
+    end
   end
 
-  it "should get show" do
-    get merchants_show_url
-    value(response).must_be :success?
-  end
+  describe "show" do
+    it "can get a valid merchant" do
 
-  it "should get delete" do
-    get merchants_delete_url
-    value(response).must_be :success?
-  end
+      # Act
+      get merchant_path(merchants(:merchant_1).id)
 
+      # Assert
+      must_respond_with :success
+    end
+
+    it "will redirect for an invalid merchant" do
+
+      # Act
+      get merchant_path(-1)
+
+      # Assert
+      must_respond_with :redirect
+    end
+
+    it "will give a flash notice for an invalid merchant" do
+
+      # Act
+      get merchant_path(-1)
+
+      # Assert
+      must_respond_with :redirect
+      expect(flash[:error]).must_equal "Unknown merchant"
+    end
+  end
 end

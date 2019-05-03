@@ -1,2 +1,19 @@
-<h1>Merchants#show</h1>
-<p>Find me in app/views/merchants/show.html.erb</p>
+
+<section>
+  <h2>
+    Merchant: <%= @merchant.username %>
+  </h2>
+
+  <h2>Products:</h2>
+  <% if @merchant.product_ids.any? %>
+    <ul>
+
+      <% @merchant.product_ids.each do |product| %>
+        <li><%= Product.find(product).name %></li>
+      <% end %>
+
+    </ul>
+  <% else %>
+    <p>There are no products for this merchant</p>
+  <% end %>
+</section>

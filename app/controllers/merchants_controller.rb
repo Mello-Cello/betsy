@@ -1,5 +1,15 @@
 class MerchantsController < ApplicationController
+  def index
+    @merchants = Merchant.all
+  end
+
   def show
+    @merchant = Merchant.find_by(id: params[:id])
+
+    if @merchant.nil?
+      flash[:error] = "Unknown merchant"
+      redirect_to merchants_path
+    end
   end
 
   def create
