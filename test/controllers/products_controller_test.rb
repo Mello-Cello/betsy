@@ -39,6 +39,16 @@ describe ProductsController do
       # Assert
       must_respond_with :redirect
     end
+
+    it "will give a flash notice for an invalid product" do
+
+      # Act
+      get product_path(-1)
+
+      # Assert
+      must_respond_with :redirect
+      expect(flash[:error]).must_equal "Unknown product"
+    end
   end
 
   # it "should get edit" do
