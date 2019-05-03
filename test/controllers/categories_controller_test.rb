@@ -21,7 +21,7 @@ describe CategoriesController do
       must_respond_with :success
     end
 
-    it "will redirect and give a flash notice for an invalid product" do
+    it "will redirect and give a flash notice for an invalid category" do
 
       # Act
       get category_path(-1)

@@ -21,16 +21,7 @@ describe MerchantsController do
       must_respond_with :success
     end
 
-    it "will redirect for an invalid merchant" do
-
-      # Act
-      get merchant_path(-1)
-
-      # Assert
-      must_respond_with :redirect
-    end
-
-    it "will give a flash notice for an invalid merchant" do
+    it "will redirect and give a flash notice for an invalid merchant" do
 
       # Act
       get merchant_path(-1)
