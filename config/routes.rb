@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # resources :orders # UPDATE THIS AFTER WE DECIDE WHAT WE NEED/DON'T
 
   get "/auth/github", as: "github_login"
-  get "/auth/:provider/callback", to: "users#create"
+  get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
   delete "/logout", to: "users#destroy", as: "logout"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

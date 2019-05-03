@@ -34,7 +34,22 @@ describe ReviewsController do
       end
     end
     describe "as a merchant" do
+      before do
+        perform_login()
+      end
       it "will create a new review of a product that does not belong to merchant" do
+        review_param = { review: { rating: 3,
+                                   comment: "wow so great" } }
+        product = products(:product_1)
+
+        expect {
+          post product_reviews_path(product), params: review_param
+        }.must_change "Review.count", 1
+
+        expect(flash[:success]).must_equal "Review Successfully Added"
+
+        must_respond_with :redirect
+        must_redirect_to product_path(product)
       end
 
       it "a merchant cannot create a review their own product" do
