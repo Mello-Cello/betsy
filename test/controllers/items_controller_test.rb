@@ -10,11 +10,11 @@ describe ItemsController do
 
     it "will use current order if " do
     end
-    
+
     it "will not create a new item if product is not valid" do
     end
 
-    it "will not create an item for greater than the products quanity" do
+    it "will not create an item for with requested quantitiy greater tthan the products stock" do
     end
   end
 end
