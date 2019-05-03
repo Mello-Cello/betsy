@@ -1,4 +1,5 @@
 require "test_helper"
+require "pry"
 
 describe MerchantsController do
   # it "should get create" do
@@ -19,7 +20,7 @@ describe MerchantsController do
   it "logs in an existing user" do
     start_count = Merchant.count
     merchant = merchants(:merchant_1)
-
+    # binding.pry
     perform_login(merchant)
     session[:merchant_id].must_equal merchant.id
 

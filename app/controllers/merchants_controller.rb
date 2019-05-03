@@ -8,7 +8,7 @@ class MerchantsController < ApplicationController
     merchant = Merchant.find_by(uid: auth_hash[:uid], provider: "github")
     if merchant
       # merchant was found in the database
-      flash[:success] = "Logged in as returning merchant #{merchant.name}"
+      flash[:success] = "Logged in as returning merchant #{merchant.username}"
     else
       # merchant doesn't match anything in the DB
       # Attempt to create a new merchant
@@ -35,7 +35,7 @@ class MerchantsController < ApplicationController
     @merchant = Merchant.new # do we need this line? -Elle
   end
 
-  # MATCH THIS TO MARGARET'S
+  # MATCHED THIS TO MARGARET'S
   def login
     username = merchant_params[:username]
 
@@ -60,7 +60,7 @@ class MerchantsController < ApplicationController
 
     # alternative syntax for flash message:
     # flash[:success] = flash_msg
-    # check if a test of the status returns success
+    # For testing, does the status return success?
 
     redirect_to root_path
   end
