@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   resources :categories, only: [:new, :create, :index, :show]
-  resources :products, except: [:delete]
   resources :items, only: [:create, :update, :delete]
   resources :merchants, only: [:index, :create, :show, :delete]
-  resources :reviews, only: [:create]
   resources :orders # UPDATE THIS AFTER WE DECIDE WHAT WE NEED/DON'T
 
   # Is this correct? -mf
@@ -11,9 +9,16 @@ Rails.application.routes.draw do
     resources :products, only: [:index]
   end
 
-  get "/auth/github", as: "github_login"
-  get "/auth/:provider/callback", to: "users#create"
-  delete "/logout", to: "users#destroy", as: "logout"
+  # resources :categories, only: [:new, :create, :index]
+  resources :products, except: [:delete] do
+    resources :reviews, only: [:create]
+  end
+
+  root to: "cms/content#show"
+  # root "works#root"
+  get "/auth/github", as: "github_login", as: "perform_login"
+  get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
+  delete "/logout", to: "merchants#destroy", as: "logout"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

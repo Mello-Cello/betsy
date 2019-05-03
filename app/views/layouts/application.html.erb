@@ -8,8 +8,33 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-    <%= yield %>
+    <header>
+      <nav>
+      </nav>
+      <section class = "flash">
+        <div class = "success">
+          <% if flash[:success] %>
+            <%= flash[:success] %>
+        </div>
+        <div class = "error">
+          <% elsif flash[:error] %>
+            <%= flash[:error] %>
+            <ul>
+              <%flash.each do |label, problems|%>
+                <% if label != "error" %>
+                  <% problems.each do |problem| %>
+                   <li><%= label %>: <%= problem %></li>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </section>
+    </header>
+    </main>
+      <%= yield %>
+    </main>
   </body>
 </html>

@@ -1,4 +1,5 @@
 require "test_helper"
+require "pry"
 
 describe MerchantsController do
   describe "index" do
@@ -29,6 +30,19 @@ describe MerchantsController do
       # Assert
       must_respond_with :redirect
       expect(flash[:error]).must_equal "Unknown merchant"
+    end
+  end
+
+  describe "login" do
+    it "logs in an existing user" do
+      start_count = Merchant.count
+      merchant = merchants(:merchant_1)
+      # binding.pry
+      perform_login(merchant)
+      session[:merchant_id].must_equal merchant.id
+
+      # Should *not* have created a new user
+      Merchant.count.must_equal start_count
     end
   end
 end
