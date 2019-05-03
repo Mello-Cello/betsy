@@ -46,8 +46,6 @@ describe Product do
       expect(product.errors.include?(:price)).must_equal true 
       expect(product.errors.messages[:price]).must_equal ["must be greater than 0"]
     end
-
-
   end
   
   describe "relationships" do
@@ -55,7 +53,6 @@ describe Product do
       it "will belong to a merchant" do
         # expect(product.merchant).must_equal
       end
-
     end
 
     describe "relationship with categories" do
@@ -95,13 +92,6 @@ describe Product do
   end
 end
 
-# it "can have one or more products" do
-#   category.products << products(:product_1)
-#   category.products << products(:product_2)
-#   expect(category.products.include?(products(:product_1))).must_equal true
-#   expect(category.products.include?(products(:product_2))).must_equal true
-#   expect(products(:product_1).categories.include?(category)).must_equal true
-# end
 
 # # belongs_to :merchant
 # # has_and_belongs_to_many :categories
