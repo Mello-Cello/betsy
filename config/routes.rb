@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
+  resources :categories, only: [:new, :create, :index, :show]
+  resources :items, only: [:create, :update, :delete]
+  resources :merchants, only: [:index, :create, :show, :delete]
+  resources :orders # UPDATE THIS AFTER WE DECIDE WHAT WE NEED/DON'T
+
+  # Is this correct? -mf
+  resources :categories do
+    resources :products, only: [:index]
+  end
+
   # resources :categories, only: [:new, :create, :index]
   resources :products, except: [:delete] do
     resources :reviews, only: [:create]
   end
-  # resources :items, only: [:create, :update, :delete]
-  resources :merchants, only: [:create, :show, :delete]
-
-  # resources :orders # UPDATE THIS AFTER WE DECIDE WHAT WE NEED/DON'T
 
   root to: "cms/content#show"
   # root "works#root"

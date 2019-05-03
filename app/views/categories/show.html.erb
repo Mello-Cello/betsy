@@ -1,0 +1,21 @@
+<section>
+  <h2>
+    Category: <%= @category.name %>
+  </h2>
+
+  <h3>Products:</h3>
+  <% if @category.product_ids.any? %>
+    <ul>
+
+      <% @category.product_ids.each do |product| %>
+        <li><%= link_to Product.find(product).name, product_path(product)%></li>
+      <% end %>
+
+    </ul>
+  <% else %>
+    <p>There are no products for this category</p>
+  <% end %>
+</section>
+
+<%= link_to "Back to all products", products_path %> 
+<%= link_to "Back to all categories", categories_path %> 

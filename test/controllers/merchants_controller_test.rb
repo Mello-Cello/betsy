@@ -2,29 +2,47 @@ require "test_helper"
 require "pry"
 
 describe MerchantsController do
-  # it "should get create" do
-  #   get merchants_create_url
-  #   value(response).must_be :success?
-  # end
+  describe "index" do
+    it "should get index" do
+      # Act
+      get merchants_path
 
-  # it "should get show" do
-  #   get merchants_show_url
-  #   value(response).must_be :success?
-  # end
+      # Assert
+      must_respond_with :success
+    end
+  end
 
-  # it "should get delete" do
-  #   get merchants_delete_url
-  #   value(response).must_be :success?
-  # end
+  describe "show" do
+    it "can get a valid merchant" do
 
-  it "logs in an existing user" do
-    start_count = Merchant.count
-    merchant = merchants(:merchant_1)
-    # binding.pry
-    perform_login(merchant)
-    session[:merchant_id].must_equal merchant.id
+      # Act
+      get merchant_path(merchants(:merchant_1).id)
 
-    # Should *not* have created a new user
-    Merchant.count.must_equal start_count
+      # Assert
+      must_respond_with :success
+    end
+
+    it "will redirect and give a flash notice for an invalid merchant" do
+
+      # Act
+      get merchant_path(-1)
+
+      # Assert
+      must_respond_with :redirect
+      expect(flash[:error]).must_equal "Unknown merchant"
+    end
+  end
+
+  describe "login" do
+    it "logs in an existing user" do
+      start_count = Merchant.count
+      merchant = merchants(:merchant_1)
+      # binding.pry
+      perform_login(merchant)
+      session[:merchant_id].must_equal merchant.id
+
+      # Should *not* have created a new user
+      Merchant.count.must_equal start_count
+    end
   end
 end
