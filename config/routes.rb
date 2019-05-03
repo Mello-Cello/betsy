@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   resources :reviews, only: [:create]
   resources :orders # UPDATE THIS AFTER WE DECIDE WHAT WE NEED/DON'T
 
+  # Is this correct? -mf
+  resources :categories do
+    resources :products, only: [:index]
+  end
+
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "users#create"
   delete "/logout", to: "users#destroy", as: "logout"
