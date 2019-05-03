@@ -1,0 +1,17 @@
+<section>
+  <h2>
+    Category: <%= @category.name %>
+  </h2>
+
+  <% if @category.product_ids.any? %>
+    <ul>
+
+      <% @category.product_ids.each do |product| %>
+        <li><%= Product.find(product).name %></li>
+      <% end %>
+
+    </ul>
+  <% else %>
+    <p>There are no products for this category</p>
+  <% end %>
+</section>

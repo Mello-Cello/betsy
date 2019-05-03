@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :categories, only: [:new, :create, :index]
+  resources :categories, only: [:new, :create, :index, :show]
   resources :products, except: [:delete]
   resources :items, only: [:create, :update, :delete]
   resources :merchants, only: [:create, :show, :delete]
