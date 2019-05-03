@@ -31,9 +31,33 @@ class MerchantsController < ApplicationController
     return redirect_to root_path
   end
 
-  def destroy
+  def login_form
+    @merchant = Merchant.new # do we need this line? -Elle
+  end
+
+  # MATCH THIS TO MARGARET'S
+  def login
+    username = params[:merchant][:username]
+
+    merchant = Merchant.find_by(username: username)
+    if merchant.nil?
+      flash_msg = "Welcome to Incredibly!"
+    else
+      flash_msg = "Welcome back #{username}!"
+    end
+
+    merchant ||= Merchant.create(username: username)
+
+    session[:merchant_id] = merchant.id
+    flash[:success] = flash_msg
+    redirect_to root_path
+  end
+
+  # ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  def logout
+    merchant = Merchant.find_by(id: session[:merchant_id])
     session[:merchant_id] = nil
-    flash[:success] = "Successfully logged out!"
+    flash[:notice] = "Successfully logged out #{merchant.username}"
     redirect_to root_path
   end
 end

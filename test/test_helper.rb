@@ -22,5 +22,27 @@ Minitest::Reporters.use!(
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
-  # Add more helper methods to be used by all tests here...
+  OmniAuth.config.test_mode = true
+
+  def mock_auth_hash(merchant)
+    return {
+             provider: merchant.provider,
+             uid: merchant.uid,
+             info: {
+               email: merchant.email,
+               nickname: merchant.username,
+             },
+           }
+  end
+
+  def perform_login(merchant = nil)
+    merchant ||= merchants(:merchant_1)
+
+    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
+    get auth_callback_path(:github)
+
+    must_respond_with :redirect
+    must_redirect_to root_path
+    return merchant
+  end
 end
