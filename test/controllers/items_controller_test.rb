@@ -1,19 +1,20 @@
 require "test_helper"
 
 describe ItemsController do
-  it "should get create" do
-    get items_create_url
-    value(response).must_be :success?
-  end
+  describe "create" do
+    it "will create a new item" do
+    end
 
-  it "should get update" do
-    get items_update_url
-    value(response).must_be :success?
-  end
+    it "will create a new order if no order in session" do
+    end
 
-  it "should get delete" do
-    get items_delete_url
-    value(response).must_be :success?
-  end
+    it "will use current order if " do
+    end
+    
+    it "will not create a new item if product is not valid" do
+    end
 
+    it "will not create an item for greater than the products quanity" do
+    end
+  end
 end
