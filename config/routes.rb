@@ -10,9 +10,9 @@ Rails.application.routes.draw do
 
   root to: "cms/content#show"
   # root "works#root"
-  get "/auth/github", as: "github_login", as: "perform_login"
+  get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
-  delete "/logout", to: "merchants#destroy", as: "logout"
+  delete "/logout", to: "merchants#logout", as: "logout"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
