@@ -7,3 +7,5 @@ describe Order do
     value(order).must_be :valid?
   end
 end
+
+# has_many :items

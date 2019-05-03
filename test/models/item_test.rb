@@ -31,15 +31,15 @@ describe Item do
   end
   
   describe "relationships" do
-    describe "relationship with an item" do
+    describe "relationship with an order" do
       it "will belong to an order" do
-        # expect(item.merchant).must_equal
+        expect(item.order).must_equal orders(:order_1)
       end
     end
 
     describe "relationship with an product" do
-      it "will belong to an order" do #item?
-        # expect(item.merchant).must_equal
+      it "will belong to an product" do 
+        expect(item.product).must_equal products(:product_1)
       end
     end
   
