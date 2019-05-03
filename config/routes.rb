@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
-  resources :categories, only: [:new, :create, :index]
-  resources :products, except: [:delete]
-  resources :items, only: [:create, :update, :delete]
+  # resources :categories, only: [:new, :create, :index]
+  resources :products, except: [:delete] do
+    resources :reviews, only: [:create]
+  end
+  # resources :items, only: [:create, :update, :delete]
   resources :merchants, only: [:create, :show, :delete]
-  resources :reviews, only: [:create]
-  resources :orders # UPDATE THIS AFTER WE DECIDE WHAT WE NEED/DON'T
+
+  # resources :orders # UPDATE THIS AFTER WE DECIDE WHAT WE NEED/DON'T
 
   root to: "cms/content#show"
   # root "works#root"
