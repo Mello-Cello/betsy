@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # resources :categories, only: [:new, :create, :index]
   resources :products, except: [:delete] do
     resources :reviews, only: [:create]
+    resources :items, only: [:create]
   end
   # resources :items, only: [:create, :update, :delete]
   resources :merchants, only: [:create, :show, :delete]
