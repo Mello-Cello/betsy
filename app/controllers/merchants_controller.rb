@@ -37,19 +37,31 @@ class MerchantsController < ApplicationController
 
   # MATCH THIS TO MARGARET'S
   def login
-    username = params[:merchant][:username]
+    username = merchant_params[:username]
 
-    merchant = Merchant.find_by(username: username)
-    if merchant.nil?
-      flash_msg = "Welcome to Incredibly!"
+    if username and merchant = Merchant.find_by(username: username)
+      session[:merchant_id] = merchant.id
+      flash[:status] = :success
+      flash[:result_text] = "Successfully logged in as existing merchant #{merchant.username}"
     else
-      flash_msg = "Welcome back #{username}!"
+      merchant = Merchant.new(username: username)
+      if merchant.save
+        session[:merchant_id] = merchant.id
+        flash[:status] = :success
+        flash[:result_text] = "Successfully created new merchant #{merchant.username} with ID #{merchant.id}"
+      else
+        flash.now[:status] = :failure
+        flash.now[:result_text] = "Could not log in"
+        flash.now[:messages] = merchant.errors.messages
+        render "login_form", status: :bad_request
+        return
+      end
     end
 
-    merchant ||= Merchant.create(username: username)
+    # alternative syntax for flash message:
+    # flash[:success] = flash_msg
+    # check if a test of the status returns success
 
-    session[:merchant_id] = merchant.id
-    flash[:success] = flash_msg
     redirect_to root_path
   end
 
@@ -60,4 +72,14 @@ class MerchantsController < ApplicationController
     flash[:notice] = "Successfully logged out #{merchant.username}"
     redirect_to root_path
   end
+end
+
+private
+
+def find_merchant
+  @merchant = Merchant.find_by_id(merchant_params[:id])
+end
+
+def merchant_params
+  return params.require(:merchant).permit(:username, :email, :uid, :provider)
 end
