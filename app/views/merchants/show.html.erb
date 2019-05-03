@@ -1,4 +1,3 @@
-
 <section>
   <h2>
     Merchant: <%= @merchant.username %>
@@ -9,7 +8,7 @@
     <ul>
 
       <% @merchant.product_ids.each do |product| %>
-        <li><%= Product.find(product).name %></li>
+        <li><%= link_to Product.find(product).name, product_path(product) %></li>
       <% end %>
 
     </ul>
@@ -17,3 +16,6 @@
     <p>There are no products for this merchant</p>
   <% end %>
 </section>
+
+<%= link_to "Back to all products", products_path %> 
+<%= link_to "Back to all merchants", merchants_path %> 

@@ -1,7 +1,5 @@
-<h2>Product show page</h2>
-
 <h2>
-  Name: <%= @product.name %>
+  Product Name: <%= @product.name %>
 </h2>
 
 <h3>
@@ -46,7 +44,6 @@
       <% reviews.each do |review| %>
         <li>Rating: <%= review.rating%></li>
         <li>Comment: <%= review.comment%></li>
-        <li>Product ID: <%= review.product_id%></li>
       <% end %>
 
     </ul>
