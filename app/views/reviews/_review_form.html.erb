@@ -1,8 +1,8 @@
 
-<%=form_with model: Review.new , url: product_reviews_path(@product.id) do |f| %>
+<%=form_with model: Review.new() , url: product_reviews_path(@product.id) do |f| %>
 <div>
   <%= f.label :rating%>
-  <%= f.number_field :rating, in: 1..5%>
+  <%= f.number_field :rating, required: true, in: 1..5%>
 </div>
 <div>
   <%= f.label :comment%>
