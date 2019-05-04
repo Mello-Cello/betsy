@@ -12,5 +12,6 @@ class Merchant < ApplicationRecord
     merchant.email = auth_hash["info"]["email"]
     merchant.uid = auth_hash[:uid]
     merchant.provider = "github"
+    return merchant
   end
 end

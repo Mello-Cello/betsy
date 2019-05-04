@@ -27,7 +27,12 @@
               <%= link_to "Merchants", merchants_path,  class: "nav-link" %>
             </li>
           </ul>
-        <%= link_to "Log In", auth_callback_path("github"), class: "btn btn-outline-success my-2 my-sm-0" %>
+
+          <% if session.id %>
+            <%= link_to "Log Out", logout_path, method: :delete, class: "btn btn-outline-success my-2 my-sm-0" %>
+          <% else %>
+            <%= link_to "Log In", github_login_path, class: "btn btn-outline-success my-2 my-sm-0" %>
+          <% end %>
           <%# <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

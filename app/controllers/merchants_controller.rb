@@ -24,7 +24,7 @@ class MerchantsController < ApplicationController
       merchant = Merchant.build_from_github(auth_hash)
 
       if merchant.save
-        flash[:success] = "Logged in as new merchant #{merchant.name}"
+        flash[:success] = "Logged in as new merchant #{merchant.username}"
       else
         # Couldn't save the merchant for some reason. If we
         # hit this it probably means there's a bug with the
@@ -77,8 +77,10 @@ class MerchantsController < ApplicationController
   # ^^^^^^^^^^^^^^^^^^^^^^^^^^^
   def logout
     merchant = Merchant.find_by(id: session[:merchant_id])
+    raise
+    # merchant_username = merchant.username
     session[:merchant_id] = nil
-    flash[:notice] = "Successfully logged out #{merchant.username}"
+    flash[:notice] = "Successfully logged out." #{merchant_username}"
     redirect_to root_path
   end
 end
