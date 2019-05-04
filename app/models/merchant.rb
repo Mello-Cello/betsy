@@ -8,7 +8,7 @@ class Merchant < ApplicationRecord
 
   def self.build_from_github(auth_hash)
     merchant = Merchant.new
-    merchant.username = auth_hash["info"]["name"] # check what comes from github; I think github sends name and we save as username (- Elle)
+    merchant.username = auth_hash["info"]["username"] # check what comes from github; I think github sends name and we save as username (- Elle)
     merchant.email = auth_hash["info"]["email"]
     merchant.uid = auth_hash[:uid]
     merchant.provider = "github"

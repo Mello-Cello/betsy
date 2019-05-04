@@ -77,7 +77,7 @@ class MerchantsController < ApplicationController
   # ^^^^^^^^^^^^^^^^^^^^^^^^^^^
   def logout
     merchant = Merchant.find_by(id: session[:merchant_id])
-    raise
+    # raise
     # merchant_username = merchant.username
     session[:merchant_id] = nil
     flash[:notice] = "Successfully logged out." #{merchant_username}"
