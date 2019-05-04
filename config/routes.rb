@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "homepages/index"
   resources :categories, only: [:new, :create, :index, :show]
   resources :items, only: [:create, :update, :delete]
   resources :merchants, only: [:index, :create, :show, :delete]
@@ -14,7 +15,7 @@ Rails.application.routes.draw do
     resources :reviews, only: [:create]
   end
 
-  root to: "cms/content#show"
+  root to: "homepages#index"
   # root "works#root"
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
