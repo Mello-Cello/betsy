@@ -12,9 +12,9 @@ class ProductsController < ApplicationController
       flash[:success] = "Product added successfully"
       redirect_to product_path(product.id)
     else
-      flash.now[:error] = "Could not add new product: #{product.errors.messages}" #need help formatting this flash better
+      flash[:error] = "Could not add new product: #{product.errors.messages}" #need help formatting this flash better
+      render :new, status: :bad_request
     end
-    render :new, status: :bad_request
   end
 
   def index
