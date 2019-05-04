@@ -9,12 +9,7 @@ class ItemsController < ApplicationController
       session[:cart_id] = order.id
     end
 
-    item = order.items.find_by(product_id: @product.id)
-    if item
-      item.quantity += params[:item][:quantity]
-    else
-      item = Item.new(item_params)
-    end
+    item = Item.new(item_params)   # can add more sophesticated logic for checking items quantitiy is available compared to stock.
 
     # check if requested quanitity is available
     if @product.stock < item.quantity
