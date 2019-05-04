@@ -4,15 +4,20 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product = Product.new(product_params)
+    if @login_user # if user is logged in
+      product = Product.new(product_params)
 
-    is_successful = product.save
+      is_successful = product.save
 
-    if is_successful
-      flash[:success] = "Product added successfully"
-      redirect_to product_path(product.id)
+      if is_successful
+        flash[:success] = "Product added successfully"
+        redirect_to product_path(product.id)
+      else
+        flash.now[:error] = "Could not add new product: #{product.errors.messages}" #need help formatting this flash better
+        render :new, status: :bad_request
+      end
     else
-      flash[:error] = "Could not add new product: #{product.errors.messages}" #need help formatting this flash better
+      flash.now[:error] = "You must be logged in to create a new product"
       render :new, status: :bad_request
     end
   end
