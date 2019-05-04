@@ -1,0 +1,29 @@
+<%= form_with model: @product, class: form_class do |f| %>
+
+  <p><%= intro_text %></p>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :merchant_id %>
+  <%= f.text_field :merchant_id %>
+
+  <%= f.label :price %>
+  <%= f.text_field :price %>
+
+  <%= f.label :category %>
+  <%= f.select :category_id, Category.all.map {|category| [category.name, category.id] } %>
+
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+
+  <%= f.label :photo_url %>
+  <%= f.text_field :photo_url %>
+
+  <%= f.label :stock %>
+  <%= f.text_field :stock %>
+
+  <%= f.submit action_name, class: "product-form__submit-btn" %>
+
+<% end %>
+

@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   resources :merchants, only: [:index, :create, :show, :delete]
   resources :orders # UPDATE THIS AFTER WE DECIDE WHAT WE NEED/DON'T
 
-  # Is this correct? -mf
-  resources :categories do
-    resources :products, only: [:index]
-  end
+  # Not currently using this nested route -mf
+  # resources :categories do
+  #   resources :products, only: [:index]
+  # end
 
   # resources :categories, only: [:new, :create, :index]
   resources :products, except: [:delete] do
