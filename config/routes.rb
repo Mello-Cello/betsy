@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   resources :items, only: [:create, :update, :destroy]
   resources :merchants, only: [:index, :create, :show]
   resources :orders # UPDATE THIS AFTER WE DECIDE WHAT WE NEED/DON'T
+
   get "/cart", to: "orders#view_cart", as: "cart"
+  get "/cart/checkout", to: "orders#checkout", as: "checkout_cart"
+  post "/cart", to: "orders#purchase", as: "purchase_cart"
 
   # Is this correct? -mf
   resources :categories do
