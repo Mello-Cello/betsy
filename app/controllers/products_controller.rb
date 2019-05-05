@@ -4,7 +4,8 @@ class ProductsController < ApplicationController
   end
 
   def create
-    if @login_user # if user is logged in
+    find_merchant
+    if @login_merchant # if merchant is logged in
       product = Product.new(product_params)
 
       is_successful = product.save

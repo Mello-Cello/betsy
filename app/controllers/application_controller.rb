@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
   private
 
-  def find_user
-    if session[:user_id]
-      @login_user = User.find_by(id: session[:user_id])
+  def find_merchant
+    if session[:merchant_id] #if session[:merchant_id] is not nil
+      @login_merchant = Merchant.find_by(id: session[:merchant_id])
     end
   end
 end
