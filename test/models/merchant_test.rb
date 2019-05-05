@@ -59,6 +59,7 @@ describe Merchant do
 
   describe "relationship with product" do
     it "can have 0 products" do
+      merchant.products.destroy_all
       expect(merchant.products.count).must_equal 0
     end
 

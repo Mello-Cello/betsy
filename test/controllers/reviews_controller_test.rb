@@ -26,7 +26,6 @@ describe ReviewsController do
         expect {
           post product_reviews_path(product), params: review_param
         }.must_change "Review.count", 0
-
         expect(flash[:error]).must_equal "Could Not Add Review"
         expect(flash[:rating]).must_equal ["is not included in the list"]
 

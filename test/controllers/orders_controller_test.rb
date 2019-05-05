@@ -1,7 +1,20 @@
 require "test_helper"
 
 describe OrdersController do
-  # it "must be a real test" do
-  #   flunk "Need real tests"
-  # end
+  describe "view_cart" do
+    it "will respond with success if no cart is stored in session" do
+      get cart_path
+      must_respond_with :success
+      expect(session[:cart_id]).must_be_nil
+    end
+
+    let(:product) { products(:product_1) }
+    let(:item_params) { { item: { quantity: 2 } } }
+    it "will respond with success if cart stored in session" do
+      post product_items_path(product.id), params: item_params
+      get cart_path
+      must_respond_with :success
+      expect(session[:cart_id]).wont_be_nil
+    end
+  end
 end
