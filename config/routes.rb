@@ -5,12 +5,6 @@ Rails.application.routes.draw do
   resources :merchants, only: [:index, :create, :show]
   resources :orders # UPDATE THIS AFTER WE DECIDE WHAT WE NEED/DON'T
 
-<<<<<<< HEAD
-  # Not currently using this nested route -mf
-  # resources :categories do
-  #   resources :products, only: [:index]
-  # end
-=======
   get "/cart", to: "orders#view_cart", as: "cart"
   get "/cart/checkout", to: "orders#checkout", as: "checkout_cart"
   post "/cart", to: "orders#purchase", as: "purchase_cart"
@@ -19,7 +13,6 @@ Rails.application.routes.draw do
   resources :categories do
     resources :products, only: [:index]
   end
->>>>>>> master
 
   resources :products, except: [:delete] do
     resources :reviews, only: [:create]
