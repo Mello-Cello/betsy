@@ -43,10 +43,21 @@ describe ProductsController do
   end
 
   describe "new" do
-    it "succeeds" do
-      get new_product_path
+    describe "logged in merchant" do
+      it "succeeds" do
+        perform_login
+        get new_product_path
 
-      must_respond_with :success
+        must_respond_with :success
+      end
+    end
+    describe "not logged in" do
+      it "redirects user" do
+        get new_product_path
+
+        must_respond_with :redirect
+        expect(flash[:error]).must_equal "You must be logged in to add a new product"
+      end
     end
   end
 

@@ -1,10 +1,16 @@
 class ProductsController < ApplicationController
+  before_action :find_merchant, only: [:new, :create]
+
   def new
-    @product = Product.new
+    if @login_merchant
+      @product = Product.new
+    else
+      flash[:error] = "You must be logged in to add a new product"
+      redirect_to root_path
+    end
   end
 
   def create
-    find_merchant
     if @login_merchant # if merchant is logged in
       product = Product.new(product_params)
 
