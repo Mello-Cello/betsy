@@ -1,21 +1,32 @@
 Rails.application.routes.draw do
+  get "homepages/index"
   resources :categories, only: [:new, :create, :index, :show]
-  resources :items, only: [:create, :update, :delete]
-  resources :merchants, only: [:index, :create, :show, :delete]
+  resources :items, only: [:create, :update, :destroy]
+  resources :merchants, only: [:index, :create, :show]
   resources :orders # UPDATE THIS AFTER WE DECIDE WHAT WE NEED/DON'T
 
+<<<<<<< HEAD
   # Not currently using this nested route -mf
   # resources :categories do
   #   resources :products, only: [:index]
   # end
+=======
+  get "/cart", to: "orders#view_cart", as: "cart"
+  get "/cart/checkout", to: "orders#checkout", as: "checkout_cart"
+  post "/cart", to: "orders#purchase", as: "purchase_cart"
 
-  # resources :categories, only: [:new, :create, :index]
+  # Is this correct? -mf
+  resources :categories do
+    resources :products, only: [:index]
+  end
+>>>>>>> master
+
   resources :products, except: [:delete] do
     resources :reviews, only: [:create]
+    resources :items, only: [:create]
   end
 
-  root to: "cms/content#show"
-  # root "works#root"
+  root to: "homepages#index"
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
   delete "/logout", to: "merchants#logout", as: "logout"

@@ -1,0 +1,68 @@
+<h1>Cart Check Out</h1>
+<h2>Order Items: </h2>
+
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Quantity</th>
+      <th scope="col">Product</th>
+      <th scope="col">Unit Price</th>
+      <th scope="col">Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@order.items.each_with_index do |item| %>
+      <tr>
+        <th scope="row"><%=item.quantity%></th>
+        <td><%=link_to item.product.name, product_path(item.product.id) %></td>
+        <td>$<%=item.product.price / 100.0%></td>
+        <td>$<%=item.subtotal %></td>    
+      </tr>
+    <%end%>
+    <tr>
+      <td></td>
+      <td></td>
+      <th><h3>Total:</h3></th>   <%# REMOVE h3, temp added to get a feel for style%>
+      <th><h3>$<%=@order.total%></h3></th>
+    </tr>
+  </tbody>
+</table>
+
+<%= form_with model: @order, url: cart_path, method: :post do |f|%>
+  <div class= "form-row">
+    <div class="form-group col-md-6">
+      <%=f.label "Name on Credit Card"%>
+      <%=f.text_field :shopper_name, class: "form-control"%>
+    </div>
+    <div class="form-group col-md-4">
+      <%=f.label "Email Address" %>
+      <%=f.email_field :shopper_email, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%=f.label "Mailing Address"%>
+    <%=f.text_field :shopper_address, class: "form-control"%>
+  </div>
+  <div class="form-group">
+    <%=f.label "Credit Card Number" %>
+    <%=f.text_field :cc_all, class: "form-control"%>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%=f.label "Credit cart expiration"%>
+      <%=f.date_field :cc_exp, class: "form-control"%>
+    </div>
+    <div class="form-group col-md-3">
+      <%=f.label "Credit Card CVV (security code)"%>
+      <%=f.text_field :cvv , class: "form-control"%>
+    </div>
+    <div class="form-group col-md-3">
+      <%=f.label "Billing zip code"%>
+      <%=f.text_field :zip, class: "form-control"%>
+    </div>
+  </div>
+  <div>
+  <%=f.submit "Purchase", class:"btn btn-primary"%>
+  </div>
+<%end%>
+

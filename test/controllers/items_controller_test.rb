@@ -1,19 +1,100 @@
 require "test_helper"
 
 describe ItemsController do
-  it "should get create" do
-    get items_create_url
-    value(response).must_be :success?
+  describe "create" do
+    let(:product) { products(:product_1) }
+    let(:item_params) { { item: { quantity: 2 } } }
+    it "will create a new item" do
+      expect {
+        post product_items_path(product.id), params: item_params
+      }.must_change "Item.count", 1
+
+      expect(flash[:success]).must_equal "#{product.name} (quantity: #{item_params[:item][:quantity]}) Successfully Added To Cart"
+
+      must_respond_with :redirect
+      must_redirect_to product_path(product.id)
+    end
+
+    it "will create a new order if no order in session" do
+      expect {
+        post product_items_path(product.id), params: item_params
+      }.must_change "Order.count", 1
+
+      expect(flash[:success]).must_equal "#{product.name} (quantity: #{item_params[:item][:quantity]}) Successfully Added To Cart"
+
+      must_respond_with :redirect
+      must_redirect_to product_path(product.id)
+    end
+
+    it "will use current order if cart_id in session " do
+      expect {
+        post product_items_path(product.id), params: item_params
+      }.must_change "Order.count", 1
+
+      expect {
+        post product_items_path(product.id), params: item_params
+      }.must_change "Order.count", 0
+
+      expect(flash[:success]).must_equal "#{product.name} (quantity: #{item_params[:item][:quantity]}) Successfully Added To Cart"
+
+      must_respond_with :redirect
+      must_redirect_to product_path(product.id)
+    end
+
+    it "will not create a new item if product is not valid" do
+      product_id = -1
+      expect {
+        post product_items_path(product_id), params: item_params
+      }.must_change "Item.count", 0
+
+      expect(flash[:error]).must_equal "Could Not Add To Cart: product not available"
+
+      must_respond_with :redirect
+      must_redirect_to products_path
+    end
+
+    it "will not create an item for with requested quantitiy greater than the products stock" do
+      item_params[:item][:quantity] = product.stock + 1
+      expect {
+        post product_items_path(product.id), params: item_params
+      }.must_change "Item.count", 0
+
+      expect(flash[:error]).must_equal "Could Not Add To Cart: quantity selected is more than available stock"
+
+      must_respond_with :bad_request
+    end
+
+    it "will not create an item with in invalid quantity" do
+      item_params[:item][:quantity] = nil
+      expect {
+        post product_items_path(product.id), params: item_params
+      }.must_change "Item.count", 0
+
+      expect(flash[:error]).must_equal "Could Not Add To Cart"
+
+      must_respond_with :bad_request
+    end
   end
 
-  it "should get update" do
-    get items_update_url
-    value(response).must_be :success?
-  end
+  describe "destroy" do
+    let(:item) { items(:item_1) }
+    it "will destroy a valid item" do
+      expect {
+        delete item_path(item.id)
+      }.must_change "Item.count", -1
 
-  it "should get delete" do
-    get items_delete_url
-    value(response).must_be :success?
-  end
+      must_respond_with :redirect
+      must_redirect_to cart_path
+    end
 
+    it "will not destroy an item given invalid id" do
+      invalid_id = -1
+      expect {
+        delete item_path(invalid_id)
+      }.must_change "Item.count", 0
+
+      must_respond_with :redirect
+      must_redirect_to cart_path
+    end
+  end
 end
