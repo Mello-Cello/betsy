@@ -17,9 +17,8 @@ describe OrdersController do
       expect(session[:cart_id]).wont_be_nil
     end
   end
-  
-  describe "checkout" do 
 
+  describe "checkout" do
     let(:product) { products(:product_1) }
     let(:item_params) { { item: { quantity: 2 } } }
     it "will respond with success if cart stored in session" do

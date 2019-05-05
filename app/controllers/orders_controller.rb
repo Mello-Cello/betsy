@@ -1,10 +1,10 @@
 class OrdersController < ApplicationController
+  before_action :find_cart_order
+
   def view_cart
-    @order = Order.find_by(id: session[:cart_id])
   end
 
   def checkout
-    @order = Order.find_by(id: session[:cart_id])
     unless @order
       flash[:error] = "Unable to checkout cart"
       redirect_to cart_path
@@ -12,5 +12,15 @@ class OrdersController < ApplicationController
   end
 
   def purchase
+    unless @order
+      flash[:error] = "Unable to checkout cart"
+      redirect_to cart_path
+    end
+  end
+
+  private
+
+  def find_cart_order
+    @order = Order.find_by(id: session[:cart_id])
   end
 end

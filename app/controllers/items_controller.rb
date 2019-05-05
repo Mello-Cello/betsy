@@ -1,12 +1,13 @@
 class ItemsController < ApplicationController
+  before_action :find_cart_order, only: [:create]
+
   def create
     # find product and order
     @product = Product.find_by(id: params[:product_id])
-    order = Order.find_by(id: session[:cart_id])
     # if no current cart, create order and save to session.
-    unless order
-      order = Order.create
-      session[:cart_id] = order.id
+    unless @order
+      @order = Order.create
+      session[:cart_id] = @order.id
     end
 
     item = Item.new(item_params)   # can add more sophesticated logic for checking items quantitiy is available compared to stock.
@@ -22,7 +23,7 @@ class ItemsController < ApplicationController
 
       # set up relationships for item
       @product.items << item
-      order.items << item
+      @order.items << item
 
       if item.valid?
         flash[:success] = "#{@product.name} (quantity: #{item.quantity}) Successfully Added To Cart"
