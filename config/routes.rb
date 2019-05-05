@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
   get "homepages/index"
   resources :categories, only: [:new, :create, :index, :show]
-  resources :items, only: [:create, :update, :delete]
-  resources :merchants, only: [:index, :create, :show, :delete]
+  resources :items, only: [:create, :update, :destroy]
+  resources :merchants, only: [:index, :create, :show]
   resources :orders # UPDATE THIS AFTER WE DECIDE WHAT WE NEED/DON'T
+  get "/cart", to: "orders#view_cart", as: "cart"
 
   # Is this correct? -mf
   resources :categories do
     resources :products, only: [:index]
   end
 
-  # resources :categories, only: [:new, :create, :index]
   resources :products, except: [:delete] do
     resources :reviews, only: [:create]
     resources :items, only: [:create]

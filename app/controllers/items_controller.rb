@@ -40,7 +40,15 @@ class ItemsController < ApplicationController
   def update
   end
 
-  def delete
+  def destroy
+    item = Item.find_by(id: params[:id])
+    if item
+      flash[:success] = "#{item.product.name} successfully removed from cart"
+      item.destroy
+      redirect_to cart_path
+    else
+      flash[:error] = "Unable to remove item"
+    end
   end
 
   private
