@@ -80,7 +80,7 @@ class MerchantsController < ApplicationController
     # raise
     # merchant_username = merchant.username
     session[:merchant_id] = nil
-    flash[:notice] = "Successfully logged out." #{merchant_username}"
+    flash[:success] = "Successfully logged out." #{merchant_username}"
     redirect_to root_path
   end
 end
