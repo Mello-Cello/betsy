@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 order_1:
-  status: completed
+  status: complete
   shopper_name: susie
   shopper_email: dalmation@susy.org
   shopper_address: 4455 mailing address
@@ -9,7 +9,7 @@ order_1:
   cc_exp: 03022020
 
 order_2:
-  status: completed
+  status: complete
   shopper_name: miranda
   shopper_email: panda@hooo.com
   shopper_address: 43244 tryagain address
