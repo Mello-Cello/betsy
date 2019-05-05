@@ -10,9 +10,12 @@ class ItemsController < ApplicationController
     end
 
     item = Item.new(item_params)   # can add more sophesticated logic for checking items quantitiy is available compared to stock.
+    if !@product
+      flash.now[:error] = "Could Not Add To Cart: product not available"
+      redirect_to products_path
 
-    # check if requested quanitity is available
-    if @product.stock < item.quantity
+      # check if requested quanitity is available
+    elsif item.quantity && @product.stock < item.quantity
       flash.now[:error] = "Could Not Add To Cart: quantity selected is more than available stock"
       render "products/show", status: :bad_request
     else
