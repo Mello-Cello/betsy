@@ -6,9 +6,11 @@
         <h3><%=item.product.name%></h3>
         <p><%=item.product.description%>
         <p>quantity: <%=item.quantity%></p>
+        <p>subtotal: $<%=item.subtotal%>
         <%= link_to "Remove item", item_path(item.id), method: :delete, class: "btn btn-outline-danger btn-sm"%>
       </article>
     <%end%>
+    <%= link_to "Check Out", checkout_cart_path, class: "btn btn-primary"%>
       <%=link_to "Keep shopping", products_path %>
   <%else%>
   <h1> 0 items in cart</h1>
