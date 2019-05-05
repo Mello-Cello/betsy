@@ -25,7 +25,7 @@ class ItemsController < ApplicationController
       order.items << item
 
       if item.valid?
-        flash[:success] = "#{@product.name} Successfully Added To Cart"
+        flash[:success] = "#{@product.name} (quantity: #{item.quantity}) Successfully Added To Cart"
         redirect_to product_path(@product.id)
       else
         flash.now[:error] = "Could Not Add To Cart"
@@ -48,6 +48,7 @@ class ItemsController < ApplicationController
       redirect_to cart_path
     else
       flash[:error] = "Unable to remove item"
+      redirect_to cart_path
     end
   end
 

@@ -9,7 +9,7 @@ describe ItemsController do
         post product_items_path(product.id), params: item_params
       }.must_change "Item.count", 1
 
-      expect(flash[:success]).must_equal "#{product.name} Successfully Added To Cart"
+      expect(flash[:success]).must_equal "#{product.name} (quantity: #{item_params[:item][:quantity]}) Successfully Added To Cart"
 
       must_respond_with :redirect
       must_redirect_to product_path(product.id)
@@ -20,7 +20,7 @@ describe ItemsController do
         post product_items_path(product.id), params: item_params
       }.must_change "Order.count", 1
 
-      expect(flash[:success]).must_equal "#{product.name} Successfully Added To Cart"
+      expect(flash[:success]).must_equal "#{product.name} (quantity: #{item_params[:item][:quantity]}) Successfully Added To Cart"
 
       must_respond_with :redirect
       must_redirect_to product_path(product.id)
@@ -35,7 +35,7 @@ describe ItemsController do
         post product_items_path(product.id), params: item_params
       }.must_change "Order.count", 0
 
-      expect(flash[:success]).must_equal "#{product.name} Successfully Added To Cart"
+      expect(flash[:success]).must_equal "#{product.name} (quantity: #{item_params[:item][:quantity]}) Successfully Added To Cart"
 
       must_respond_with :redirect
       must_redirect_to product_path(product.id)
@@ -53,7 +53,7 @@ describe ItemsController do
       must_redirect_to products_path
     end
 
-    it "will not create an item for with requested quantitiy greater tthan the products stock" do
+    it "will not create an item for with requested quantitiy greater than the products stock" do
       item_params[:item][:quantity] = product.stock + 1
       expect {
         post product_items_path(product.id), params: item_params
@@ -73,6 +73,28 @@ describe ItemsController do
       expect(flash[:error]).must_equal "Could Not Add To Cart"
 
       must_respond_with :bad_request
+    end
+  end
+
+  describe "destroy" do
+    let(:item) { items(:item_1) }
+    it "will destroy a valid item" do
+      expect {
+        delete item_path(item.id)
+      }.must_change "Item.count", -1
+
+      must_respond_with :redirect
+      must_redirect_to cart_path
+    end
+
+    it "will not destroy an item given invalid id" do
+      invalid_id = -1
+      expect {
+        delete item_path(invalid_id)
+      }.must_change "Item.count", 0
+
+      must_respond_with :redirect
+      must_redirect_to cart_path
     end
   end
 end
