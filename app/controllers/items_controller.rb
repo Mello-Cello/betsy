@@ -1,15 +1,22 @@
 class ItemsController < ApplicationController
+  before_action :find_cart_order, only: [:create]
+
   def create
     # find product and order
     @product = Product.find_by(id: params[:product_id])
-    order = Order.find_by(id: session[:cart_id])
     # if no current cart, create order and save to session.
-    unless order
-      order = Order.create
-      session[:cart_id] = order.id
+    unless @order
+      @order = Order.create
+      session[:cart_id] = @order.id
+    end
+    # finds item in cart if already present and increments quantity (required for easy checkout)
+    item = @order.items.find_by(product_id: @product.id) if @product
+    if item
+      item.quantity += params[:item][:quantity].to_i
+    else
+      item = Item.new(item_params)
     end
 
-    item = Item.new(item_params)   # can add more sophesticated logic for checking items quantitiy is available compared to stock.
     if !@product
       flash.now[:error] = "Could Not Add To Cart: product not available"
       redirect_to products_path
@@ -22,7 +29,7 @@ class ItemsController < ApplicationController
 
       # set up relationships for item
       @product.items << item
-      order.items << item
+      @order.items << item
 
       if item.valid?
         flash[:success] = "#{@product.name} (quantity: #{item.quantity}) Successfully Added To Cart"
