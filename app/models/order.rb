@@ -4,6 +4,7 @@ class Order < ApplicationRecord
 
   def total
     return items.map do |item|
+             return unless item.valid? && item.product.valid?
              item.subtotal
            end.sum
   end
@@ -11,6 +12,7 @@ class Order < ApplicationRecord
   def cart_errors
     cart_errors = []
     items.each do |item|
+      return unless item.valid? && item.product.valid?
       unless item.available_for_purchase?
         cart_errors << item
       end
@@ -20,6 +22,7 @@ class Order < ApplicationRecord
 
   def cart_checkout
     items.each do |item|
+      return unless item.valid? && item.product.valid?
       item.purchase
     end
     return true

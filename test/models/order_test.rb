@@ -48,11 +48,63 @@ describe Order do
     end
   end
   describe "custom methods" do
-    describe do
+    describe "  def total" do
+      it "will calculate total cost of cart" do
+        total_cost = items(:item_1).quantity * items(:item_1).product.price / 100.0
+        total_cost += items(:item_2).quantity * items(:item_2).product.price / 100.0
+        expect(order.total).must_be_close_to total_cost
+      end
+
+      it "will return nil if invalid item in cart" do
+        order.items << Item.new(order_id: order.id)
+        expect(order.total).must_be_nil
+      end
+
+      it "will return nil if item has an invalid item in cart" do
+        items(:item_3).product = Product.new
+        order.items << items(:item_3)
+        expect(order.total).must_be_nil
+      end
     end
-    describe do
+    describe "cart errors" do
+      it "will return [] if all items are available for purchase" do
+        expect(order.cart_errors).must_equal []
+      end
+
+      it "will return items in array that are not available for purchase" do
+        items(:item_3).quantity = 1000
+        order.items << items(:item_3)
+        items(:item_1).update(quantity: 2000)
+        expect(order.cart_errors.sort!).must_equal [items(:item_1), items(:item_3)].sort!
+      end
+
+      it "will return nil if item(s) are not valid" do
+        order.items << Item.new(order_id: order.id)
+        expect(order.cart_errors).must_be_nil
+      end
+
+      it "will return nil if an items product is not valid" do
+        items(:item_3).product = Product.new
+        order.items << items(:item_3)
+        expect(order.cart_errors).must_be_nil
+      end
     end
-    describe do
+    describe " def cart_checkout" do
+      # tests for quantity decrease/not decreasing
+      # done in product model test, custom methods section.
+      it "will return true if items and products are valid" do
+        expect(order.cart_checkout).must_equal true
+      end
+
+      it "will return nil if item(s) are not valid" do
+        order.items << Item.new(order_id: order.id)
+        expect(order.cart_checkout).must_be_nil
+      end
+      it "will return nil if an items product is not valid" do
+        items(:item_3).product = Product.new
+        order.items << items(:item_3)
+        expect(order.cart_checkout).must_be_nil
+      end
     end
   end
 end
