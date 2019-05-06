@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_merchant, only: [:new, :create]
+  before_action :find_merchant, only: [:new, :create, :update]
 
   def new
     if @login_merchant
@@ -47,34 +47,35 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    if @login_merchant
-      @product = Product.find_by(id: params[:id])
-      @product.price = @product.price.to_f / 100.0
+    @product = Product.find_by(id: params[:id])
+    @product.price = @product.price.to_f / 100.0
 
-      if @product.nil?
-        flash[:error] = "Unknown product"
-        redirect_to products_path
-      end
-    else
-      flash[:error] = "You must be logged in to edit product"
-      redirect_to root_path
+    if @product.nil?
+      flash[:error] = "Unknown product"
+      redirect_to products_path
     end
   end
 
   def update
     @product = Product.find_by(id: params[:id])
-    @product.update(product_params)
-    @product.price = product_params[:price].to_f * 100.0
-    @product.save
+    # raise
+    if @product.merchant_id == @login_merchant.id
+      @product.update(product_params)
+      @product.price = product_params[:price].to_f * 100.0
+      @product.save
 
-    if @product.valid?
-      flash[:success] = "Product updated successfully"
-      redirect_to product_path(@product.id)
-    else
-      @product.errors.messages.each do |label, message|
-        flash.now[label.to_sym] = message
+      if @product.valid?
+        flash[:success] = "Product updated successfully"
+        redirect_to product_path(@product.id)
+      else
+        @product.errors.messages.each do |label, message|
+          flash.now[label.to_sym] = message
+        end
+        render :edit, status: :bad_request
       end
-      render :edit, status: :bad_request
+    else
+      flash[:error] = "You can only update your own products"
+      redirect_to products_path
     end
   end
 
