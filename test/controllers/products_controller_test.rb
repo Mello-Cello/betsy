@@ -135,7 +135,7 @@ describe ProductsController do
         get edit_product_path(merchant.products.first.id)
 
         must_respond_with :redirect
-        expect(flash[:error]).must_equal "You must be logged in to edit product"
+        expect(flash[:error]).must_equal "You must be logged in to edit a product"
       end
     end
   end
