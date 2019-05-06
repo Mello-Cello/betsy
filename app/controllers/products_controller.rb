@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
 
   def new
     if @login_merchant
-      @product = Product.new
+      @product = Product.new(photo_url: "http://placekitten.com/200/300")
     else
       flash[:error] = "You must be logged in to add a new product"
       redirect_to root_path
@@ -12,15 +12,21 @@ class ProductsController < ApplicationController
 
   def create
     if @login_merchant # if merchant is logged in
-      product = Product.new(product_params)
-
-      is_successful = product.save
+      @product = Product.new(product_params)
+      @product.merchant_id = session[:merchant_id]
+      @product.price = params[:product][:price].to_f * 100.0
+      # raise
+      is_successful = @product.save
 
       if is_successful
         flash[:success] = "Product added successfully"
-        redirect_to product_path(product.id)
+        redirect_to product_path(@product.id)
       else
-        flash.now[:error] = "Could not add new product: #{product.errors.messages}" #need help formatting this flash better
+        # raise
+        flash.now[:error] = "Could not add new product:" #need help formatting this flash better
+        @product.errors.messages.each do |label, message|
+          flash.now[label.to_sym] = message
+        end
         render :new, status: :bad_request
       end
     else
