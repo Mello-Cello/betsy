@@ -15,8 +15,8 @@ class OrdersController < ApplicationController
     if @order
       @order.update(order_params)
       if @order.valid?
+        @order.status = complete
       end
-      @order.status = complete
     else
       flash[:error] = "Unable to checkout cart"
       redirect_to cart_path
