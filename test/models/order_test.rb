@@ -18,10 +18,6 @@ describe "relationship with an order" do
     expect(order.items.count).must_equal 2
   end
 end
-<<<<<<< HEAD
-
-
-=======
   
 it "can shovel items to create a relationship" do
     product = products(:product_1)
@@ -32,4 +28,3 @@ it "can shovel items to create a relationship" do
     expect(order.items.include?(item)).must_equal true
   end
 end
->>>>>>> 82c771ed70176d23b8316c710d96bf76ee0dd019
