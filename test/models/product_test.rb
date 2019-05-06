@@ -132,6 +132,12 @@ describe Product do
         product.reload
         expect(initial_stock).must_equal product.stock
       end
+
+      it "will return nil if called on invalid product" do
+        product = Product.new
+        quantity = 1
+        expect(product.decrease_stock(quantity)).must_be_nil
+      end
     end
   end
 end

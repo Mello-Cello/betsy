@@ -46,6 +46,21 @@ describe Item do
   end
 
   describe "custom methods" do
+    describe "  def subtotal" do
+      it "will calculate the subtotal of an item given a valid item and product" do
+        expect(item.subtotal).must_equal item.quantity * product.price / 100.0
+      end
+
+      it "will return nil if item is invalid" do
+        item = Item.new
+        expect(item.subtotal).must_be_nil
+      end
+
+      it "will return nil if product assoctiated with item is invalid" do
+        item.product = Product.new
+        expect(item.subtotal).must_be_nil
+      end
+    end
     describe "  def available_for_purchase?" do
       it "will return true if the quantity requested is less than stock" do
         expect(item.available_for_purchase?).must_equal true
@@ -60,7 +75,18 @@ describe Item do
         item.update(quantity: product.stock + 1)
         expect(item.available_for_purchase?).must_equal false
       end
+
+      it "will return nil if item is invalid" do
+        item = Item.new
+        expect(item.available_for_purchase?).must_be_nil
+      end
+
+      it "will return nil if product assoctiated with item is invalid" do
+        item.product = Product.new
+        expect(item.available_for_purchase?).must_be_nil
+      end
     end
+
     describe "  def purchase" do
       # tests for quantity decrease/not decreasing
       # done in product model test, custom methods section.
@@ -76,6 +102,16 @@ describe Item do
       it "will return false if the quantity requested is greater than stock" do
         item.update(quantity: product.stock + 1)
         expect(item.purchase).must_equal false
+      end
+
+      it "will return nil if item is invalid" do
+        item = Item.new
+        expect(item.purchase).must_be_nil
+      end
+
+      it "will return nil if product assoctiated with item is invalid" do
+        item.product = Product.new
+        expect(item.purchase).must_be_nil
       end
     end
   end

@@ -11,6 +11,7 @@ class Product < ApplicationRecord
   validates_numericality_of :stock, greater_than: -1
 
   def decrease_stock(quantity)
+    return unless self.valid?
     self.stock -= quantity
     return self.save
   end
