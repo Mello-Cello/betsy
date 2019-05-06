@@ -62,7 +62,7 @@ describe OrdersController do
       expect(session[:cart_id]).must_be_nil
     end
 
-    it "will change order status from pending to complete if valid cart purchase" do
+    it "will change order status from pending to paid if valid cart purchase" do
       order = Order.find_by(id: session[:cart_id])
       expect(order.status).must_equal "pending"
 
@@ -70,7 +70,7 @@ describe OrdersController do
         post purchase_cart_path, params: cart_params
       }.wont_change "Order.count"
       order.reload
-      expect(order.status).must_equal "complete"
+      expect(order.status).must_equal "paid"
     end
 
     it "will change product stock by amount bought if valid cart purchase " do
