@@ -1,2 +1,8 @@
-<h1>Products#new</h1>
-<p>Find me in app/views/products/new.html.erb</p>
+<h2>Form for creating a new product</h2>
+
+
+<%= render partial: "form", locals: {
+  form_class: "new-product",
+  intro_text: "Use this form to create a new product",
+  action_name: "Create product"
+} %>
