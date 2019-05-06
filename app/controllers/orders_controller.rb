@@ -12,7 +12,12 @@ class OrdersController < ApplicationController
   end
 
   def purchase
-    unless @order
+    if @order
+      @order.update(order_params)
+      if @order.valid?
+      end
+      @order.status = complete
+    else
       flash[:error] = "Unable to checkout cart"
       redirect_to cart_path
     end
@@ -20,7 +25,7 @@ class OrdersController < ApplicationController
 
   private
 
-  def find_cart_order
-    @order = Order.find_by(id: session[:cart_id])
+  def order_params
+    params.require(:order).permit(:shopper_name, :shopper_email, :shopper_address, :cc_four, :cc_exp)
   end
 end

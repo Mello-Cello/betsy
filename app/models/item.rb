@@ -8,4 +8,5 @@ class Item < ApplicationRecord
   def subtotal
     return quantity * product.price / 100.0
   end
+
 end

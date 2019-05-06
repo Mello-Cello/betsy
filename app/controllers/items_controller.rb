@@ -9,8 +9,14 @@ class ItemsController < ApplicationController
       @order = Order.create
       session[:cart_id] = @order.id
     end
+    # finds item in cart if already present and increments quantity (required for easy checkout)
+    item = @order.items.find_by(product_id: @product.id) if @product
+    if item
+      item.quantity += params[:item][:quantity].to_i
+    else
+      item = Item.new(item_params)
+    end
 
-    item = Item.new(item_params)   # can add more sophesticated logic for checking items quantitiy is available compared to stock.
     if !@product
       flash.now[:error] = "Could Not Add To Cart: product not available"
       redirect_to products_path
