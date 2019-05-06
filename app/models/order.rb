@@ -17,4 +17,11 @@ class Order < ApplicationRecord
     end
     return cart_errors
   end
+
+  def cart_checkout
+    items.each do |item|
+      item.purchase
+    end
+    return true
+  end
 end
