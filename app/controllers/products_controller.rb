@@ -47,12 +47,17 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find_by(id: params[:id])
-    @product.price = @product.price.to_f / 100.0
+    if @login_merchant
+      @product = Product.find_by(id: params[:id])
+      @product.price = @product.price.to_f / 100.0
 
-    if @product.nil?
-      flash[:error] = "Unknown product"
-      redirect_to products_path
+      if @product.nil?
+        flash[:error] = "Unknown product"
+        redirect_to products_path
+      end
+    else
+      flash[:error] = "You must be logged in to edit product"
+      redirect_to root_path
     end
   end
 
