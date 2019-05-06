@@ -1,2 +1,6 @@
-<h1>Products#edit</h1>
-<p>Find me in app/views/products/edit.html.erb</p>
+<%= render partial: "form", locals: {
+  form_class: "edit-product",
+  intro_text: "Use this form to edit a product",
+  action_name: "Edit product"
+} %>
+
