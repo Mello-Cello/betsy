@@ -76,4 +76,23 @@ describe Merchant do
       expect(merchant.products.include?(product)).must_equal true
     end
   end
+
+  describe "custom method build_from_github" do
+    it "build auth hash" do
+      # this_merchant = merchants(:merchant_1)
+
+      new_auth_hash = {
+        provider: merchant.provider,
+        uid: merchant.uid,
+        info: {
+          email: merchant.email,
+          nickname: merchant.username,
+        },
+      }
+
+      merchant.provider.must_equal "github"
+      merchant.email.must_equal "pickhu@yahoo.com"
+      merchant.email.must_equal new_auth_hash[info][email]
+    end
+  end
 end
