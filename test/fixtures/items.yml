@@ -9,3 +9,9 @@ item_2:
   quantity: 3 
   order: order_1
   product: product_2
+
+item_3:
+  quantity: 3 
+  order: order_2
+  product: product_2
+
