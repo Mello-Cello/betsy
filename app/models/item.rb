@@ -16,7 +16,6 @@ class Item < ApplicationRecord
   end
 
   def purchase
-    product.decrease_stock(quantity)
-    return true
+    return product.decrease_stock(quantity)
   end
 end
