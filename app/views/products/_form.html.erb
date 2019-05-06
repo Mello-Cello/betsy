@@ -3,27 +3,23 @@
   <p><%= intro_text %></p>
 
   <%= f.label :name %>
-  <%= f.text_field :name %>
-
-  <%= f.label :merchant_id %>
-  <%= f.select :merchant_id, Merchant.where(id: session[:merchant_id]) %>
-  <%# need help displaying just merchant name  %>
-
+  <%= f.text_field :name, required: true  %>
 
   <%= f.label :price %>
-  <%= f.text_field :price %>
+  <%= f.number_field :price, in: 1.0..1000.0, step: 0.01, required: true  %>
 
   <%= f.label :categories %>
   <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
 
   <%= f.label :description %>
-  <%= f.text_field :description %>
+  <%= f.text_field :description, required: true %>
+  
 
   <%= f.label :photo_url %>
-  <%= f.text_field :photo_url %>
+  <%= f.text_field :photo_url, required: true  %>
 
   <%= f.label :stock %>
-  <%= f.text_field :stock %>
+  <%= f.text_field :stock, required: true  %>
 
   <%= f.submit action_name, class: "product-form__submit-btn" %>
 
