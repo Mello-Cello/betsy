@@ -2,6 +2,8 @@
   Product Name: <%= @product.name %>
 </h2>
 
+<%= image_tag @product.photo_url, alt: "Image of the product" %>
+
 <h3>
   Price: $ <%= "%.2f" % (@product.price / 100.0) %>
 </h3>
@@ -57,6 +59,5 @@
 <section>
   <%= render "/items/item_form"%>
 </section>
-
 
 <%= link_to "Back to all products", products_path %> 
