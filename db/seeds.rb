@@ -19,7 +19,7 @@ end
 
 CSV.open("db/products_data.csv", headers: true).each_with_index do |line, i|
   merchant = Merchant.find(rand(1..Merchant.count))
-  product = merchant.products.create(name: line["name"], #.upcase,
+  product = merchant.products.create(name: line["name"].upcase,
                                      price: line["price"],
                                      description: line["description"],
                                      photo_url: line["photo_url"],
