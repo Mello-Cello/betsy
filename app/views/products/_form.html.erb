@@ -1,0 +1,31 @@
+<%= form_with model: @product, class: form_class do |f| %>
+
+  <p><%= intro_text %></p>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :merchant_id %>
+  <%= f.select :merchant_id, Merchant.where(id: session[:merchant_id]) %>
+  <%# need help displaying just merchant name  %>
+
+
+  <%= f.label :price %>
+  <%= f.text_field :price %>
+
+  <%= f.label :categories %>
+  <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
+
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+
+  <%= f.label :photo_url %>
+  <%= f.text_field :photo_url %>
+
+  <%= f.label :stock %>
+  <%= f.text_field :stock %>
+
+  <%= f.submit action_name, class: "product-form__submit-btn" %>
+
+<% end %>
+

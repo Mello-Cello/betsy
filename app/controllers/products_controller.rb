@@ -1,8 +1,32 @@
 class ProductsController < ApplicationController
+  before_action :find_merchant, only: [:new, :create]
+
   def new
+    if @login_merchant
+      @product = Product.new
+    else
+      flash[:error] = "You must be logged in to add a new product"
+      redirect_to root_path
+    end
   end
 
   def create
+    if @login_merchant # if merchant is logged in
+      product = Product.new(product_params)
+
+      is_successful = product.save
+
+      if is_successful
+        flash[:success] = "Product added successfully"
+        redirect_to product_path(product.id)
+      else
+        flash.now[:error] = "Could not add new product: #{product.errors.messages}" #need help formatting this flash better
+        render :new, status: :bad_request
+      end
+    else
+      flash.now[:error] = "You must be logged in to create a new product"
+      render :new, status: :bad_request
+    end
   end
 
   def index
@@ -22,5 +46,11 @@ class ProductsController < ApplicationController
   end
 
   def update
+  end
+
+  private
+
+  def product_params
+    return params.require(:product).permit(:name, :price, :description, :photo_url, :stock, :merchant_id, category_ids: [])
   end
 end
