@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :products, only: [:index]
   end
 
-  resources :products, except: [:delete] do
+  resources :products, except: [:destroy] do
     resources :reviews, only: [:create]
     resources :items, only: [:create]
   end
