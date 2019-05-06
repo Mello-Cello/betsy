@@ -6,10 +6,12 @@ class Product < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :price, presence: true
+  validates :stock, presence: true
   validates_numericality_of :price, greater_than: 0
+  validates_numericality_of :stock, greater_than: -1
 
   def decrease_stock(quantity)
-    self.stock = self.stock - quantity
+    self.stock -= quantity
     return self.save
   end
 end

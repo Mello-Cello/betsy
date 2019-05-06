@@ -44,6 +44,25 @@ describe Product do
       expect(product.errors.include?(:price)).must_equal true
       expect(product.errors.messages[:price]).must_equal ["must be greater than 0"]
     end
+
+    it "will not be valid if missing stock" do
+      product.stock = nil
+      expect(product.valid?).must_equal false
+      expect(product.errors.include?(:stock)).must_equal true
+      expect(product.errors.messages[:stock]).must_equal ["can't be blank", "is not a number"]
+    end
+
+    it "will be valid if stock is 0" do
+      product.stock = 0
+      expect(product.valid?).must_equal true
+    end
+
+    it "will not be valid if stock is less than zero" do
+      product.stock = -2
+      expect(product.valid?).must_equal false
+      expect(product.errors.include?(:stock)).must_equal true
+      expect(product.errors.messages[:stock]).must_equal ["must be greater than -1"]
+    end
   end
 
   describe "relationships" do
@@ -91,6 +110,27 @@ describe Product do
         expect(product.items.include?(items(:item_2))).must_equal true
         expect(product.items.include?(items(:item_3))).must_equal true
         expect(items(:item_3).product).must_equal product
+      end
+    end
+  end
+
+  describe "custom methods" do
+    let(:initial_stock) { product.stock }
+    describe "  def decrease_stock(quantity)" do
+      it "will decrease the stock of a product by given quantity and return true if valid" do
+        quantity = 2
+        expect(initial_stock).must_equal product.stock
+        expect(product.decrease_stock(quantity)).must_equal true
+        expect(initial_stock).wont_equal product.stock
+        expect(product.stock).must_equal initial_stock - quantity
+      end
+
+      it "will return false if quantity exceeds stock and not decrease stock" do
+        quantity = 10
+        expect(initial_stock).must_equal product.stock
+        expect(product.decrease_stock(quantity)).must_equal false
+        product.reload
+        expect(initial_stock).must_equal product.stock
       end
     end
   end
