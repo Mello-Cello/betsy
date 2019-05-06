@@ -28,7 +28,7 @@ describe ItemsController do
 
     it "will use current order if cart_id in session " do
       expect {
-        post product_items_path(product.id), params: item_params
+        post product_items_path(products(:product_2)), params: item_params
       }.must_change "Order.count", 1
 
       expect {
@@ -62,6 +62,22 @@ describe ItemsController do
       expect(flash[:error]).must_equal "Could Not Add To Cart: quantity selected is more than available stock"
 
       must_respond_with :bad_request
+    end
+
+    it "will find an item if already created and increase its quantity rather than make new" do
+      expect {
+        post product_items_path(product.id), params: item_params
+      }.must_change "Item.count", 1
+
+      item = Item.find_by(product_id: product.id, order_id: session[:cart_id])
+      expect(item.quantity).must_equal item_params[:item][:quantity]
+
+      expect {
+        post product_items_path(product.id), params: item_params
+      }.must_change "Item.count", 0
+
+      item = Item.find_by(product_id: product.id, order_id: session[:cart_id])
+      expect(item.quantity).must_equal item_params[:item][:quantity] * 2
     end
 
     it "will not create an item with in invalid quantity" do
