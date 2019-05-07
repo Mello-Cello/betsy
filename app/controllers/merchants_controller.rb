@@ -1,4 +1,6 @@
 class MerchantsController < ApplicationController
+  before_action :find_logged_in_merchant, only: [:current]
+
   def index
     @merchants = Merchant.all
   end
@@ -85,8 +87,7 @@ class MerchantsController < ApplicationController
   end
 
   def current
-    @merchant = Merchant.find_by(id: session[:merchant_id])
-    if @merchant.nil?
+    if @login_merchant.nil?
       flash[:error] = "You must be logged to view this page"
       redirect_to root_path
     end

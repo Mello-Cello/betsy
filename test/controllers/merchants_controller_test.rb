@@ -107,4 +107,28 @@ describe MerchantsController do
       Merchant.count.must_equal start_count
     end
   end
+  describe "current" do
+    describe "logged in merchant" do
+      it "should get showpage" do
+        # Act
+        get current_merchant_path
+
+        # Assert
+        must_respond_with :found
+      end
+    end
+
+    describe "not logged in" do
+      it "will redirect and give a flash notice when not logged in" do
+
+        # Act
+        get current_merchant_path
+
+        # Assert
+        must_respond_with :redirect
+        must_redirect_to root_path
+        expect(flash[:error]).must_equal "You must be logged to view this page"
+      end
+    end
+  end
 end
