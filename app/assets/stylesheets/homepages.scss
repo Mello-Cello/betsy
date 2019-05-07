@@ -2,7 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 body {
-  background-color: rgb(255, 255, 255);
   font-family: Helvetica, Arial, sans-serif
 }
 
@@ -11,35 +10,24 @@ h1 {
   font-size: 175px;
   color: #fff;
   text-align: center;
-  -webkit-animation: glow 1s ease-in-out infinite alternate;
-  -moz-animation: glow 1s ease-in-out infinite alternate;
-  animation: glow 1s ease-in-out infinite alternate;
+  
 }
 
-@-webkit-keyframes glow {
-  from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
-  }
-  to {
-    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
-  }
-}
+
 
 h2 {
   font-family: 'League Script', Helvetica, Arial, sans-serif;
   font-size: 70px;
   color: rgb(255, 255, 255);
   text-align: center;
-  -webkit-animation: glow 1s ease-in-out infinite alternate;
-  -moz-animation: glow 1s ease-in-out infinite alternate;
-  animation: glow 1s ease-in-out infinite alternate;
+  
 }
 
 h3 {
   font-family: 'Raleway Dots', Arial, sans-serif;
   font-size: 50px;
-  color: rgba(241, 194, 255, 0.733);
   text-align: center;
+  color: rgb(255, 255, 255);
 }
 
 h4 {
@@ -49,12 +37,34 @@ h4 {
   text-align: center;
 }
 
+
 li {
-  font-family: 'Raleway Dots', Arial, sans-serif, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+  font-family: 'Raleway Dots', Arial, sans-serif, 'Arial Narrow Bold', sans-serif
 }
 
 ul {
-  font-family: 'Courier New', Courier, monospace
+  font-family: 'Courier New', Courier, monospace;
+  list-style-type: none;
+}
+
+
+.greybg {
+  background-color: rgb(165, 164, 164);
+}
+
+.whitebg {
+  background-color: #fff;
+}
+
+#mainpadding {
+  padding-top: 2em;
+}
+
+#tagline {
+  font-family: 'Raleway Dots', Arial, sans-serif;
+  font-size: 5em;
+  color: rgba(131, 11, 142, 0.842);
+  text-align: center;
 }
 
 .nav_bar {
@@ -71,16 +81,11 @@ ul {
   display: block;
 }
 
-h3 {
-  text-align: center;
-  color: rgb(255, 255, 255);
-  text-shadow: 1px 1px 2px rgb(255, 255, 255), 0 0 25em hotpink, 0 0 0.2em white;
-}
 
 p {
   text-align: center;
-  color:rgb(136, 136, 136);
-  text-shadow: 1px 1px 2px rgb(255, 255, 255), 0 0 25em hotpink, 0 0 0.2em white;
+  color:rgb(87, 87, 87);
+  font-size: 1.3em;
 }
 
 
@@ -91,6 +96,3 @@ p {
   height: 2.5rem; 
 }
 
-ul {
-  list-style-type: none;
-}

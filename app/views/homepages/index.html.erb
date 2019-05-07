@@ -1,8 +1,10 @@
-<h1>Intangibly</h1>
-<h4>find your magic index.html.er</h4>
+<section class="greybg" id="mainpadding">
+    <h1>Intangibly</h1>
+    <p id="tagline">find your magic</p>
 
-<% if session[:merchant_id] %>
-<% merchant = Merchant.find_by(id: session[:merchant_id]) %>
-<p><%= "You are currently logged in as #{merchant.username}" %></p> 
-<%# wrap in class for footer %>
-<% end %>
+    <% if session[:merchant_id] %>
+    <% merchant = Merchant.find_by(id: session[:merchant_id]) %>
+    <p><%= "You are currently logged in as #{merchant.username}" %></p> 
+    <%# wrap in class for footer %>
+    <% end %>
+</section>
