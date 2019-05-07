@@ -185,7 +185,7 @@ describe ProductsController do
         }.wont_change "Product.count"
 
         must_respond_with :bad_request
-        expect(flash[:name]).must_include "can't be blank" # not working
+        expect(flash[:name]).must_include "can't be blank" # working
       end
     end
 
