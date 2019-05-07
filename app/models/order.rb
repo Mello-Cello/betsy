@@ -36,19 +36,22 @@ class Order < ApplicationRecord
   # end
 
   def self.find_merchant_order_items(merchant)
+    # items_hash = Hash.new()
     items_hash = {
-      paid: [],
-      complete: [],
+      "paid" => {},
+      "complete" => {},
     }
-    Orders.all.each do |order|
+    Order.all.each do |order|
       order.items.each do |item|
-        if order.status == "paid" && item.product.merchant_id == merchant.id
-          items_hash[:paid] << item
-        elsif order.status == "complete" && item.product.merchant_id == merchant.id
-          items_hash[:complete] << item
+        if items_hash.include?(order.status) && item.product.merchant_id == merchant.id
+          if !items_hash[order.status.to_s].include?(order.id.to_s)
+            items_hash[order.status.to_s][order.id.to_s] = [item]
+          else
+            items_hash[order.status.to_s][order.id.to_s] << [item]
+          end
         end
       end
-      return items_hash
     end
+    return items_hash
   end
 end
