@@ -19,39 +19,72 @@
     <p> $<%= Order.status_revenue(item_hash["paid"]) + Order.status_revenue(item_hash["completed"])%> </p>
 
 <h3>Orders by status</h3>
-    <h4>Paid</h4>
-        <section>
+    <h4>Status: Paid</h4>
             <% item_hash["paid"].each do |order, items| %> 
-                <h5>Order ID: <%= order %></h5>
-                <h6>Date/Time Order placed: <%= Order.find(order).created_at.strftime("%B %d, %T")%></h6>  
-                <h6>Status: <%= Order.find(order).status %> </h6>
-                <ul> 
-                <% items.each do |item| %>
-                    <li>Item ID: <%= item.id %></li>
-                    <li>Product name: <%= link_to Product.find(item.product_id).name, product_path(item.product_id) %> </li>
-                    <li>Item Subtotal: $<%= item.subtotal%></li>
-                    <li>Product ID: <%=item.product_id %></li>
-                <% end %>
-                </ul>
-            <% end %>
-        </section>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                        <th scope="col">Order ID: <%= order %> </th>
+                        <th scope="col">Date & Time of order: <%= Order.find(order).created_at.strftime("%B %d, %T")%></th>
+                        <th scope="col">Order Status: <%= Order.find(order).status %> </th>
+                        <th scope="col"> </th>
+                        </tr>
+                    </thead>
+                    <thead>
+                        <tr>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Unit Price</th>
+                        <th scope="col">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%items.each do |item| %>
+                        <tr>
+                            <th scope="row"><%=item.quantity%></th>
+                            <td><%=link_to item.product.name, product_path(item.product.id) %></td>
+                            <td>$<%=item.product.price / 100.0%></td>
+                            <td>$<%=item.subtotal %></td>    
+                        </tr>
+                        <%end%>
+                    </tbody>
+                </table>
+            <%end%>
 
-    <h4>Complete</h4>
-        <section>
-            <% item_hash["complete"].each do |order, items| %> 
-                <h5>Order ID: <%= order %></h5>
-                <h6>Date/Time Order placed: <%= Order.find(order).created_at.strftime("%B %d, %T")%></h6>  
-                <h6>Status: <%= Order.find(order).status %> </h6>
-                <ul> 
-                <% items.each do |item| %>
-                    <li>Item ID: <%= item.id %></li>
-                    <li>Product name: <%= link_to Product.find(item.product_id).name, product_path(item.product_id) %> </li>
-                    <li>Item Subtotal: $<%= item.subtotal%></li>
-                    <li>Product ID: <%=item.product_id %></li>
-                <% end %>
-                </ul>
-            <% end %>
-        </section>
+
+
+
+    <h4>Status: Complete</h4>
+        <% item_hash["paid"].each do |order, items| %> 
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                    <th scope="col">Order ID: <%= order %> </th>
+                    <th scope="col">Date & Time of order: <%= Order.find(order).created_at.strftime("%B %d, %T")%></th>
+                    <th scope="col">Order Status: <%= Order.find(order).status %> </th>
+                    <th scope="col"> </th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Unit Price</th>
+                    <th scope="col">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%items.each do |item| %>
+                    <tr>
+                        <th scope="row"><%=item.quantity%></th>
+                        <td><%=link_to item.product.name, product_path(item.product.id) %></td>
+                        <td>$<%=item.product.price / 100.0%></td>
+                        <td>$<%=item.subtotal %></td>    
+                    </tr>
+                    <%end%>
+                </tbody>
+            </table>
+        <%end%>
         
         
   
