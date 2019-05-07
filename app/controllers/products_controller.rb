@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_merchant, only: [:new, :create]
+  before_action :find_merchant, only: [:new, :create, :update, :edit]
 
   def new
     if @login_merchant
@@ -15,15 +15,13 @@ class ProductsController < ApplicationController
       @product = Product.new(product_params)
       @product.merchant_id = session[:merchant_id]
       @product.price = params[:product][:price].to_f * 100.0
-      # raise
       is_successful = @product.save
 
       if is_successful
         flash[:success] = "Product added successfully"
         redirect_to product_path(@product.id)
       else
-        # raise
-        flash.now[:error] = "Could not add new product:" #need help formatting this flash better
+        flash.now[:error] = "Could not add new product:"
         @product.errors.messages.each do |label, message|
           flash.now[label.to_sym] = message
         end
@@ -49,9 +47,41 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    if @login_merchant
+      @product = Product.find_by(id: params[:id])
+
+      if @product.nil?
+        flash[:error] = "Unknown product"
+        redirect_to products_path
+      else
+        @product.price = @product.price.to_f / 100.0
+      end
+    else
+      flash[:error] = "You must be logged in to edit a product"
+      redirect_to products_path
+    end
   end
 
   def update
+    @product = Product.find_by(id: params[:id])
+    if @product.merchant_id == @login_merchant.id
+      @product.update(product_params)
+      @product.price = product_params[:price].to_f * 100.0
+      is_successful = @product.save
+
+      if is_successful
+        flash[:success] = "Product updated successfully"
+        redirect_to product_path(@product.id)
+      else
+        @product.errors.messages.each do |label, message|
+          flash.now[label.to_sym] = message #this flash msg is working
+        end
+        render :edit, status: :bad_request
+      end
+    else
+      flash[:error] = "You can only update your own products"
+      redirect_to products_path
+    end
   end
 
   private
