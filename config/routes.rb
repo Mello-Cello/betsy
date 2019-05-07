@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "/merchants/current", to: "merchants#current", as: "current_merchant"
   get "homepages/index"
   resources :categories, only: [:new, :create, :index, :show]
   resources :items, only: [:create, :update, :destroy]
