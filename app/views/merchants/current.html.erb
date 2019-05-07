@@ -28,6 +28,7 @@
                         <th scope="col">Date & Time of order: <%= Order.find(order).created_at.strftime("%B %d, %T")%></th>
                         <th scope="col">Order Status: <%= Order.find(order).status %> </th>
                         <th scope="col"> </th>
+                        <th scope="col"> </th>
                         </tr>
                     </thead>
                     <thead>
@@ -36,6 +37,7 @@
                         <th scope="col">Product Name</th>
                         <th scope="col">Unit Price</th>
                         <th scope="col">Subtotal</th>
+                        <th scope="col">Mark as Shipped</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,7 +46,8 @@
                             <th scope="row"><%=item.quantity%></th>
                             <td><%=link_to item.product.name, product_path(item.product.id) %></td>
                             <td>$<%=item.product.price / 100.0%></td>
-                            <td>$<%=item.subtotal %></td>    
+                            <td>$<%=item.subtotal %></td>   
+                            <td>placeholder for ship button</td>
                         </tr>
                         <%end%>
                     </tbody>
