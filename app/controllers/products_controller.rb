@@ -74,7 +74,7 @@ class ProductsController < ApplicationController
         redirect_to product_path(@product.id)
       else
         @product.errors.messages.each do |label, message|
-          flash.now[label.to_sym] = message #this flash msg is not working
+          flash.now[label.to_sym] = message #this flash msg is working
         end
         render :edit, status: :bad_request
       end

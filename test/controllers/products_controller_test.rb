@@ -57,7 +57,7 @@ describe ProductsController do
     describe "logged in user" do
       it "creates a product with valid data" do
         merchant = perform_login
-        new_product = {product: {name: "Something amazing", price: 1000, stock: 4}}
+        new_product = { product: { name: "Something amazing", price: 1000, stock: 4 } }
         expect {
           post products_path, params: new_product
         }.must_change "Product.count", 1
@@ -71,7 +71,7 @@ describe ProductsController do
 
       it "renders bad_request and does not update the DB for bogus data" do
         merchant = perform_login
-        bad_prod_name = {product: {name: nil, price: 1000}}
+        bad_prod_name = { product: { name: nil, price: 1000 } }
 
         expect {
           post products_path, params: bad_prod_name
@@ -84,7 +84,7 @@ describe ProductsController do
 
       describe "logged out user" do
         it "cannot create a product with valid data" do
-          new_product = {product: {name: "Something amazing", price: 1000}}
+          new_product = { product: { name: "Something amazing", price: 1000 } }
           expect {
             post products_path, params: new_product
           }.wont_change "Product.count"
@@ -185,7 +185,7 @@ describe ProductsController do
         }.wont_change "Product.count"
 
         must_respond_with :bad_request
-        # expect(flash[:name]).must_include "can't be blank" # not working
+        expect(flash[:name]).must_include "can't be blank" # not working
       end
     end
 
