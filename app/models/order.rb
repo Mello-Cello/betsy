@@ -28,30 +28,45 @@ class Order < ApplicationRecord
     return true
   end
 
-  #self method for merchant dashboard
-  # def self.sort_work(category)
-  #   works = Work.where(category: category).to_a
-  #   works.sort_by! { |work| Vote.where(work_id: work.id).length }
-  #   return works.reverse
-  # end
-
-  def self.find_merchant_order_items(merchant)
-    # items_hash = Hash.new()
-    items_hash = {
-      "paid" => {},
-      "complete" => {},
-    }
+  # stores merchant order items in hash:
+  # key is order status and value is a
+  # hash with order_id as key and array of items as value:
+  # items_hash {
+  #   "paid" => {"11": [item1, item2, item4]}, "16": [item7, item8, item14]},
+  #   "complete" => {"15": [item11, item12, item17]}
+  # }
+  # to add more statuses to track follow items_hash template -> { "paid" => {}, "complete" => {} }
+  def self.find_merchant_order_items(merchant, items_hash: { "paid" => {}, "complete" => {} })
     Order.all.each do |order|
       order.items.each do |item|
         if items_hash.include?(order.status) && item.product.merchant_id == merchant.id
           if !items_hash[order.status.to_s].include?(order.id.to_s)
             items_hash[order.status.to_s][order.id.to_s] = [item]
           else
-            items_hash[order.status.to_s][order.id.to_s] << [item]
+            items_hash[order.status.to_s][order.id.to_s] << item
           end
         end
       end
     end
     return items_hash
   end
+
+  # takes input of items_hash["status"] where status is a status in items_hash
+  def self.status_revenue(item_status)
+    revenue = 0
+    item_status.each do |order_id, items|
+      sum = items.sum do |item|
+        item.subtotal
+      end
+      revenue += sum
+    end
+    return revenue
+  end
+end
+
+# takes input of items_hash["status"] where status is a status in items_hash
+def self.status_count_orders(item_status)
+  return item_status.sum do |order_id, items|
+           items.count
+         end
 end
