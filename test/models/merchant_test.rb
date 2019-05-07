@@ -1,4 +1,5 @@
 require "test_helper"
+require "pry"
 
 describe Merchant do
   let(:merchant) { merchants(:merchant_1) }
@@ -74,6 +75,28 @@ describe Merchant do
       merchant.products << product
       expect(product.valid?).must_equal true
       expect(merchant.products.include?(product)).must_equal true
+    end
+  end
+
+  describe "custom method build_from_github" do
+    it "build auth hash" do
+      # this_merchant = merchants(:merchant_1)
+
+      new_auth_hash = {
+        provider: "github",
+        uid: "543",
+        info: {
+          email: "jackie@me.net",
+          nickname: "EllesMom",
+        },
+      }
+      # binding.pry
+      new_merch = Merchant.build_from_github(new_auth_hash)
+
+      new_merch.provider.must_equal "github"
+      new_merch.uid.must_equal new_auth_hash[:uid]
+      new_merch.email.must_equal new_auth_hash[:info][:email]
+      new_merch.username.must_equal new_auth_hash[:info][:nickname]
     end
   end
 end
