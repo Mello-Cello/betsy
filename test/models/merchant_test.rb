@@ -1,4 +1,5 @@
 require "test_helper"
+require "pry"
 
 describe Merchant do
   let(:merchant) { merchants(:merchant_1) }
@@ -82,17 +83,20 @@ describe Merchant do
       # this_merchant = merchants(:merchant_1)
 
       new_auth_hash = {
-        provider: merchant.provider,
-        uid: merchant.uid,
+        provider: "github",
+        uid: "543",
         info: {
-          email: merchant.email,
-          nickname: merchant.username,
+          email: "jackie@me.net",
+          nickname: "EllesMom",
         },
       }
+      # binding.pry
+      new_merch = Merchant.build_from_github(new_auth_hash)
 
-      merchant.provider.must_equal "github"
-      merchant.email.must_equal "pickhu@yahoo.com"
-      merchant.email.must_equal new_auth_hash[info][email]
+      new_merch.provider.must_equal "github"
+      new_merch.uid.must_equal new_auth_hash[:uid]
+      new_merch.email.must_equal new_auth_hash[:info][:email]
+      new_merch.username.must_equal new_auth_hash[:info][:nickname]
     end
   end
 end
