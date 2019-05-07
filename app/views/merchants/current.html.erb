@@ -2,3 +2,56 @@
 <h2>Welcome <%= @login_merchant.username %></h2>
 
 <%= link_to "Add new product", new_product_path %>
+
+<% item_hash = Order.find_merchant_order_items(@login_merchant) %>
+
+<h3>Paid orders</h3>
+    <ul>
+        <li>Total number of paid orders: <%= item_hash["paid"].count %></li>
+        <li>Revenue for paid orders: $<%= Order.status_revenue(item_hash["paid"])%></li>
+    </ul>
+<h3>Complete orders</h3>
+    <ul>
+        <li>Total number of paid orders: <%= item_hash["complete"].count %></li>
+        <li>Revenue for paid orders: $<%= Order.status_revenue(item_hash["complete"])%></li>
+    </ul>
+<h3>Total revenue</h3>
+    <p> $<%= Order.status_revenue(item_hash["paid"]) + Order.status_revenue(item_hash["completed"])%> </p>
+
+<h3>Orders by status</h3>
+    <h4>Paid</h4>
+        <section>
+            <% item_hash["paid"].each do |order, items| %> 
+                <h5>Order ID: <%= order %></h5>
+                <h6>Date/Time Order placed: <%= Order.find(order).created_at.strftime("%B %d, %T")%></h6>  
+                <h6>Status: <%= Order.find(order).status %> </h6>
+                <ul> 
+                <% items.each do |item| %>
+                    <li>Item ID: <%= item.id %></li>
+                    <li>Product name: <%= link_to Product.find(item.product_id).name, product_path(item.product_id) %> </li>
+                    <li>Item Subtotal: $<%= item.subtotal%></li>
+                    <li>Product ID: <%=item.product_id %></li>
+                <% end %>
+                </ul>
+            <% end %>
+        </section>
+
+    <h4>Complete</h4>
+        <section>
+            <% item_hash["complete"].each do |order, items| %> 
+                <h5>Order ID: <%= order %></h5>
+                <h6>Date/Time Order placed: <%= Order.find(order).created_at.strftime("%B %d, %T")%></h6>  
+                <h6>Status: <%= Order.find(order).status %> </h6>
+                <ul> 
+                <% items.each do |item| %>
+                    <li>Item ID: <%= item.id %></li>
+                    <li>Product name: <%= link_to Product.find(item.product_id).name, product_path(item.product_id) %> </li>
+                    <li>Item Subtotal: $<%= item.subtotal%></li>
+                    <li>Product ID: <%=item.product_id %></li>
+                <% end %>
+                </ul>
+            <% end %>
+        </section>
+        
+        
+  
