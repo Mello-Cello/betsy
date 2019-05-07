@@ -2,7 +2,6 @@ class OrdersController < ApplicationController
   before_action :find_cart_order
 
   def view_cart
-    @order = Order.find_by(id: session[:cart_id])
   end
 
   def checkout
