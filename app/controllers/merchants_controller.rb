@@ -83,6 +83,14 @@ class MerchantsController < ApplicationController
     flash[:success] = "Successfully logged out." #{merchant_username}"
     redirect_to root_path
   end
+
+  def current
+    @merchant = Merchant.find_by(id: session[:merchant_id])
+    if @merchant.nil?
+      flash[:error] = "You must be logged to view this page"
+      redirect_to root_path
+    end
+  end
 end
 
 private
