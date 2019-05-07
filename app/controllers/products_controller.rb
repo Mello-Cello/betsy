@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_merchant, only: [:new, :create, :update, :edit]
+  before_action :find_logged_in_merchant, only: [:new, :create, :update, :edit]
 
   def new
     if @login_merchant
