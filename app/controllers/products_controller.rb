@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_merchant, only: [:new, :create, :update]
+  before_action :find_merchant, only: [:new, :create, :update, :edit]
 
   def new
     if @login_merchant
@@ -49,11 +49,12 @@ class ProductsController < ApplicationController
   def edit
     if @login_merchant
       @product = Product.find_by(id: params[:id])
-      @product.price = @product.price.to_f / 100.0
 
       if @product.nil?
         flash[:error] = "Unknown product"
         redirect_to products_path
+      else
+        @product.price = @product.price.to_f / 100.0
       end
     else
       flash[:error] = "You must be logged in to edit a product"
@@ -63,18 +64,17 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find_by(id: params[:id])
-    # raise
     if @product.merchant_id == @login_merchant.id
       @product.update(product_params)
       @product.price = product_params[:price].to_f * 100.0
-      @product.save
+      is_successful = @product.save
 
-      if @product.valid?
+      if is_successful
         flash[:success] = "Product updated successfully"
         redirect_to product_path(@product.id)
       else
         @product.errors.messages.each do |label, message|
-          flash.now[label.to_sym] = message
+          flash.now[label.to_sym] = message #this flash msg is not working
         end
         render :edit, status: :bad_request
       end

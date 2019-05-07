@@ -6,7 +6,8 @@
   <%= f.text_field :name, required: true  %>
 
   <%= f.label :price %>
-  <%= f.number_field :price, in: 1.0..1000.0, step: 0.01, required: true  %>
+  <%= f.number_field :price, in: 1.0..1000.0, step: 0.01, required: true %>
+
 
   <%= f.label :categories %>
   <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
