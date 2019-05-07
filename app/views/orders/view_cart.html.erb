@@ -13,6 +13,9 @@
     <%= link_to "Check Out", checkout_cart_path, class: "btn btn-primary"%>
       <%=link_to "Keep shopping", products_path %>
   <%else%>
+  <%=if !@order%>
+  AHHHHHHHHHHHHHHHH
+  <%end%>
   <h1> 0 items in cart</h1>
   <%= link_to "Discover something intangible to fill it up", products_path %>
   <%end%>
