@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "/merchants/current", to: "merchants#current", as: "current_merchant"
   get "homepages/index"
   resources :categories, only: [:new, :create, :index, :show]
   resources :items, only: [:create, :update, :destroy]
@@ -23,8 +24,6 @@ Rails.application.routes.draw do
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
   delete "/logout", to: "merchants#logout", as: "logout"
-
-  get "/merchants/current", to: "merchants#current", as: "current_merchant"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
