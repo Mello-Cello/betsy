@@ -61,3 +61,7 @@
 </section>
 
 <%= link_to "Back to all products", products_path %> 
+
+<% if @product.merchant_id == session[:merchant_id]%>
+  <%= link_to "Edit product", edit_product_path(@product.id) %>
+<% end %>
