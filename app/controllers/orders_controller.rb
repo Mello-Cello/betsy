@@ -1,7 +1,24 @@
 class OrdersController < ApplicationController
-  before_action :find_cart_order
+  before_action :find_cart_order, except: [:show, :index]
 
   def view_cart
+  end
+
+  def index
+    redirect_to root_path
+  end
+
+  def show
+    if find_logged_in_merchant
+      @order = Order.find_by(id: params[:id])
+      unless @order
+        flash[:error] = "Unknown order"
+        redirect_to root_path
+      end
+    else
+      flash[:error] = "You must be logged to view this page"
+      redirect_to root_path
+    end
   end
 
   def checkout
