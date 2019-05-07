@@ -69,7 +69,7 @@ describe Merchant do
     end
 
     it "can shovel product to create relationship" do
-      product = Product.new(name: "penny", price: 1200)
+      product = Product.new(name: "penny", price: 1200, stock: 4)
       expect(product.valid?).must_equal false
       merchant.products << product
       expect(product.valid?).must_equal true

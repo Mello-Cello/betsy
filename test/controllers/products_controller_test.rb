@@ -57,7 +57,7 @@ describe ProductsController do
     describe "logged in user" do
       it "creates a product with valid data" do
         merchant = perform_login
-        new_product = {product: {name: "Something amazing", price: 1000}}
+        new_product = {product: {name: "Something amazing", price: 1000, stock: 4}}
         expect {
           post products_path, params: new_product
         }.must_change "Product.count", 1
