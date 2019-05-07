@@ -2,7 +2,7 @@
   Product Name: <%= @product.name %>
 </h2>
 
-<%= image_url @product.photo_url, alt: "Image of the product" %>
+<%= image_tag image_url(@product.photo_url), alt: "Image of the product" %>
 
 <h3>
   Price: $ <%= "%.2f" % (@product.price / 100.0) %>
