@@ -1,6 +1,13 @@
-<h1>Order Confirmation:</h1>
-
+<h1>Order Confirmation</h1>
 <table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Order ID: <%= @order.id %> </th>
+      <th scope="col">Date & Time of order: <%= @order.created_at.strftime("%B %d, %T")%></th>
+      <th scope="col">Order Status: <%=@order.status %> </th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
   <thead>
     <tr>
       <th scope="col">Quantity</th>
