@@ -65,6 +65,6 @@
 
 <% if @product.merchant_id == session[:merchant_id]%>
   <%= link_to "Edit product", edit_product_path(@product.id) %>
+  <%= link_to "Temp toggle inactive link", { action: "toggle_inactive", id: @product.id }, method: :patch %> 
 <% end %>
 
-<%= link_to "Temp toggle inactive link", { action: "toggle_inactive", id: @product.id }, method: :patch %> |
