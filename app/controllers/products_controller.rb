@@ -40,7 +40,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find_by(id: params[:id])
 
-    if @product.nil?
+    if @product.nil? || !@product.active? # if product does not exist or it is not active (aka it is retired)
       flash[:error] = "Unknown product"
       redirect_to products_path
     end
