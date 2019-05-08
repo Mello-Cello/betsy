@@ -2,46 +2,45 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 body {
-  font-family: Helvetica, Arial, sans-serif
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 h1 {
   font-family: 'League Script', Helvetica, Arial, sans-serif;
-  font-size: 175px;
-  color: #fff;
+  font-weight:bold;
+  font-size: 100px;
+  color: lavender;
   text-align: center;
-  
 }
-
-
 
 h2 {
   font-family: 'League Script', Helvetica, Arial, sans-serif;
   font-size: 70px;
-  color: rgb(255, 255, 255);
+  color: rgb(198, 239, 255);
   text-align: center;
   
 }
 
 h3 {
   font-family: 'Raleway Dots', Arial, sans-serif;
+  font-weight:bold;
   font-size: 50px;
   text-align: center;
-  color: rgb(255, 255, 255);
+  color: rgb(255, 157, 255);
 }
 
 h4 {
   font-family: 'Raleway Dots', Arial, sans-serif;
+  font-weight:bold;
   font-size: 30px;
-  color: rgba(194, 217, 253, 0.842);
-  text-align: center;
+  color:grey;
 }
 
 .bg-purple {
-  background-color: rgba(131, 11, 142, 0.842);
+  background-color: lavender;
 }
 li {
-  font-family: Arial, sans-serif, 'Arial Narrow Bold', sans-serif
+  font-family: Arial, sans-serif, 'Arial Narrow Bold', sans-serif;
 }
 
 ul {
@@ -59,7 +58,7 @@ a:hover {
 }
 
 .greybg {
-  background-color: rgb(165, 164, 164);
+  background-color: rgb(255, 255, 255);
 }
 
 .whitebg {
@@ -98,13 +97,11 @@ a:hover {
   padding: 5em;
 }
 
-
 p {
-  text-align: center;
+  font-family: 'Raleway Dots', Arial, sans-serif;
   color:rgb(87, 87, 87);
   font-size: 1.3em;
 }
-
 
 #footer {
   position: absolute;
