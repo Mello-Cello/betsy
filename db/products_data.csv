@@ -1,21 +1,21 @@
-name,price,description,photo_url,stock
-high fives,3990,They’ve got as much sex appeal as a road accident.,https://ibb.co/tDYJ7dj,6
-cup of sunshine,4277,"But Mr. Dent, the plans have been available in the local planning office for the last nine months.",https://photos.app.goo.gl/Hrhb4q9hMC4uvBh67,4
-bucket of sunshine,2089,Don’t Panic.,https://ibb.co/5Lkh7Gz,7
-sleep revival,4799,"On the planet Earth, man had always assumed that he was more intelligent than dolphins because he had achieved so much—the wheel, New York, wars and so on—whilst all the dolphins had ever done was muck about in the water having a good time. But conversely, the dolphins had always believed that they were far more intelligent than man—for precisely the same reasons.",https://ibb.co/tsmDCVw,7
-relaxation,3361,there’s an infinite number of monkeys outside who want to talk to us about this script for Hamlet they’ve worked out.,https://ibb.co/QkFzjD9,5
-energy,1131,"Nothing travels faster than the speed of light with the possible exception of bad news, which obeys its own special laws.",https://ibb.co/WcHtG5y,7
-a good hair day,637,"Nothing travels faster than the speed of light with the possible exception of bad news, which obeys its own special laws.",https://ibb.co/kHrW2JW,6
-pause time,1758,42,https://ibb.co/qk1rWyt,8
-freshly showered,4963,Parts of the inside of her head screamed at other parts of the inside of her head.,https://ibb.co/LtDnP6W,8
-teleport into bed,3216,if you’ve never been through a matter transference beam before you’ve probably lost some salt and protein. The beer you had should have cushioned your system a bit.,https://ibb.co/tCW9CHN,8
-ada starter kit,2397,"Whatever your tastes, Magrathea can cater for you. We are not proud.",https://photos.app.goo.gl/EjCZFqdH32peKLVD8,8
-ada best seller pack,4517,"Nothing travels faster than the speed of light with the possible exception of bad news, which obeys its own special laws.",https://ibb.co/bN6QLXJ,9
-cup of rainbows,4282,"It’s only half completed, I’m afraid – we haven’t even finished burying the artificial dinosaur skeletons in the crust yet.",https://ibb.co/nkBXzYb,7
-puppy play pack,2803,"Nothing travels faster than the speed of light with the possible exception of bad news, which obeys its own special laws.",https://ibb.co/QH3CFxw,4
-kitten cuddles,4928,"Nothing travels faster than the speed of light with the possible exception of bad news, which obeys its own special laws.",https://ibb.co/cyLJK6k,7
-giggle party,3250,"It seemed to me that any civilization that had so far lost its head as to need to include a set of detailed instructions for use in a packet of toothpicks, was no longer a civilization in which I could live and stay sane.",https://ibb.co/fpGjm13,3
-bestfriend time,2332,"According to the legends, the Magratheans lived most of their lives underground.",https://ibb.co/GJL7PfT,7
-juicy secret,1170,"Evolution? they said to themselves, Who needs it?",https://ibb.co/VNjtJzz,5
-inside joke moment,4141,"On the planet Earth, man had always assumed that he was more intelligent than dolphins because he had achieved so much—the wheel, New York, wars and so on—whilst all the dolphins had ever done was muck about in the water having a good time. But conversely, the dolphins had always believed that they were far more intelligent than man—for precisely the same reasons.",https://ibb.co/KXrm3wG,8
-bondfire time,2976,42,https://ibb.co/mCqdnr0,8
+name,price,stock,description,photo_url
+high fives,3990,3,They’ve got as much sex appeal as a road accident.,https://ibb.co/tDYJ7dj
+cup of sunshine,4277,6,"But Mr. Dent, the plans have been available in the local planning office for the last nine months.",https://photos.app.goo.gl/Hrhb4q9hMC4uvBh67
+bucket of sunshine,2089,3,Don’t Panic.,https://ibb.co/5Lkh7Gz
+sleep revival,4799,5,"On the planet Earth, man had always assumed that he was more intelligent than dolphins because he had achieved so much—the wheel, New York, wars and so on—whilst all the dolphins had ever done was muck about in the water having a good time. But conversely, the dolphins had always believed that they were far more intelligent than man—for precisely the same reasons.",https://ibb.co/tsmDCVw
+relaxation,3361,8,there’s an infinite number of monkeys outside who want to talk to us about this script for Hamlet they’ve worked out.,https://ibb.co/QkFzjD9
+energy,1131,6,"Nothing travels faster than the speed of light with the possible exception of bad news, which obeys its own special laws.",https://ibb.co/WcHtG5y
+a good hair day,637,7,"Nothing travels faster than the speed of light with the possible exception of bad news, which obeys its own special laws.",https://ibb.co/kHrW2JW
+pause time,1758,4,take time to study for the test,https://ibb.co/qk1rWyt
+freshly showered,4963,8,Parts of the inside of her head screamed at other parts of the inside of her head.,https://ibb.co/LtDnP6W,8
+teleport into bed,3216,6,if you’ve never been through a matter transference beam before you’ve probably lost some salt and protein. The beer you had should have cushioned your system a bit.,https://ibb.co/tCW9CHN
+ada starter kit,2397,5,"Whatever your tastes, Magrathea can cater for you. We are not proud.",https://photos.app.goo.gl/EjCZFqdH32peKLVD8,8
+ada best seller pack,4517,8,"Nothing travels faster than the speed of light with the possible exception of bad news, which obeys its own special laws.",https://ibb.co/bN6QLXJ
+cup of rainbows,4282,4,"It’s only half completed, I’m afraid – we haven’t even finished burying the artificial dinosaur skeletons in the crust yet.",https://ibb.co/nkBXzYb
+puppy play pack,2803,8,"Nothing travels faster than the speed of light with the possible exception of bad news, which obeys its own special laws.",https://ibb.co/QH3CFxw
+kitten cuddles,4928,7,"Nothing travels faster than the speed of light with the possible exception of bad news, which obeys its own special laws.",https://ibb.co/cyLJK6k
+giggle party,3250,3,"It seemed to me that any civilization that had so far lost its head as to need to include a set of detailed instructions for use in a packet of toothpicks, was no longer a civilization in which I could live and stay sane.",https://ibb.co/fpGjm13
+bestfriend time,2332,11,"According to the legends, the Magratheans lived most of their lives underground.",https://ibb.co/GJL7PfT
+juicy secret,1170,5,"Evolution? they said to themselves, Who needs it?",https://ibb.co/VNjtJzz
+inside joke moment,4141,4,"On the planet Earth, man had always assumed that he was more intelligent than dolphins because he had achieved so much—the wheel, New York, wars and so on—whilst all the dolphins had ever done was muck about in the water having a good time. But conversely, the dolphins had always believed that they were far more intelligent than man—for precisely the same reasons.",https://ibb.co/KXrm3wG
+bondfire time,2976,4,its a nice time,https://ibb.co/mCqdnr0
