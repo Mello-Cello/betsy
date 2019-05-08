@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
   def purchase
     if @order && @order.update(order_params) && @order.cart_errors.empty?
       @order.cart_checkout
-      @order.update(status: "complete", cc_four: params[:order][:cc_all][-4..-1]) # front end valid. on form for min 4 chars
+      @order.update(status: "paid", cc_four: params[:order][:cc_all][-4..-1]) # front end valid. on form for min 4 chars
       session[:cart_id] = nil
       flash[:success] = "Purchase Successful"
       redirect_to cart_path # temp will change to confirmation page.
