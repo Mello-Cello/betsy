@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/cart", to: "orders#view_cart", as: "cart"
   get "/cart/checkout", to: "orders#checkout", as: "checkout_cart"
   post "/cart", to: "orders#purchase", as: "purchase_cart"
+  get "/cart/:id", to: "orders#confirmation", as: "order_confirmation"
 
   # Is this correct? -mf
   resources :categories do
