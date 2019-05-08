@@ -16,4 +16,14 @@ order_2:
   cc_four: 2534
   cc_exp: 09092020
 
+order_3:
+  status: pending
+  shopper_name: miranda
+  shopper_email: panda@hooo.com
+  shopper_address: 43244 tryagain address
+  cc_four: 2534
+  cc_exp: 09092020
+
+
+
   
