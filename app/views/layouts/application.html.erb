@@ -43,12 +43,12 @@
         </div>
       </nav>
       <section class = "flash">
-        <div class = "success">
-          <% if flash[:success] %>
+        <% if flash[:success] %>
+          <div class = "success alert alert-info">
             <%= flash[:success] %>
-        </div>
-        <div class = "error">
-          <% elsif flash[:error] %>
+          </div>
+        <% elsif flash[:error] %>
+          <div class = "error alert alert-alert">
             <%= flash[:error] %>
             <ul>
               <%flash.each do |label, problems|%>
@@ -59,8 +59,8 @@
                 <% end %>
               <% end %>
             </ul>
-          <% end %>
-        </div>
+         </div>
+        <% end %>
       </section>
     </header>
     </main>
