@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   def show
     if @login_merchant
       @order = Order.find_by(id: params[:id])
-      if !@order && !@order.items.any? { |item| item.product.merchant_id == @login_merchant.id }
+      if !@order || !@order.items.any? { |item| item.product.merchant_id == @login_merchant.id }
         flash[:error] = "Can not view order page. No items sold by merchant."
         redirect_to current_merchant_path
       end
