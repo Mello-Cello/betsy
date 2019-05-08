@@ -1,23 +1,16 @@
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet"
-          href= "https://fonts.googleapis.com/css?family=League+Script:regular;"/>
-<link rel="stylesheet"          
-          href= "https://fonts.googleapis.com/css?family=Mrs+Sheppards:regular;"/>
-<link rel="stylesheet"          
-          href= "https://fonts.googleapis.com/css?family=Raleway+Dots:regular;"/>
-
   <head>
-    <title>SECRETS</title>
+    <title>Betsy</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <body class="greybg">
-    <header class="greybg">
-      <nav class="navbar navbar-expand-lg navbar-light bg-purple">
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -25,19 +18,19 @@
           <%= link_to "Intangibly", root_path,  class: "navbar-brand" %>
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-              <%= link_to "Products", products_path, class: "nav-link" %>
+              <%= link_to "Products", products_path,  class: "nav-link" %>
             </li>
             <li class="nav-item">
-             <%= link_to "Categories", categories_path, class: "nav-link" %> 
+             <%= link_to "Categories", categories_path,  class: "nav-link" %> 
             </li>
             <li class="nav-item">
-              <%= link_to "Merchants", merchants_path, class: "nav-link" %>
+              <%= link_to "Merchants", merchants_path,  class: "nav-link" %>
             </li>
           </ul>
 
           <% if session[:merchant_id] %>
             <% merchant = Merchant.find_by(id: session[:merchant_id]) %>
-            <%= link_to merchant.username, merchant_path(merchant.id), class: "nav-link"%>
+            <%= "You are currently logged in as #{merchant.username}" %>
             <%= link_to "Log Out", logout_path, method: "delete", class: "btn btn-outline-success my-2 my-sm-0" %>
           <% else %>
             <%= link_to "Log In", github_login_path, class: "btn btn-outline-success my-2 my-sm-0" %>
@@ -50,36 +43,28 @@
         </div>
       </nav>
       <section class = "flash">
-
-        <div class = "success">
-          <% if flash[:success] %>
+        <% if flash[:success] %>
+          <div class = "success alert alert-info">
             <%= flash[:success] %>
-        </div>
-      
-        <div class = "error">
-          <% elsif flash[:error] %>
+          </div>
+        <% elsif flash[:error] %>
+          <div class = "error alert alert-alert">
             <%= flash[:error] %>
             <ul>
-            <%= flash[:error] %>
               <%flash.each do |label, problems|%>
                 <% if label != "error" %>
                   <% problems.each do |problem| %>
-                   <li class="alert alert-warning"><%= label %>: <%= problem %></li>
+                   <li><%= label %>: <%= problem %></li>
                   <% end %>
                 <% end %>
               <% end %>
             </ul>
-          <% end %>
-        </div>
-      
+          </div>
+        <% end %>
       </section>
-    
     </header>
-    
-    <main class="whitebg">
+    </main>
       <%= yield %>
     </main>
-
   </body>
-
 </html>
