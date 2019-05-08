@@ -23,6 +23,9 @@ describe OrdersController do
     end
 
     describe "as a logged in merchant" do
+      before do
+        perform_login
+      end
       it "will show order page if merchant has a product in the order" do
         perform_login(merchants(:merchant_2))
         get order_path(order.id)
@@ -31,13 +34,20 @@ describe OrdersController do
       end
 
       it "will redirect to merchant dashboard if no products for order belong to mechant" do
-      perform_login
-      get order_path(order.id)
+        get order_path(order.id)
 
-      expect(flash[:error]).must_equal "Can not view order page. No items sold by merchant."
-      must_respond_with :redirect
-      must_redirect_to current_merchant_path
+        expect(flash[:error]).must_equal "Can not view order page. No items sold by merchant."
+        must_respond_with :redirect
+        must_redirect_to current_merchant_path
+      end
 
+      it "if given invalid id and user is logged in " do
+        order_id = -1
+        get order_path(-1)
+
+        expect(flash[:error]).must_equal "Can not view order page. No items sold by merchant."
+        must_respond_with :redirect
+        must_redirect_to current_merchant_path
       end
     end
   end
