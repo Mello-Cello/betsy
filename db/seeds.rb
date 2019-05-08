@@ -44,5 +44,5 @@ CSV.open("db/categories_data.csv", headers: true).each do |line|
     category.valid? ? (puts "#{i += 1} category-product relationships") : failed_to_save << review
   end
 end
-
+p failed_to_save
 puts "#{failed_to_save.count} failed to save"
