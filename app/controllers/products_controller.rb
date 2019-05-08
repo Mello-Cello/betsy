@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_logged_in_merchant, only: [:new, :create, :update, :edit]
+  before_action :find_logged_in_merchant, only: [:new, :create, :update, :edit, :toggle_inactive]
 
   def new
     if @login_merchant
@@ -80,6 +80,29 @@ class ProductsController < ApplicationController
       flash[:error] = "You can only update your own products"
       redirect_to products_path
     end
+  end
+
+  def toggle_inactive
+    @product = Product.find_by(id: params[:id])
+    if @login_merchant
+      if @product.merchant_id == @login_merchant.id
+        if @product.active
+          @product.toggle(:active)
+        end
+        is_successful = @product.save
+
+        if is_successful
+          flash[:success] = "Product retired successfully"
+        else
+          flash[:error] = "Product not retired successfully"
+        end
+      else
+        flash[:error] = "You may only retire your own products"
+      end
+    else
+      flash[:error] = "You must be logged in to retire a product"
+    end
+    redirect_to products_path
   end
 
   private
