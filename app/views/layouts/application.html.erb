@@ -37,7 +37,7 @@
 
           <% if session[:merchant_id] %>
             <% merchant = Merchant.find_by(id: session[:merchant_id]) %>
-            <%= link_to merchant.username, cart_path, class: "nav-link"%>
+            <%= link_to merchant.username, merchant_path(merchant.id), class: "nav-link"%>
             <%= link_to "Log Out", logout_path, method: "delete", class: "btn btn-outline-success my-2 my-sm-0" %>
           <% else %>
             <%= link_to "Log In", github_login_path, class: "btn btn-outline-success my-2 my-sm-0" %>
