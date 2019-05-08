@@ -1,6 +1,6 @@
 <section class= "cart">
   <%if @order && @order.items.any? %>
-    <h1><%=@order.items.count%> item<%="s" if @order.items.count != 1%> in cart</h1>
+    <h2><%=@order.items.count%> item<%="s" if @order.items.count != 1%> in cart</h2>
     <%@order.items.each do |item| %>
       <article class= "item">
         <h3><%=item.product.name%></h3>
@@ -13,7 +13,7 @@
     <%= link_to "Check Out", checkout_cart_path, class: "btn btn-primary"%>
       <%=link_to "Keep shopping", products_path %>
   <%else%>
-  <h1> 0 items in cart</h1>
-  <%= link_to "Discover something intangible to fill it up", products_path %>
+  <h2> 0 items in cart</h2>
+  <p class="centered_grey_text"><%= link_to "Discover something intangible to fill it up", products_path %></p>
   <%end%>
 </section>
