@@ -80,7 +80,7 @@ describe OrdersController do
 
         expect(session[:confirmation]).must_be_nil
         expect(flash[:error]).must_equal "Checkout cart to view confirmation page"
-        
+
         must_respond_with :redirect
         must_redirect_to root_path
       end
