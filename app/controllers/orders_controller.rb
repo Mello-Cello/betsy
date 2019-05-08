@@ -20,9 +20,9 @@ class OrdersController < ApplicationController
 
   def confirmation
     @order = Order.find_by(id: params[:id])
-    if !session[:confirmation] || !@order
-      redirect_to root_path
+    if !@order || session[:confirmation] != @order.id
       flash[:error] = "Checkout cart to view confirmation page"
+      redirect_to root_path
     else
       session[:confirmation] = nil
     end
@@ -39,9 +39,9 @@ class OrdersController < ApplicationController
     if @order && @order.update(order_params) && @order.cart_errors.empty?
       @order.cart_checkout
       @order.update(status: "paid", cc_four: params[:order][:cc_all][-4..-1]) # front end valid. on form for min 4 chars
+      session[:confirmation] = session[:cart_id]
       session[:cart_id] = nil
       flash[:success] = "Purchase Successful"
-      session[:confirmation] = true # needs test
       redirect_to order_confirmation_path(@order.id)
     else
       flash[:error] = "Unable to checkout cart"
