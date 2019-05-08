@@ -15,3 +15,15 @@
 @import "bootstrap";
 /* Import scss content */
 @import "**/*";
+
+.nav-item {
+    color: rgba(131, 11, 142, 0.842);
+  }
+  .nav_bar {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    padding: 20px 10px;
+    margin: 0;
+  }
