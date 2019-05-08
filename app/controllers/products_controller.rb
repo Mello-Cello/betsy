@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.all
+    @products = Product.where(active: true)
   end
 
   def show
