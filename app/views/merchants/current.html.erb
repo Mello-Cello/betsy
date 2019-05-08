@@ -56,5 +56,29 @@
     </table>
   <%end%>
 <%end%>
-        
-  
+
+<% @products = Product.where(merchant_id: @login_merchant.id)%>
+<h3>All Products</h3>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Description</th>
+          <th scope="col">Change Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products.each do |product|%>
+          <tr>
+            <th scope="row"><%=product.id%></th>
+            <td><%=link_to product.name, product_path(product.id) %></td>
+            <td>$<%=product.price / 100.0%></td>
+            <td><%=product.description %></td>   
+            <td><%= link_to "Retire product", toggle_inactive_path(product.id), method: :patch, class: "btn btn-outline-primary" if product.active?%>
+          <%= link_to "Activate product", toggle_inactive_path(product.id), method: :patch, class: "btn btn-outline-secondary" if product.active? == false %></td>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>

@@ -65,6 +65,9 @@
 
 <% if @product.merchant_id == session[:merchant_id]%>
   <%= link_to "Edit product", edit_product_path(@product.id), class: "btn btn-outline-primary" %>
-  <%= link_to "Retire product", { action: "toggle_inactive", id: @product.id }, method: :patch, class: "btn btn-outline-primary" %> 
+  <% if @product.active? %>
+    <%= link_to "Retire product", { action: "toggle_inactive", id: @product.id }, method: :patch, class: "btn btn-outline-primary" %> 
+  <% else %>
+    <%= link_to "Activate product", { action: "toggle_inactive", id: @product.id }, method: :patch, class: "btn btn-outline-primary" %> 
 <% end %>
 
