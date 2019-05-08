@@ -1,6 +1,28 @@
 require "test_helper"
 
 describe OrdersController do
+  # removed index path and controller rather than using it just to redirect
+  # describe "index" do
+  #   it "will redirect all calls to home page" do
+  #     get orders_path
+  #     must_respond_with :redirect
+  #     must_redirect_to root_path
+  #   end
+  # end
+  describe "show" do
+    describe "not logged in" do
+      it "will redirct to root path with flash message" do 
+      end
+    end
+
+    describe "as a logged in merchant" do 
+      it "will show order page if merchant has a product in the order" do 
+      end
+
+      it "will redirect to merchant dashboard if no products for order belong to mechant" do 
+      end
+     end
+end
   describe "view_cart" do
     it "will respond with success if no cart is stored in session" do
       get cart_path

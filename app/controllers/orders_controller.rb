@@ -2,11 +2,20 @@ class OrdersController < ApplicationController
   before_action :find_cart_order, except: [:show, :index]
   before_action :find_logged_in_merchant, only: [:show]
 
-  def view_cart
+  def show
+    if @login_merchant
+      @order = Order.find_by(id: params[:id])
+      if !@order && !@order.items.any? { |item| item.product.merchant_id == @login_merchant.id }
+        flash[:error] = "Can not view order page. No items sold by merchant."
+        redirect_to current_merchant_path
+      end
+    else
+      flash[:error] = "You must be logged to view this page"
+      redirect_to root_path
+    end
   end
 
-  def index
-    redirect_to root_path
+  def view_cart
   end
 
   def confirmation
@@ -16,22 +25,6 @@ class OrdersController < ApplicationController
       flash[:error] = "Checkout cart to view confirmation page"
     else
       session[:confirmation] = nil
-    end
-  end
-
-  def show
-    if @login_merchant
-      @order = Order.find_by(id: params[:id])
-      if !@order
-        flash[:error] = "Unknown order"
-        redirect_to root_path
-      elsif !@order.items.any? { |item| item.product.merchant_id == @login_merchant.id }
-        flash[:error] = "Can not view order page. No items sold by merchant."
-        redirect_to current_merchant_path
-      end
-    else
-      flash[:error] = "You must be logged to view this page"
-      redirect_to root_path
     end
   end
 
