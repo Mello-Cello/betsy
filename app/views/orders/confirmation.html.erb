@@ -1,0 +1,35 @@
+<h1>Order Confirmation</h1>
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Order ID: <%= @order.id %> </th>
+      <th scope="col">Date & Time of order: <%= @order.created_at.strftime("%B %d, %T")%></th>
+      <th scope="col">Order Status: <%=@order.status %> </th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <thead>
+    <tr>
+      <th scope="col">Quantity</th>
+      <th scope="col">Product</th>
+      <th scope="col">Unit Price</th>
+      <th scope="col">Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@order.items.each_with_index do |item| %>
+      <tr>
+        <th scope="row"><%=item.quantity%></th>
+        <td><%=link_to item.product.name, product_path(item.product.id) %></td>
+        <td>$<%=item.product.price / 100.0%></td>
+        <td>$<%=item.subtotal %></td>    
+      </tr>
+    <%end%>
+    <tr>
+      <td></td>
+      <td></td>
+      <th><h3>Total:</h3></th>   <%# REMOVE h3, temp added to get a feel for style%>
+      <th><h3>$<%=@order.total%></h3></th>
+    </tr>
+  </tbody>
+</table>

@@ -3,5 +3,7 @@
 
 <%= render partial: "form", locals: {
   form_class: "new-product",
-  action_name: "Create product"
+  intro_text: "Use this form to create a new product",
+  action_name: "Create product",
+  # price_math: @product.price.nil? ? 0 : @product.price / 100.0 #tried making a variable in _form called price_math
 } %>

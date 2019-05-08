@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_merchant, only: [:new, :create, :update, :edit]
+  before_action :find_logged_in_merchant, only: [:new, :create, :update, :edit]
 
   def new
     if @login_merchant
@@ -53,8 +53,6 @@ class ProductsController < ApplicationController
       if @product.nil?
         flash[:error] = "Unknown product"
         redirect_to products_path
-      else
-        @product.price = @product.price.to_f / 100.0
       end
     else
       flash[:error] = "You must be logged in to edit a product"

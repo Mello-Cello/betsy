@@ -1,6 +1,28 @@
 require "test_helper"
 
 describe OrdersController do
+  # removed index path and controller rather than using it just to redirect
+  # describe "index" do
+  #   it "will redirect all calls to home page" do
+  #     get orders_path
+  #     must_respond_with :redirect
+  #     must_redirect_to root_path
+  #   end
+  # end
+  describe "show" do
+    describe "not logged in" do
+      it "will redirct to root path with flash message" do 
+      end
+    end
+
+    describe "as a logged in merchant" do 
+      it "will show order page if merchant has a product in the order" do 
+      end
+
+      it "will redirect to merchant dashboard if no products for order belong to mechant" do 
+      end
+     end
+end
   describe "view_cart" do
     it "will respond with success if no cart is stored in session" do
       get cart_path
@@ -44,7 +66,7 @@ describe OrdersController do
     let(:cart_params) {
       { order: { shopper_name: "susie",
                  shopper_email: "dalmation@susy.org",
-                 shopper_address: "4455 mailing address",
+                 shopper_address: "44550 mailing address",
                  cc_all: "234443434",
                  cc_exp: "03022020" } }
     }
@@ -89,9 +111,10 @@ describe OrdersController do
         post purchase_cart_path, params: cart_params
       }.wont_change "Order.count"
 
+      order = Order.find_by(shopper_address: "44550 mailing address")
       expect(flash[:success]).must_equal "Purchase Successful"
       must_respond_with :redirect
-      must_redirect_to cart_path
+      must_redirect_to order_confirmation_path(order)
     end
 
     describe "checking out will an invalid cart" do
