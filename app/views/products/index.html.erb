@@ -2,10 +2,19 @@
 
 <span class="btn btn-outline-success my-2 my-sm-0"><%= link_to "Add new product", new_product_path %></span>
 
+<section class="flex-container">
 <ul>
 <% @products.each do |product| %>
   <li>
+  <a href= <%= product_path(product.id) %> > < img src= <% product.photo_url %> alt="product photo"></a>
+  
+  <a href="https://i.ibb.co/jD3rcp0/camylla-battani-784361-unsplash.jpg"> <img src= product.photo_url alt="product photo"></a>
+  
+  <%# <%= image_tag product.photo_url %> %>
+  
+  <%= link_to product.photo_url, product_path(product.id)%>
     <%= link_to product.name, product_path(product.id) %>
   </li>
 <% end %>
 </ul>
+</section>
