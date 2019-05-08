@@ -11,18 +11,18 @@ describe OrdersController do
   # end
   describe "show" do
     describe "not logged in" do
-      it "will redirct to root path with flash message" do 
+      it "will redirct to root path with flash message" do
       end
     end
 
-    describe "as a logged in merchant" do 
-      it "will show order page if merchant has a product in the order" do 
+    describe "as a logged in merchant" do
+      it "will show order page if merchant has a product in the order" do
       end
 
-      it "will redirect to merchant dashboard if no products for order belong to mechant" do 
+      it "will redirect to merchant dashboard if no products for order belong to mechant" do
       end
-     end
-end
+    end
+  end
   describe "view_cart" do
     it "will respond with success if no cart is stored in session" do
       get cart_path
@@ -37,6 +37,53 @@ end
       get cart_path
       must_respond_with :success
       expect(session[:cart_id]).wont_be_nil
+    end
+  end
+
+  describe "confirmation" do
+    let(:product) { products(:product_1) }
+    let(:product2) { products(:product_2) }
+    let(:item_params) { { item: { quantity: 2 } } }
+    let(:cart_params) {
+      { order: { shopper_name: "susie",
+                 shopper_email: "dalmation@susy.org",
+                 shopper_address: "44550 mailing address",
+                 cc_all: "234443434",
+                 cc_exp: "03022020" } }
+    }
+    before do
+      post product_items_path(product.id), params: item_params
+      post product_items_path(product2.id), params: item_params
+      @order = Order.find(session[:cart_id])
+    end
+    describe "following succesful purchase of cart" do
+      before do
+        post purchase_cart_path, params: cart_params
+      end
+      it "will respond with success" do
+        get order_confirmation_path(@order.id)
+        must_respond_with :success
+      end
+
+      it "will reset confirmation in session to nil" do
+        expect(session[:confirmation]).must_equal @order.id
+        get order_confirmation_path(@order.id)
+        expect(session[:confirmation]).must_be_nil
+      end
+    end
+
+    describe "not following purchase of cart" do
+      it "will redirect to root and not make changes to session[:confirmation]" do
+        expect(session[:confirmation]).must_be_nil
+
+        get order_confirmation_path(@order.id)
+
+        expect(session[:confirmation]).must_be_nil
+        expect(flash[:error]).must_equal "Checkout cart to view confirmation page"
+
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
     end
   end
 
@@ -74,7 +121,7 @@ end
       post product_items_path(product.id), params: item_params
       post product_items_path(product2.id), params: item_params
     end
-    it "will set cart in srssion to nil if valid cart purchase" do
+    it "will set cart in session to nil if valid cart purchase" do
       expect(session[:cart_id]).wont_be_nil
 
       expect {
@@ -82,6 +129,17 @@ end
       }.wont_change "Order.count"
 
       expect(session[:cart_id]).must_be_nil
+    end
+
+    it "will set confirmation to true in session if valid cart purchase" do
+      expect(session[:confirmation]).must_be_nil
+      order_id = session[:cart_id]
+
+      expect {
+        post purchase_cart_path, params: cart_params
+      }.wont_change "Order.count"
+
+      expect(session[:confirmation]).must_equal order_id
     end
 
     it "will change order status from pending to paid if valid cart purchase" do
@@ -174,6 +232,16 @@ end
           post purchase_cart_path, params: cart_params
         }.wont_change "Order.count"
         expect(session[:cart_id]).wont_be_nil
+      end
+
+      it "will set not set confirmation in session if invalid cart purchase attempt" do
+        expect(session[:confirmation]).must_be_nil
+
+        expect {
+          post purchase_cart_path, params: cart_params
+        }.wont_change "Order.count"
+
+        expect(session[:confirmation]).must_be_nil
       end
     end
   end
