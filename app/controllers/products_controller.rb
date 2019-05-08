@@ -53,8 +53,6 @@ class ProductsController < ApplicationController
       if @product.nil?
         flash[:error] = "Unknown product"
         redirect_to products_path
-      else
-        @product.price = @product.price.to_f / 100.0
       end
     else
       flash[:error] = "You must be logged in to edit a product"
@@ -66,7 +64,7 @@ class ProductsController < ApplicationController
     @product = Product.find_by(id: params[:id])
     if @product.merchant_id == @login_merchant.id
       @product.update(product_params)
-      @product.price = product_params[:price].to_f * 100.0
+      # @product.price = product_params[:price].to_f * 100.0
       is_successful = @product.save
 
       if is_successful

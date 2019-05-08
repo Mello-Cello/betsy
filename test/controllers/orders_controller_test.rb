@@ -44,7 +44,7 @@ describe OrdersController do
     let(:cart_params) {
       { order: { shopper_name: "susie",
                  shopper_email: "dalmation@susy.org",
-                 shopper_address: "4455 mailing address",
+                 shopper_address: "44550 mailing address",
                  cc_all: "234443434",
                  cc_exp: "03022020" } }
     }
@@ -89,9 +89,10 @@ describe OrdersController do
         post purchase_cart_path, params: cart_params
       }.wont_change "Order.count"
 
+      order = Order.find_by(shopper_address: "44550 mailing address")
       expect(flash[:success]).must_equal "Purchase Successful"
       must_respond_with :redirect
-      must_redirect_to cart_path
+      must_redirect_to order_confirmation_path(order)
     end
 
     describe "checking out will an invalid cart" do
