@@ -76,10 +76,10 @@ class ProductsController < ApplicationController
   end
 
   def toggle_inactive
-    if @login_merchant
+    if @login_merchant && @product.valid?
       if @product.merchant_id == @login_merchant.id
-        @product.active?
         @product.toggle(:active)
+        # raise
         is_successful = @product.save
 
         if is_successful
