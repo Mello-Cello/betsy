@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :find_cart_order, except: [:show, :index]
-  before_action :find_logged_in_merchant, only: [:show]
+  before_action :find_logged_in_merchant, only: [:show, :update]
 
   def show
     if @login_merchant
@@ -16,6 +16,15 @@ class OrdersController < ApplicationController
   end
 
   def update
+    @order = Order.find_by(id: params[:id])
+    raise
+    if !@login_merchant || !@order || !@order.items.any? { |item| item.product.merchant_id == @login_merchant.id } || @order.update(status: params[:status])
+      flash[:error] = "Can not update order"
+      redirect_to root_path
+    else
+      flash[:sucess] = "Order updated"
+      redirect_to current_merchant_path
+    end
   end
 
   def view_cart
