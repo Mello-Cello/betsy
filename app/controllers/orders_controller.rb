@@ -15,6 +15,9 @@ class OrdersController < ApplicationController
     end
   end
 
+  def update
+  end
+
   def view_cart
   end
 
@@ -60,6 +63,6 @@ class OrdersController < ApplicationController
 
   # only partial params, update if more attributes are required.
   def order_params
-    params.require(:order).permit(:shopper_name, :shopper_email, :shopper_address, :cc_exp)
+    params.require(:order).permit(:shopper_name, :shopper_email, :shopper_address, :cc_exp, :status)
   end
 end

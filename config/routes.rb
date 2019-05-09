@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :categories, only: [:new, :create, :index, :show]
   resources :items, only: [:create, :update, :destroy]
   resources :merchants, only: [:index, :create, :show]
-  resources :orders, only: [:show]
+  resources :orders, only: [:show, :update]
 
   get "/cart", to: "orders#view_cart", as: "cart"
   get "/cart/checkout", to: "orders#checkout", as: "checkout_cart"
