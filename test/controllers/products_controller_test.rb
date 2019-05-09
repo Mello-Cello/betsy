@@ -196,4 +196,47 @@ describe ProductsController do
       # I think this is covered in the edit tests since users cannot get to the edit page if they are not logged in. Let me know if I need to test this.
     end
   end
+
+  describe "toggle inactive" do
+    describe "logged in merchant" do
+      it "changes active from true to false and false to true" do
+        # Change from true to false
+        perform_login(merchants(:merchant_2))
+        product = products(:product_1)
+
+        patch toggle_inactive_path(product.id)
+        product.reload
+
+        expect(product.active).must_equal false
+        must_redirect_to current_merchant_path
+        expect(flash[:success]).must_equal "Product status changed successfully"
+
+        # Change back from false back to true
+        patch toggle_inactive_path(product.id)
+
+        product.reload
+
+        expect(product.active).must_equal true
+        must_redirect_to current_merchant_path
+        expect(flash[:success]).must_equal "Product status changed successfully"
+      end
+
+      # it "changes active from false to true" do
+      #   # Arrange
+      #   product = products(:product_1)
+      #   patch toggle_inactive_path(product.id)
+
+      #   # Act
+      #   product.reload
+
+      #   # Assert
+      #   expect(product.active).must_equal true
+      #   must_redirect_to current_merchant_path
+      #   expect(flash[:success]).must_equal "Product updated successfully"
+      # end
+    end
+
+    describe "logged out" do
+    end
+  end
 end
