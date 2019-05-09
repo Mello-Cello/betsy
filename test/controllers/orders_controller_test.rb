@@ -51,6 +51,73 @@ describe OrdersController do
       end
     end
   end
+
+  describe "update" do
+    let(:order) { orders(:order_2) }
+    let(:order_params) { { order: { status: "complete" } } }
+    describe "not logged in user" do
+      it "will redirect home with flash and NOT update order" do
+        expect(order.status).must_equal "paid"
+
+        expect {
+          patch order_path(order.id), params: order_params
+        }.wont_change "Order.count"
+
+        order.reload
+
+        expect(order.status).must_equal "paid"
+        expect(flash[:error]).must_equal "Can not update order"
+
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
+    end
+
+    describe "as a loggedd in merchant" do
+      before do
+        perform_login(merchants(:merchant_2))
+      end
+      it "will update order if merchant has items on order and order is valid" do
+        expect(order.status).must_equal "paid"
+        expect {
+          patch order_path(order.id), params: order_params
+        }.wont_change "Order.count"
+
+        order.reload
+
+        expect(flash[:success]).must_equal "Order updated"
+        expect(order.status).must_equal "complete"
+        must_respond_with :redirect
+        must_redirect_to current_merchant_path
+      end
+
+      it "will not update if merchant does not have items on order" do
+        perform_login
+        expect(order.status).must_equal "paid"
+
+        expect {
+          patch order_path(order.id), params: order_params
+        }.wont_change "Order.count"
+
+        order.reload
+
+        expect(order.status).must_equal "paid"
+        expect(flash[:error]).must_equal "Can not update order"
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
+
+      it "will redriect home with flash if order is not valid" do
+        invalid_id = -1
+        expect {
+          patch order_path(-1), params: order_params
+        }.wont_change "Order.count"
+        expect(flash[:error]).must_equal "Can not update order"
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
+    end
+  end
   describe "view_cart" do
     it "will respond with success if no cart is stored in session" do
       get cart_path
@@ -86,7 +153,7 @@ describe OrdersController do
     end
     describe "following succesful purchase of cart" do
       before do
-        post purchase_cart_path, params: cart_params
+        patch purchase_cart_path, params: cart_params
       end
       it "will respond with success" do
         get order_confirmation_path(@order.id)
@@ -153,7 +220,7 @@ describe OrdersController do
       expect(session[:cart_id]).wont_be_nil
 
       expect {
-        post purchase_cart_path, params: cart_params
+        patch purchase_cart_path, params: cart_params
       }.wont_change "Order.count"
 
       expect(session[:cart_id]).must_be_nil
@@ -164,7 +231,7 @@ describe OrdersController do
       order_id = session[:cart_id]
 
       expect {
-        post purchase_cart_path, params: cart_params
+        patch purchase_cart_path, params: cart_params
       }.wont_change "Order.count"
 
       expect(session[:confirmation]).must_equal order_id
@@ -175,7 +242,7 @@ describe OrdersController do
       expect(order.status).must_equal "pending"
 
       expect {
-        post purchase_cart_path, params: cart_params
+        patch purchase_cart_path, params: cart_params
       }.wont_change "Order.count"
       order.reload
       expect(order.status).must_equal "paid"
@@ -185,7 +252,7 @@ describe OrdersController do
       product_stock = product.stock + product2.stock
 
       expect {
-        post purchase_cart_path, params: cart_params
+        patch purchase_cart_path, params: cart_params
       }.wont_change "Order.count"
       product.reload
       product2.reload
@@ -194,7 +261,7 @@ describe OrdersController do
 
     it "will have flash message and redirect to correct page if valid cart purchase" do
       expect {
-        post purchase_cart_path, params: cart_params
+        patch purchase_cart_path, params: cart_params
       }.wont_change "Order.count"
 
       order = Order.find_by(shopper_address: "44550 mailing address")
@@ -222,7 +289,7 @@ describe OrdersController do
 
       it "will have flash message and redirect to correct page if invalid cart purchase" do
         expect {
-          post purchase_cart_path, params: cart_params
+          patch purchase_cart_path, params: cart_params
         }.wont_change "Order.count"
 
         expect(flash[:error]).must_equal "Unable to checkout cart"
@@ -236,7 +303,7 @@ describe OrdersController do
         expect(order.status).must_equal "pending"
 
         expect {
-          post purchase_cart_path, params: cart_params
+          patch purchase_cart_path, params: cart_params
         }.wont_change "Order.count"
 
         expect(order.status).must_equal "pending"
@@ -246,7 +313,7 @@ describe OrdersController do
         product_stock = product.stock + product2.stock
 
         expect {
-          post purchase_cart_path, params: cart_params
+          patch purchase_cart_path, params: cart_params
         }.wont_change "Order.count"
 
         product.reload
@@ -257,7 +324,7 @@ describe OrdersController do
       it "will not change cart in session if invalid cart" do
         expect(session[:cart_id]).wont_be_nil
         expect {
-          post purchase_cart_path, params: cart_params
+          patch purchase_cart_path, params: cart_params
         }.wont_change "Order.count"
         expect(session[:cart_id]).wont_be_nil
       end
@@ -266,7 +333,7 @@ describe OrdersController do
         expect(session[:confirmation]).must_be_nil
 
         expect {
-          post purchase_cart_path, params: cart_params
+          patch purchase_cart_path, params: cart_params
         }.wont_change "Order.count"
 
         expect(session[:confirmation]).must_be_nil
