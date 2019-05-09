@@ -96,15 +96,43 @@ describe ItemsController do
     let(:item) { items(:item_1) }
     let(:item_params) { { item: { quantity: 2 } } }
     it "will update a valid item if product has enough stock" do
-      expect{
-        patch item_path(item.id) 
-      }
+      expect {
+        patch item_path(item.id), params: item_params
+      }.wont_change "Item.count"
+      must_respond_with :redirect
+      must_redirect_to cart_path
+      expect(flash[:success]).must_equal "#{item.product.name} successfully updated"
     end
 
     it "will not update a product if update of quantity exceeds product stock" do
+      products(:product_1).update(stock: 1)
+
+      expect {
+        patch item_path(item.id), params: item_params
+      }.wont_change "Item.count"
+      must_respond_with :redirect
+      must_redirect_to cart_path
+      expect(flash[:error]).must_equal "Unable to update item"
     end
 
-    it "will show flash message and redirect updated item is invalid/ item not found" do
+    it "will show flash message and redirect updated item is invalid" do
+      item_params[:item][:quantity] = -1
+      expect {
+        patch item_path(item.id), params: item_params
+      }.wont_change "Item.count"
+      must_respond_with :redirect
+      must_redirect_to cart_path
+      expect(flash[:error]).must_equal "Unable to update item"
+    end
+
+    it "will show flash message and redirect if item is not found " do
+      invalid_id = -1
+      expect {
+        patch item_path(invalid_id), params: item_params
+      }.wont_change "Item.count"
+      must_respond_with :redirect
+      must_redirect_to cart_path
+      expect(flash[:error]).must_equal "Unable to update item"
     end
   end
 
