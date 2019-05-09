@@ -68,6 +68,7 @@
             <td><%=link_to item.product.name, product_path(item.product.id) %></td>
             <td>$<%= "%.2f" %  (item.product.price / 100.0)%></td>
             <td>$<%="%.2f" %  (item.subtotal) %></td> 
+            <td></td>
           </tr>
         <%end%>
       </tbody>
