@@ -57,7 +57,8 @@
   <%= render partial: "/reviews/review_form"%>
 </section>
 <section>
-  <%= render partial: "/items/item_form", locals: {item: Item.new, method_verb: :post, action: "Add to Cart"} %>
+  <%= render partial: "/items/item_form", locals: {item: Item.new, method_verb: :post,
+                                                  action: "Add to Cart", url_path: product_items_path(@product.id)} %>
 </section>
 
 <%= link_to "Back to all products", products_path %> 

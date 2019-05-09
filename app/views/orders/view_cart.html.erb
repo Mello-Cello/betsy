@@ -8,7 +8,7 @@
         <p>quantity: <%=item.quantity%></p>
         <p>subtotal: $<%=item.subtotal%>
         <% @product = item.product %>
-        <%= render partial: "/items/item_form",  locals: {item: item, method_verb: :patch, action: "Update"} %>
+        <%= render partial: "/items/item_form",  locals: {item: item, method_verb: :patch, action: "Update", url_path: item_path(item.id)} %>
         <%= link_to "Remove item", item_path(item.id), method: :delete, class: "btn btn-secondary btn-sm"%>
       </article>
     <%end%>

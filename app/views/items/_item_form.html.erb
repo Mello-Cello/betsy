@@ -1,5 +1,5 @@
 
-<%=form_with model: item , url: product_items_path(@product.id), method: method_verb do |f| %>
+<%=form_with model: item , url: url_path, method: method_verb do |f| %>
 <div class = inline>
   <%= f.label :Quantity%>
   <%= f.number_field :quantity, required: true, in: 1..@product.stock%>

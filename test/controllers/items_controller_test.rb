@@ -92,6 +92,22 @@ describe ItemsController do
     end
   end
 
+  describe "update" do
+    let(:item) { items(:item_1) }
+    let(:item_params) { { item: { quantity: 2 } } }
+    it "will update a valid item if product has enough stock" do
+      expect{
+        patch item_path(item.id) 
+      }
+    end
+
+    it "will not update a product if update of quantity exceeds product stock" do
+    end
+
+    it "will show flash message and redirect updated item is invalid/ item not found" do
+    end
+  end
+
   describe "destroy" do
     let(:item) { items(:item_1) }
     it "will destroy a valid item" do

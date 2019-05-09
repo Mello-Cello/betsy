@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   get "/merchants/current", to: "merchants#current", as: "current_merchant"
   get "homepages/index"
+
   resources :categories, only: [:new, :create, :index, :show]
-  resources :items, only: [:destroy]
+  resources :items, only: [:update, :destroy]
   resources :merchants, only: [:index, :create, :show]
   resources :orders, only: [:show]
 
@@ -15,7 +16,7 @@ Rails.application.routes.draw do
     resources :reviews, only: [:create]
     resources :items, only: [:create, :update]
   end
-  
+
   root to: "homepages#index"
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
