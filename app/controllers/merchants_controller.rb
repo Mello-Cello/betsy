@@ -96,10 +96,10 @@ end
 
 private
 
-def find_merchant
-  @merchant = Merchant.find_by_id(merchant_params[:id])
-end
+# def find_merchant
+#   @merchant = Merchant.find_by_id(merchant_params[:id])
+# end
 
-def merchant_params
-  return params.require(:merchant).permit(:username, :email, :uid, :provider)
-end
+# def merchant_params
+#   return params.require(:merchant).permit(:username, :email, :uid, :provider)
+# end
