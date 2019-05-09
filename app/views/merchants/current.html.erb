@@ -57,7 +57,7 @@
   <%end%>
 <%end%>
 
-<% @products = Product.where(merchant_id: @login_merchant.id)%>
+<% @products = Product.where(merchant_id: @login_merchant.id).order(:active).reverse %>
 <h3>All Products</h3>
     <table class="table table-sm">
       <thead>
