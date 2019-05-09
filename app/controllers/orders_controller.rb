@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :find_cart_order, except: [:show, :index]
-  before_action :find_logged_in_merchant, only: [:show]
+  before_action :find_logged_in_merchant, only: [:show, :update]
 
   def show
     if @login_merchant
@@ -12,6 +12,17 @@ class OrdersController < ApplicationController
     else
       flash[:error] = "You must be logged to view this page"
       redirect_to root_path
+    end
+  end
+
+  def update
+    @order = Order.find_by(id: params[:id])
+    if !@login_merchant || !@order || !@order.items.any? { |item| item.product.merchant_id == @login_merchant.id } || !@order.update(order_params)
+      flash[:error] = "Can not update order"
+      redirect_to root_path
+    else
+      flash[:success] = "Order updated"
+      redirect_to current_merchant_path
     end
   end
 
@@ -36,9 +47,8 @@ class OrdersController < ApplicationController
   end
 
   def purchase
-    if @order && @order.update(order_params) && @order.cart_errors.empty?
+    if @order && @order.update(order_params) && @order.cart_errors.empty? && @order.update(status: "paid")
       @order.cart_checkout
-      @order.update(status: "paid", cc_four: params[:order][:cc_all][-4..-1]) # front end valid. on form for min 4 chars
       session[:confirmation] = session[:cart_id]
       session[:cart_id] = nil
       flash[:success] = "Purchase Successful"
@@ -60,6 +70,9 @@ class OrdersController < ApplicationController
 
   # only partial params, update if more attributes are required.
   def order_params
-    params.require(:order).permit(:shopper_name, :shopper_email, :shopper_address, :cc_exp)
+    if params[:order][:cc_all]
+      params[:order][:cc_four] = params[:order][:cc_all][-4..-1] # front-end validation requires min 4 char input.
+    end
+    params.require(:order).permit(:shopper_name, :shopper_email, :shopper_address, :cc_exp, :cc_four, :status)
   end
 end
