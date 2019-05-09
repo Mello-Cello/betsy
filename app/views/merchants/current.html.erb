@@ -1,8 +1,8 @@
 <h2>Merchant Dashboard</h2>
 <h2>Welcome <%= @login_merchant.username %></h2>
 
-<%= link_to "Add new product", new_product_path %>
-<%= link_to "Add new category", new_category_path %>
+<%= link_to "Add new product", new_product_path, class: "btn btn-outline-primary" %>
+<%= link_to "Add new category", new_category_path, class: "btn btn-outline-primary" %>
 
 <% item_hash = Order.find_merchant_order_items(@login_merchant) %>
 
@@ -66,7 +66,8 @@
           <th scope="col">Name</th>
           <th scope="col">Price</th>
           <th scope="col">Description</th>
-          <th scope="col">Change Status</th>
+          <th scope="col">Active</th>
+          <th scope="col">Retire Product</th>
         </tr>
       </thead>
       <tbody>
@@ -76,8 +77,9 @@
             <td><%=link_to product.name, product_path(product.id) %></td>
             <td>$<%=product.price / 100.0%></td>
             <td><%=product.description %></td>   
-            <td><%= link_to "Retire product", toggle_inactive_path(product.id), method: :patch, class: "btn btn-outline-primary" if product.active?%>
-          <%= link_to "Activate product", toggle_inactive_path(product.id), method: :patch, class: "btn btn-outline-secondary" if product.active? == false %></td>
+            <td><%=product.active? ? "Active" : "Retired" %>
+            <td><%=link_to "Retire product", toggle_inactive_path(product.id), method: :patch, class: "btn btn-outline-primary" if product.active?%>
+            </td>
           </tr>
         <%end%>
       </tbody>

@@ -40,7 +40,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find_by(id: params[:id])
 
-    if @product.nil? || !@product.active? # if product does not exist or it is not active (aka it is retired)
+    if @product.nil? || @product.active? == false # if product does not exist or it is not active (aka it is retired)
       flash[:error] = "Unknown product"
       redirect_to products_path
     end
@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
     if @login_merchant
       @product = Product.find_by(id: params[:id])
 
-      if @product.nil?
+      if @product.nil? || !@product.active #don't show if product is inactive/retired
         flash[:error] = "Unknown product"
         redirect_to products_path
       end
@@ -102,7 +102,7 @@ class ProductsController < ApplicationController
     else
       flash[:error] = "You must be logged in to retire a product"
     end
-    redirect_to products_path
+    redirect_to current_merchant_path
   end
 
   private
