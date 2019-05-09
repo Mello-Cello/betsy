@@ -58,11 +58,16 @@ describe OrdersController do
     describe "not logged in user" do
       it "will redirect home with flash and NOT update order" do
         expect(order.status).must_equal "paid"
+
         expect {
           patch order_path(order.id), params: order_params
         }.wont_change "Order.count"
+
         order.reload
+
         expect(order.status).must_equal "paid"
+        expect(flash[:error]).must_equal "Can not update order"
+
         must_respond_with :redirect
         must_redirect_to root_path
       end
@@ -77,7 +82,10 @@ describe OrdersController do
         expect {
           patch order_path(order.id), params: order_params
         }.wont_change "Order.count"
+
         order.reload
+
+        expect(flash[:success]).must_equal "Order updated"
         expect(order.status).must_equal "complete"
         must_respond_with :redirect
         must_redirect_to current_merchant_path
@@ -94,6 +102,7 @@ describe OrdersController do
         order.reload
 
         expect(order.status).must_equal "paid"
+        expect(flash[:error]).must_equal "Can not update order"
         must_respond_with :redirect
         must_redirect_to root_path
       end
@@ -103,7 +112,7 @@ describe OrdersController do
         expect {
           patch order_path(-1), params: order_params
         }.wont_change "Order.count"
-
+        expect(flash[:error]).must_equal "Can not update order"
         must_respond_with :redirect
         must_redirect_to root_path
       end

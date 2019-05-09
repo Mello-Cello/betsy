@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
       flash[:error] = "Can not update order"
       redirect_to root_path
     else
-      flash[:sucess] = "Order updated"
+      flash[:success] = "Order updated"
       redirect_to current_merchant_path
     end
   end
