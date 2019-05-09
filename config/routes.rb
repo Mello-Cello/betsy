@@ -26,5 +26,7 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
   delete "/logout", to: "merchants#logout", as: "logout"
 
+  patch "products/:id/toggle_inactive", to: "products#toggle_inactive", as: "toggle_inactive"
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

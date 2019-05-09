@@ -4,7 +4,7 @@
 
 <section class="flex-container">
 
-<% @products.each do |product| %>
+<% Product.where(active: true).each do |product| %>
   <span >
     <%= link_to image_tag(product.photo_url), product_path(product.id) %>
     <p><%= link_to product.name, product_path(product.id) %></p>
