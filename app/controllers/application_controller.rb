@@ -10,4 +10,5 @@ class ApplicationController < ActionController::Base
   def find_cart_order
     @order = Order.find_by(id: session[:cart_id])
   end
+  
 end

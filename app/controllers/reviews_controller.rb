@@ -1,8 +1,7 @@
 class ReviewsController < ApplicationController
   def create
     @product = Product.find(params[:product_id])
-    # Checks if merchant signed in that they are not reviewing their own product.
-    if @product.merchant_id == session[:merchant_id]
+    if !@product || @product.merchant_id == session[:merchant_id]
       flash.now[:error] = "Merchants cannot review their own product."
       render "products/show", status: :bad_request
     else

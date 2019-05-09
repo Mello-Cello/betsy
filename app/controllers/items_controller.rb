@@ -21,7 +21,7 @@ class ItemsController < ApplicationController
       flash.now[:error] = "Could Not Add To Cart: product not available"
       redirect_to products_path
 
-      # check if requested quanitity is available
+      # check if requested quantity is available
     elsif item.quantity && @product.stock < item.quantity
       flash.now[:error] = "Could Not Add To Cart: quantity selected is more than available stock"
       render "products/show", status: :bad_request
@@ -32,7 +32,7 @@ class ItemsController < ApplicationController
       @order.items << item
 
       if item.valid?
-        flash[:success] = "#{@product.name} (quantity: #{item.quantity}) Successfully Added To Cart"
+        flash[:success] = "#{@product.name} (total quantity: #{item.quantity}) Successfully Added To Cart"
         redirect_to product_path(@product.id)
       else
         flash.now[:error] = "Could Not Add To Cart"
