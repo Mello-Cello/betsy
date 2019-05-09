@@ -1,23 +1,38 @@
 <h2>Merchant Dashboard</h2>
-<h2>Welcome <%= @login_merchant.username %></h2>
+<h3>Welcome <%= @login_merchant.username.capitalize%></h3>
 
 <%= link_to "Add new product", new_product_path, class: "btn btn-outline-primary" %>
 <%= link_to "Add new category", new_category_path, class: "btn btn-outline-primary" %>
 
 <% item_hash = Order.find_merchant_order_items(@login_merchant) %>
 
-<h3>Paid orders</h3>
-    <ul>
-        <li>Total number of paid orders: <%= item_hash["paid"].count %></li>
-        <li>Revenue for paid orders: $<%= "%.2f" %  Order.status_revenue(item_hash["paid"])%></li>
-    </ul>
-<h3>Complete orders</h3>
-    <ul>
-        <li>Total number of complete orders: <%= item_hash["complete"].count %></li>
-        <li>Revenue for complete orders: $<%= "%.2f" %  Order.status_revenue(item_hash["complete"])%></li>
-    </ul>
-<h3>Total revenue</h3>
-    <p> $<%= "%.2f" % ( Order.status_revenue(item_hash["paid"]) + Order.status_revenue(item_hash["completed"]))%> </p>
+<h3>Merchant Metrics</h3>
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Status</th>
+      <th scope="col">Number of Orders</th>
+      <th scope="col">Revenue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Paid</th>
+      <td><%= item_hash["paid"].count %></td>
+      <td>$<%= "%.2f" %  Order.status_revenue(item_hash["paid"])%></td>
+    </tr>
+    <tr>
+      <th scope="row">Complete</th>
+      <td><%= item_hash["complete"].count %></td>
+      <td>$<%= "%.2f" %  Order.status_revenue(item_hash["complete"])%></td>
+    </tr>
+    <tr>
+      <th scope="row">Total</th>
+      <td><%= item_hash["complete"].count + item_hash["paid"].count%></td>
+      <td>$<%= "%.2f" % ( Order.status_revenue(item_hash["paid"]) + Order.status_revenue(item_hash["completed"]))%> </td>
+    </tr>
+  </tbody>
+</table>
 
 <h3>Orders by status</h3>
 <%["paid", "complete"].each do |status|%>
