@@ -36,10 +36,10 @@ class Order < ApplicationRecord
   #   "complete" => {"15": [item11, item12, item17]}
   # }
   # to add more statuses to track follow items_hash template -> { "paid" => {}, "complete" => {} }
-  def self.find_merchant_order_items(merchant, items_hash: {"paid" => {}, "complete" => {}})
+  def self.find_merchant_order_items(merchant, items_hash: { "paid" => {}, "complete" => {} })
     Order.all.each do |order|
       order.items.each do |item|
-        if items_hash.include?(order.status) && item.product.merchant_id == merchant.id
+        if item && items_hash.include?(order.status) && item.product.merchant_id == merchant.id
           if !items_hash[order.status.to_s].include?(order.id.to_s)
             items_hash[order.status.to_s][order.id.to_s] = [item]
           else
@@ -63,11 +63,10 @@ class Order < ApplicationRecord
     end
     return revenue
   end
-end
 
-# takes input of items_hash["status"] where status is a status in items_hash
-def self.status_count_orders(item_status)
-  return item_status.sum do |order_id, items|
-           items.count
-         end
+  # takes input of items_hash["status"] where status is a status in items_hash
+  def self.status_count_orders(item_status)
+    return 0 if !item_status
+    return item_status.count
+  end
 end
