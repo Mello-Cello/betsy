@@ -86,21 +86,20 @@ class ProductsController < ApplicationController
     @product = Product.find_by(id: params[:id])
     if @login_merchant
       if @product.merchant_id == @login_merchant.id
-        if @product.active
-          @product.toggle(:active)
-        end
+        @product.active?
+        @product.toggle(:active)
         is_successful = @product.save
 
         if is_successful
-          flash[:success] = "Product retired successfully"
+          flash[:success] = "Product status changed successfully"
         else
-          flash[:error] = "Product not retired successfully"
+          flash[:error] = "Product status not changed successfully"
         end
       else
-        flash[:error] = "You may only retire your own products"
+        flash[:error] = "You may only change the status of your own products"
       end
     else
-      flash[:error] = "You must be logged in to retire a product"
+      flash[:error] = "You must be logged in to change the status of a product"
     end
     redirect_to current_merchant_path
   end

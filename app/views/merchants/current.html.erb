@@ -79,6 +79,7 @@
             <td><%=product.description %></td>   
             <td><%=product.active? ? "Active" : "Retired" %>
             <td><%=link_to "Retire product", toggle_inactive_path(product.id), method: :patch, class: "btn btn-outline-primary" if product.active?%>
+            <%=link_to "Activate product", toggle_inactive_path(product.id), method: :patch, class: "btn btn-outline-primary" if product.active? == false%>
             </td>
           </tr>
         <%end%>
