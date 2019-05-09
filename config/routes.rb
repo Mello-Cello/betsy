@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get "/merchants/current", to: "merchants#current", as: "current_merchant"
   get "homepages/index"
   resources :categories, only: [:new, :create, :index, :show]
-  resources :items, only: [:create, :update, :destroy]
+  resources :items, only: [:destroy]
   resources :merchants, only: [:index, :create, :show]
   resources :orders, only: [:show]
 
@@ -11,16 +11,11 @@ Rails.application.routes.draw do
   post "/cart", to: "orders#purchase", as: "purchase_cart"
   get "/cart/:id", to: "orders#confirmation", as: "order_confirmation"
 
-  # Is this correct? -mf
-  resources :categories do
-    resources :products, only: [:index]
-  end
-
   resources :products, except: [:destroy] do
     resources :reviews, only: [:create]
-    resources :items, only: [:create]
+    resources :items, only: [:create, :update]
   end
-
+  
   root to: "homepages#index"
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"

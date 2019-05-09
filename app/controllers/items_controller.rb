@@ -45,6 +45,7 @@ class ItemsController < ApplicationController
   end
 
   def update
+    raise
   end
 
   def destroy
