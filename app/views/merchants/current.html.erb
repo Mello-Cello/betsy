@@ -30,7 +30,11 @@
           <th scope="col">Date & Time of order: <%= Order.find(order).created_at.strftime("%B %d, %T")%></th>
           <th scope="col">Order Status: <%= Order.find(order).status %> </th>
           <th scope="col"> </th>
-          <th scope="col"> </th>
+          <% if status == "paid"%>  
+            <th scope="col"><%=link_to "SHIP ORDER", order_path(order.to_i, {order: {status: "complete"}}), method: :patch, class: "btn btn-sm btn-danger"%></th>
+          <%else%>
+            <th scope="col"> </th>
+          <%end%>
         </tr>
       </thead>
       <thead>
@@ -39,9 +43,7 @@
           <th scope="col">Product Name</th>
           <th scope="col">Unit Price</th>
           <th scope="col">Subtotal</th>
-          <% if status == "paid"%> 
-            <th scope="col">Mark as Shipped</th>
-          <%end%>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -51,9 +53,6 @@
             <td><%=link_to item.product.name, product_path(item.product.id) %></td>
             <td>$<%=item.product.price / 100.0%></td>
             <td>$<%=item.subtotal %></td> 
-            <% if status == "paid"%>  
-              <td><%=link_to "SHIP ORDER", order_path(order.to_i, {order: {status: "complete"}}), method: :patch, class: "btn btn-sm btn-danger"%></td>
-            <%end%>
           </tr>
         <%end%>
       </tbody>
