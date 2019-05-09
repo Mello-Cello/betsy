@@ -26,7 +26,7 @@
     <ul>
 
       <% @product.categories.each do |category| %>
-        <li><%= category.name %></li>
+        <li><%= link_to category.name, category_path(category.id) %></li>
       <% end %>
 
     </ul>
@@ -55,14 +55,12 @@
   <% end %>
 </section>
 <section>
-  <%= render "/reviews/review_form"%>
+  <%= render partial: "/reviews/review_form"%>
 </section>
 <section>
-  <%= render "/items/item_form"%>
+  <%= render partial: "/items/item_form", locals: {item: Item.new, method_verb: :post,
+                                                  action: "Add to Cart", url_path: product_items_path(@product.id)} %>
 </section>
 
 <%= link_to "Back to all products", products_path %> 
 
-<% if @product.merchant_id == session[:merchant_id]%>
-  <%= link_to "Edit product", edit_product_path(@product.id) %>
-<% end %>
