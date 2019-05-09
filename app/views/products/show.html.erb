@@ -54,10 +54,10 @@
   <% end %>
 </section>
 <section>
-  <%= render "/reviews/review_form"%>
+  <%= render partial: "/reviews/review_form"%>
 </section>
 <section>
-  <%= render "/items/item_form"%>
+  <%= render partial: "/items/item_form", locals: {item: Item.new, method_verb: :post, action: "Add to Cart"} %>
 </section>
 
 <%= link_to "Back to all products", products_path %> 

@@ -1,10 +1,10 @@
 
-<%=form_with model: Item.new() , url: product_items_path(@product.id) do |f| %>
+<%=form_with model: item , url: product_items_path(@product.id), method: method_verb do |f| %>
 <div class = inline>
   <%= f.label :Quantity%>
   <%= f.number_field :quantity, required: true, in: 1..@product.stock%>
 </div>
 <div class = inline>
-  <%= f.submit "Add To Cart" %>
+  <%= f.submit action %>
 </div>
 <%end%>
