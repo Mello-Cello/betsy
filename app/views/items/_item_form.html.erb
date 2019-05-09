@@ -1,11 +1,10 @@
 
-<%=form_with model: Item.new() , url: product_items_path(@product.id) do |f| %>
-
-<div class="form-group col-md-1">
-  <%= f.label :Quantity%>
-  <%= f.number_field :quantity, required: true, in: 1..@product.stock, class: "form-control"%>
-</div>
-<div class="form-group col-md-4">
-  <%= f.submit "Add To Cart", class: "btn btn-sm btn-primary" %>
-</div>
+<%=form_with model: item , url: url_path, method: method_verb do |f| %>
+  <div class="form-group col-md-1">
+    <%= f.label :Quantity%>
+    <%= f.number_field :quantity, required: true, in: 1..@product.stock, class: "form-control"%>
+  </div>
+  <div class="form-group col-md-4">
+    <%= f.submit action, class: "btn btn-sm btn-primary" %>
+  </div>
 <%end%>
