@@ -106,5 +106,85 @@ describe Order do
         expect(order.cart_checkout).must_be_nil
       end
     end
+
+    describe "class methods " do
+      let(:merchant) { merchants(:merchant_2) }
+      let(:item_hash) { Order.find_merchant_order_items(merchant) }
+      describe "self.find_merchant_order_items(merchant, items_hash: {\"paid\" => {}, \"complete\" => {} })" do
+        it "will return a nested hash structure thatsstores merchant order items:
+        key is order status and value is a hash with order_id as key and array of item objects as value:" do
+          expect(item_hash.to_s).must_equal ({ "paid" => { "615724322" => [Item.find(477087474)] }, "complete" => { "1035625630" => [Item.find(845260767), Item.find(728299111)] } }).to_s
+        end
+
+        it "will return empty hash for values with no orders in an order.status" do
+          expect(Order.find_merchant_order_items(merchants(:merchant_3)).to_s).must_equal ({ "paid" => {}, "complete" => {} }).to_s
+        end
+
+        it "will return hash with additional statuses and add orders to them passed as params" do
+          expect(Order.find_merchant_order_items(merchant, items_hash: { "paid" => {}, "complete" => {}, "pending" => {} }).to_s).must_equal ({ "paid" => { "615724322" => [Item.find(477087474)] }, "complete" => { "1035625630" => [Item.find(845260767), Item.find(728299111)] }, "pending" => { "330565047" => [Item.find(34296661)] } }).to_s
+        end
+
+        # NOT 100% SURE IF THESE TESTS ARE ACTUALLY TESTING WHAT THEY ARE SUPPOSED TO.
+        # ALSO LOTS OF CHECKS AND VAILDATIONS, SO THESE SCENARIOS WOULD NOT HAPPEN. DO # THESE EVEN HAVE TO BE TESTED?
+
+        # it "invalid order will not be added to hash" do
+        #   order = Order.new(status: "noneya")
+        #   item = Item.new(product: products(:product_2), order: order, quantity: 4)
+        #   expect(item.valid?).must_equal true
+        #   expect(order.valid?).must_equal false
+        #   expect(item_hash.to_s).must_equal ({ "paid" => { "615724322" => [Item.find(477087474)] }, "complete" => { "1035625630" => [Item.find(845260767), Item.find(728299111)] } }).to_s
+        # end
+
+        # it "invalid item will not be added to hash" do
+        #   items(:item_2).update(quantity: nil)
+        #   expect(items(:item_2).valid?).must_equal false
+        #   expect(item_hash.to_s).must_equal ({ "paid" => { "615724322" => [Item.find(477087474)] }, "complete" => { "1035625630" => [Item.find(845260767)] } }).to_s
+        # end
+
+        it "invalid order will not be added to hash even if supplied the status in item_hash" do
+          order = Order.new(status: "noneya")
+          item = Item.new(product: products(:product_2), order: order, quantity: 4)
+          expect(item.valid?).must_equal true
+          expect(order.valid?).must_equal false
+          expect(Order.find_merchant_order_items(merchant, items_hash: { "paid" => {}, "complete" => {}, "noneya" => {} }).to_s).must_equal ({ "paid" => { "615724322" => [Item.find(477087474)] }, "complete" => { "1035625630" => [Item.find(845260767), Item.find(728299111)] }, "noneya" => {} }).to_s
+        end
+      end
+
+      describe " def self.status_revenue(item_status)" do
+        let(:revenue_completed) { Order.status_revenue(item_hash["complete"]) }
+
+        it "will calculate the sum of all the orders of a given satus" do
+          expect(revenue_completed).must_be_close_to Item.find(845260767).subtotal + Item.find(728299111).subtotal
+        end
+
+        it "will return 0 if no items for a given status" do
+          Item.destroy_all
+          expect(revenue_completed).must_equal 0
+        end
+
+        it "will return 0 if asked for revenue of status that is not in hash" do
+          expect(Order.status_revenue(item_hash["not a real status"])).must_equal 0
+        end
+      end
+
+      describe "def self.status_count_orders(item_status)" do
+        it "will count all the orders of a given status " do
+          orders(:order_2).update(status: "complete")
+          expect(orders(:order_2).valid?).must_equal true
+
+          expect(Order.status_count_orders(item_hash["complete"])).must_equal 2
+        end
+
+        it "will return 0 if no orders of a given status" do
+          Item.destroy_all
+          Order.destroy_all
+          expect(Order.status_count_orders(item_hash["complete"])).must_equal 0
+        end
+
+        it "will return 0 if given an empty hash (ie status not in items_hash)" do
+          expect(Order.status_count_orders(item_hash["no status"])).must_equal 0
+        end
+      end
+    end
   end
 end
