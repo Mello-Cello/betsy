@@ -16,6 +16,11 @@ img {
     align-items: flex-start;
   }
 
+  img.detail {
+      max-width: 35vw;
+      max-height: 200px;
+  }
+
 //   div.flex-item {
 //       display: flex;
 //       flex-flow: column wrap;

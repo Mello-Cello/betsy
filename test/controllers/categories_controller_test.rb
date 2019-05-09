@@ -61,6 +61,9 @@ describe CategoriesController do
         expect {
           post categories_path, params: new_category
         }.must_change "Category.count", 1
+        # Elle's note:
+        # For syntax helping to understand strings vs symbols as keys
+        # expect({ post categories_path, params: new_category }).must_change("Category.count", 1)
 
         expect(flash[:success]).must_equal "Category added successfully"
         must_respond_with :redirect

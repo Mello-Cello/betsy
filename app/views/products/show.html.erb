@@ -1,26 +1,18 @@
+<section class="jumbotron">
+  <h3> <%= @product.name %> </h3>
 
-<h3>
-  <%= @product.name %>
-</h3>
+  <%= image_tag @product.photo_url, alt: "Image of the product", class: "detail" %>
 
-<%= image_tag @product.photo_url, alt: "Image of the product" %>
+  <h5> <%= @product.description%> </h5>
 
-<h4>
-<%= @product.description%>
-</h4>
+  <h5> Price: $ <%= "%.2f" % (@product.price / 100.0) %> </h5>
 
-<h4>
-  Price: $ <%= "%.2f" % (@product.price / 100.0) %>
-</h4>
+  <h5> In-Stock: <%= @product.stock%> </h5>
 
-<h4>
-  Stock: <%= @product.stock%>
-</h4>
+  <%= render partial: "/items/item_form", locals: {item: Item.new, method_verb: :post,
+                                                  action: "Add to Cart", url_path: product_items_path(@product.id)} %>
 
-<section>
-  <h4>
-    Categories
-  </h4>
+  <h5> Categories </h5>
 
   <% if @product.categories.any? %>
     <ul>
@@ -57,10 +49,7 @@
 <section>
   <%= render partial: "/reviews/review_form"%>
 </section>
-<section>
-  <%= render partial: "/items/item_form", locals: {item: Item.new, method_verb: :post,
-                                                  action: "Add to Cart", url_path: product_items_path(@product.id)} %>
-</section>
+
 
 <%= link_to "Back to all products", products_path %> 
 
