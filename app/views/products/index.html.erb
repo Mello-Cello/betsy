@@ -1,9 +1,14 @@
 <h2>Products</h2>
 
-<ul>
+<span class="btn btn-outline-success my-2 my-sm-0"><%= link_to "Add new product", new_product_path %></span>
+
+<section class="flex-container">
+
 <% Product.where(active: true).each do |product| %>
-  <li>
-    <%= link_to product.name, product_path(product.id) %>
-  </li>
+  <span >
+    <%= link_to image_tag(product.photo_url), product_path(product.id) %>
+    <p><%= link_to product.name, product_path(product.id) %></p>
+  </span>
 <% end %>
-</ul>
+
+</section>
