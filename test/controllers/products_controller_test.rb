@@ -190,10 +190,90 @@ describe ProductsController do
         must_respond_with :bad_request
         expect(flash[:name]).must_include "can't be blank"
       end
+
+      it "can only update their own products" do
+        merchant = perform_login(merchants(:merchant_1))
+        product_to_update = products(:product_1) #does not belong to merchant 1
+
+        test_input = {
+          "product": {
+            name: "A really nice new thing",
+            merchant_id: merchant.id,
+            description: "nice stuff wooowza",
+            photo_url: "https://yeahforsure.org",
+            stock: 100,
+            price: 999,
+          },
+        }
+
+        expect {
+          patch product_path(product_to_update.id), params: test_input
+        }.wont_change "Product.count"
+
+        must_respond_with :redirect
+        must_redirect_to products_path
+        expect(flash[:error]).must_equal "You can only update your own products"
+      end
     end
 
     describe "not logged in" do
       # I think this is covered in the edit tests since users cannot get to the edit page if they are not logged in. Let me know if I need to test this.
+    end
+  end
+
+  describe "toggle inactive" do
+    describe "logged in merchant" do
+      it "can change status for their products active from true to false and false to true" do
+        # Change from true to false
+        perform_login(merchants(:merchant_2))
+        product = products(:product_1)
+
+        patch toggle_inactive_path(product.id)
+        product.reload
+
+        expect(product.active).must_equal false
+        must_respond_with :redirect
+        must_redirect_to current_merchant_path
+        expect(flash[:success]).must_equal "Product status changed successfully"
+
+        # Change back from false back to true
+        patch toggle_inactive_path(product.id)
+
+        product.reload
+
+        expect(product.active).must_equal true
+        must_respond_with :redirect
+        must_redirect_to current_merchant_path
+        expect(flash[:success]).must_equal "Product status changed successfully"
+      end
+
+      it "cannot change status of another merchants product" do
+        perform_login(merchants(:merchant_1)) #not the creator of product_1
+        product = products(:product_1)
+
+        patch toggle_inactive_path(product.id)
+        product.reload
+
+        expect(product.active).must_equal true
+        must_respond_with :redirect
+        must_redirect_to current_merchant_path
+        expect(flash[:error]).must_equal "You may only change the status of your own products"
+      end
+    end
+
+    describe "logged out" do
+      it "cannot change status from true to false" do
+        # do not perform login
+        product = products(:product_1)
+
+        patch toggle_inactive_path(product.id)
+        product.reload
+
+        expect(product.active).must_equal true
+        must_respond_with :redirect
+        must_redirect_to current_merchant_path
+        expect(flash[:error]).must_equal "You must be logged in to change the status of a product"
+      end
     end
   end
 end

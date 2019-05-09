@@ -45,6 +45,14 @@ class ItemsController < ApplicationController
   end
 
   def update
+    item = Item.find_by(id: params[:id])
+    if item && item.update(item_params) && item.available_for_purchase?
+      flash[:success] = "#{item.product.name} successfully updated"
+      redirect_to cart_path
+    else
+      flash[:error] = "Unable to update item"
+      redirect_to cart_path
+    end
   end
 
   def destroy

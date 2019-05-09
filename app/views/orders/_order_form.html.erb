@@ -28,7 +28,7 @@
   </tbody>
 </table>
 
-<%= form_with model: @order, url: cart_path, method: :post do |f|%>
+<%= form_with model: @order, url: cart_path(), method: :patch do |f|%>
   <div class= "form-row">
     <div class="form-group col-md-6">
       <%=f.label "Name on Credit Card"%>

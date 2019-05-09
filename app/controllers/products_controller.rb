@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_logged_in_merchant, only: [:new, :create, :update, :edit]
+  before_action :find_logged_in_merchant, only: [:new, :create, :update, :edit, :toggle_inactive]
 
   def new
     if @login_merchant
@@ -40,7 +40,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find_by(id: params[:id])
 
-    if @product.nil?
+    if @product.nil? || @product.active? == false # if product does not exist or it is not active (aka it is retired)
       flash[:error] = "Unknown product"
       redirect_to products_path
     end
@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
     if @login_merchant
       @product = Product.find_by(id: params[:id])
 
-      if @product.nil?
+      if @product.nil? || !@product.active #don't show if product is inactive/retired
         flash[:error] = "Unknown product"
         redirect_to products_path
       end
@@ -80,6 +80,28 @@ class ProductsController < ApplicationController
       flash[:error] = "You can only update your own products"
       redirect_to products_path
     end
+  end
+
+  def toggle_inactive
+    @product = Product.find_by(id: params[:id])
+    if @login_merchant
+      if @product.merchant_id == @login_merchant.id
+        @product.active?
+        @product.toggle(:active)
+        is_successful = @product.save
+
+        if is_successful
+          flash[:success] = "Product status changed successfully"
+        else
+          flash[:error] = "Product status not changed successfully"
+        end
+      else
+        flash[:error] = "You may only change the status of your own products"
+      end
+    else
+      flash[:error] = "You must be logged in to change the status of a product"
+    end
+    redirect_to current_merchant_path
   end
 
   private
