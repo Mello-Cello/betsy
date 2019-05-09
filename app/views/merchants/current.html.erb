@@ -1,8 +1,9 @@
 <h2>Merchant Dashboard</h2>
-<h3>Welcome <%= @login_merchant.username.capitalize%></h3>
-
-<%= link_to "Add new product", new_product_path, class: "btn btn-outline-primary" %>
-<%= link_to "Add new category", new_category_path, class: "btn btn-outline-primary" %>
+<section class="centered">
+  <h4>Welcome <%= @login_merchant.username %></h4>
+  <%= link_to "Add new product", new_product_path, class: "btn btn-outline-primary" %>
+  <%= link_to "Add new category", new_category_path, class: "btn btn-outline-primary" %>
+</section>
 
 <% item_hash = Order.find_merchant_order_items(@login_merchant) %>
 
@@ -34,9 +35,9 @@
   </tbody>
 </table>
 
-<h3>Orders by status</h3>
+<p>Orders by status</p>
 <%["paid", "complete"].each do |status|%>
-  <h4>Status: <%=status.capitalize%></h4>
+  <p>Status: <%=status.capitalize%></p>
   <% item_hash[status].each do |order, items| %> 
     <table class="table table-sm">
       <thead>
