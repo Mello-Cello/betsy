@@ -11,7 +11,7 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    if @login_merchant # if merchant is logged in
+    if @login_merchant
       @category = Category.new(category_params)
       is_successful = @category.save
 

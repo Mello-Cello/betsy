@@ -77,16 +77,8 @@ class ProductsController < ApplicationController
 
   def toggle_inactive
     if @login_merchant && @product.valid?
-      if @product.merchant_id == @login_merchant.id
-        @product.toggle(:active)
-        # raise
-        is_successful = @product.save
-
-        if is_successful
-          flash[:success] = "Product status changed successfully"
-        else
-          flash[:error] = "Product status not changed successfully"
-        end
+      if @product.merchant_id == @login_merchant.id && @product.toggle(:active).save
+        flash[:success] = "Product status changed successfully"
       else
         flash[:error] = "You may only change the status of your own products"
       end

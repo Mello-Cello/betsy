@@ -3,13 +3,13 @@ require "test_helper"
 describe ItemsController do
   describe "create" do
     let(:product) { products(:product_1) }
-    let(:item_params) { { item: { quantity: 2 } } }
+    let(:item_params) { {item: {quantity: 2}} }
     it "will create a new item" do
       expect {
         post product_items_path(product.id), params: item_params
       }.must_change "Item.count", 1
 
-      expect(flash[:success]).must_equal "#{product.name} (quantity: #{item_params[:item][:quantity]}) Successfully Added To Cart"
+      expect(flash[:success]).must_equal "#{product.name} (total quantity: #{item_params[:item][:quantity]}) Successfully Added To Cart"
 
       must_respond_with :redirect
       must_redirect_to product_path(product.id)
@@ -20,7 +20,7 @@ describe ItemsController do
         post product_items_path(product.id), params: item_params
       }.must_change "Order.count", 1
 
-      expect(flash[:success]).must_equal "#{product.name} (quantity: #{item_params[:item][:quantity]}) Successfully Added To Cart"
+      expect(flash[:success]).must_equal "#{product.name} (total quantity: #{item_params[:item][:quantity]}) Successfully Added To Cart"
 
       must_respond_with :redirect
       must_redirect_to product_path(product.id)
@@ -35,7 +35,7 @@ describe ItemsController do
         post product_items_path(product.id), params: item_params
       }.must_change "Order.count", 0
 
-      expect(flash[:success]).must_equal "#{product.name} (quantity: #{item_params[:item][:quantity]}) Successfully Added To Cart"
+      expect(flash[:success]).must_equal "#{product.name} (total quantity: #{item_params[:item][:quantity]}) Successfully Added To Cart"
 
       must_respond_with :redirect
       must_redirect_to product_path(product.id)
@@ -94,7 +94,7 @@ describe ItemsController do
 
   describe "update" do
     let(:item) { items(:item_1) }
-    let(:item_params) { { item: { quantity: 2 } } }
+    let(:item_params) { {item: {quantity: 2}} }
     it "will update a valid item if product has enough stock" do
       expect {
         patch item_path(item.id), params: item_params
