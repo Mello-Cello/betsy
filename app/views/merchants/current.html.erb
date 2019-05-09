@@ -39,7 +39,9 @@
           <th scope="col">Product Name</th>
           <th scope="col">Unit Price</th>
           <th scope="col">Subtotal</th>
-          <th scope="col">Mark as Shipped</th>
+          <% if status == "paid"%> 
+            <th scope="col">Mark as Shipped</th>
+          <%end%>
         </tr>
       </thead>
       <tbody>
@@ -48,8 +50,10 @@
             <th scope="row"><%=item.quantity%></th>
             <td><%=link_to item.product.name, product_path(item.product.id) %></td>
             <td>$<%=item.product.price / 100.0%></td>
-            <td>$<%=item.subtotal %></td>   
-            <td><%=link_to "SHIP ORDER", order_path(order.to_i, {order: {status: "complete"}}), method: :patch, class: "btn btn-sm btn-danger"%></td>
+            <td>$<%=item.subtotal %></td> 
+            <% if status == "paid"%>  
+              <td><%=link_to "SHIP ORDER", order_path(order.to_i, {order: {status: "complete"}}), method: :patch, class: "btn btn-sm btn-danger"%></td>
+            <%end%>
           </tr>
         <%end%>
       </tbody>

@@ -51,6 +51,64 @@ describe OrdersController do
       end
     end
   end
+
+  describe "update" do
+    let(:order) { orders(:order_2) }
+    let(:order_params) { { order: { status: "complete" } } }
+    describe "not logged in user" do
+      it "will redirect home with flash and NOT update order" do
+        expect(order.status).must_equal "paid"
+        expect {
+          patch order_path(order.id), params: order_params
+        }.wont_change "Order.count"
+        order.reload
+        expect(order.status).must_equal "paid"
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
+    end
+
+    describe "as a loggedd in merchant" do
+      before do
+        perform_login(merchants(:merchant_2))
+      end
+      it "will update order if merchant has items on order and order is valid" do
+        expect(order.status).must_equal "paid"
+        expect {
+          patch order_path(order.id), params: order_params
+        }.wont_change "Order.count"
+        order.reload
+        expect(order.status).must_equal "complete"
+        must_respond_with :redirect
+        must_redirect_to current_merchant_path
+      end
+
+      it "will not update if merchant does not have items on order" do
+        perform_login
+        expect(order.status).must_equal "paid"
+
+        expect {
+          patch order_path(order.id), params: order_params
+        }.wont_change "Order.count"
+
+        order.reload
+
+        expect(order.status).must_equal "paid"
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
+
+      it "will redriect home with flash if order is not valid" do
+        invalid_id = -1
+        expect {
+          patch order_path(-1), params: order_params
+        }.wont_change "Order.count"
+
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
+    end
+  end
   describe "view_cart" do
     it "will respond with success if no cart is stored in session" do
       get cart_path
