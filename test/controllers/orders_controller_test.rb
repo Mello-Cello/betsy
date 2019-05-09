@@ -10,16 +10,44 @@ describe OrdersController do
   #   end
   # end
   describe "show" do
+    let(:order) { orders(:order_1) }
     describe "not logged in" do
       it "will redirct to root path with flash message" do
+        get order_path(order.id)
+
+        expect(flash[:error]).must_equal "You must be logged to view this page"
+
+        must_respond_with :redirect
+        must_redirect_to root_path
       end
     end
 
     describe "as a logged in merchant" do
+      before do
+        perform_login(merchants(:merchant_2))
+      end
       it "will show order page if merchant has a product in the order" do
+        get order_path(order.id)
+
+        must_respond_with :success
       end
 
-      it "will redirect to merchant dashboard if no products for order belong to mechant" do
+      it "will redirect to merchant dashboard  w/flashif no products for order belong to mechant" do
+        perform_login
+        get order_path(order.id)
+
+        expect(flash[:error]).must_equal "Can not view order page. No items sold by merchant."
+        must_respond_with :redirect
+        must_redirect_to current_merchant_path
+      end
+
+      it "if given invalid id and user is logged in redrect to dashboard w/ flash" do
+        order_id = -1
+        get order_path(-1)
+
+        expect(flash[:error]).must_equal "Can not view order page. No items sold by merchant."
+        must_respond_with :redirect
+        must_redirect_to current_merchant_path
       end
     end
   end
