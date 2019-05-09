@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   private
 
   def find_logged_in_merchant
-    if session[:merchant_id] #if session[:merchant_id] is not nil
+    if session[:merchant_id]
       @login_merchant = Merchant.find_by(id: session[:merchant_id])
     end
   end

@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
-  before_action :find_logged_in_merchant, only: [:new, :create, :update, :edit, :toggle_inactive]
+  before_action :find_logged_in_merchant, except: [:index, :show]
+  before_action :find_product, except: [:new, :create, :index]
 
   def new
     if @login_merchant
@@ -11,13 +12,12 @@ class ProductsController < ApplicationController
   end
 
   def create
-    if @login_merchant # if merchant is logged in
+    if @login_merchant
       @product = Product.new(product_params)
       @product.merchant_id = session[:merchant_id]
-      @product.price = params[:product][:price].to_f * 100.0
-      is_successful = @product.save
+      @product.save
 
-      if is_successful
+      if @product.valid?
         flash[:success] = "Product added successfully"
         redirect_to product_path(@product.id)
       else
@@ -38,9 +38,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find_by(id: params[:id])
-
-    if @product.nil? || @product.active? == false # if product does not exist or it is not active (aka it is retired)
+    if @product.nil? || !@product.active
       flash[:error] = "Unknown product"
       redirect_to products_path
     end
@@ -48,9 +46,7 @@ class ProductsController < ApplicationController
 
   def edit
     if @login_merchant
-      @product = Product.find_by(id: params[:id])
-
-      if @product.nil? || !@product.active #don't show if product is inactive/retired
+      if @product.nil? || !@product.active
         flash[:error] = "Unknown product"
         redirect_to products_path
       end
@@ -61,18 +57,15 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product = Product.find_by(id: params[:id])
     if @product.merchant_id == @login_merchant.id
       @product.update(product_params)
-      @product.price = product_params[:price].to_f * 100.0
-      is_successful = @product.save
 
-      if is_successful
+      if @product.valid?
         flash[:success] = "Product updated successfully"
         redirect_to product_path(@product.id)
       else
         @product.errors.messages.each do |label, message|
-          flash.now[label.to_sym] = message #this flash msg is working
+          flash.now[label.to_sym] = message
         end
         render :edit, status: :bad_request
       end
@@ -83,7 +76,6 @@ class ProductsController < ApplicationController
   end
 
   def toggle_inactive
-    @product = Product.find_by(id: params[:id])
     if @login_merchant
       if @product.merchant_id == @login_merchant.id
         @product.active?
@@ -106,7 +98,14 @@ class ProductsController < ApplicationController
 
   private
 
+  def find_product
+    @product = Product.find_by(id: params[:id])
+  end
+
   def product_params
+    if params[:product][:price]
+      params[:product][:price] = params[:product][:price].to_f * 100.0
+    end
     return params.require(:product).permit(:name, :price, :description, :photo_url, :stock, :merchant_id, category_ids: [])
   end
 end
