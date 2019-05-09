@@ -7,7 +7,9 @@
         <p><%=item.product.description%>
         <p>quantity: <%=item.quantity%></p>
         <p>subtotal: $<%=item.subtotal%>
-        <%= link_to "Remove item", item_path(item.id), method: :delete, class: "btn btn-outline-danger btn-sm"%>
+        <% @product = item.product %>
+        <%= render partial: "/items/item_form",  locals: {item: item, method_verb: :patch, action: "Update", url_path: item_path(item.id)} %>
+        <%= link_to "Remove item", item_path(item.id), method: :delete, class: "btn btn-secondary btn-sm"%>
       </article>
     <%end%>
     <%= link_to "Check Out", checkout_cart_path, class: "btn btn-primary"%>
