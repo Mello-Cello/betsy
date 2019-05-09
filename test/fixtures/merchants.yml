@@ -11,3 +11,10 @@ merchant_2:
   email: lululumen@yahoo.com
   uid: 5435
   provider: github
+
+
+merchant_3:
+  username: leopoke
+  email: lhifi@yahoo.com
+  uid: 1234
+  provider: github
