@@ -4,7 +4,7 @@
 
     <% if session[:merchant_id] %>
     <% merchant = Merchant.find_by(id: session[:merchant_id]) %>
-    <p><%= "You are currently logged in as #{merchant.username}" %></p> 
+    <p class="centered-arial"><%= "You are currently logged in as #{merchant.username}" %></p> 
     <%# wrap in class for footer %>
     <% end %>
 </section>
