@@ -1,14 +1,16 @@
 
 <%=form_with model: Review.new() , url: product_reviews_path(@product.id) do |f| %>
-<div>
-  <%= f.label :rating%>
-  <%= f.number_field :rating, required: true, in: 1..5%>
-</div>
-<div>
-  <%= f.label :comment%>
-  <%=f.text_area :comment%>
-</div>
-<div>
-  <%= f.submit %>
-</div>
+<%# <div class= "form-row"> %>
+  <div class="form-group col-md-4">
+    <%= f.label :rating%>
+    <%= f.number_field :rating, required: true, in: 1..5, class: "form-control"%>
+  </div>
+  <div class="form-group col-md-4">
+    <%= f.label :comment%>
+    <%=f.text_area :comment, class: "form-control"%>
+  </div >
+  <div class="form-group col-md-4">
+    <%= f.submit class:"btn btn-sm btn-primary" %>
+  </div>
+<%# </div> %>
 <%end%>
