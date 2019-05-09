@@ -199,7 +199,7 @@ describe ProductsController do
 
   describe "toggle inactive" do
     describe "logged in merchant" do
-      it "changes active from true to false and false to true" do
+      it "can change status for their products active from true to false and false to true" do
         # Change from true to false
         perform_login(merchants(:merchant_2))
         product = products(:product_1)
@@ -208,6 +208,7 @@ describe ProductsController do
         product.reload
 
         expect(product.active).must_equal false
+        must_respond_with :redirect
         must_redirect_to current_merchant_path
         expect(flash[:success]).must_equal "Product status changed successfully"
 
@@ -217,26 +218,38 @@ describe ProductsController do
         product.reload
 
         expect(product.active).must_equal true
+        must_respond_with :redirect
         must_redirect_to current_merchant_path
         expect(flash[:success]).must_equal "Product status changed successfully"
       end
 
-      # it "changes active from false to true" do
-      #   # Arrange
-      #   product = products(:product_1)
-      #   patch toggle_inactive_path(product.id)
+      it "cannot change status of another merchants product" do
+        perform_login(merchants(:merchant_1)) #not the creator of product_1
+        product = products(:product_1)
 
-      #   # Act
-      #   product.reload
+        patch toggle_inactive_path(product.id)
+        product.reload
 
-      #   # Assert
-      #   expect(product.active).must_equal true
-      #   must_redirect_to current_merchant_path
-      #   expect(flash[:success]).must_equal "Product updated successfully"
-      # end
+        expect(product.active).must_equal true
+        must_respond_with :redirect
+        must_redirect_to current_merchant_path
+        expect(flash[:error]).must_equal "You may only change the status of your own products"
+      end
     end
 
     describe "logged out" do
+      it "cannot change status from true to false" do
+        # do not perform login
+        product = products(:product_1)
+
+        patch toggle_inactive_path(product.id)
+        product.reload
+
+        expect(product.active).must_equal true
+        must_respond_with :redirect
+        must_redirect_to current_merchant_path
+        expect(flash[:error]).must_equal "You must be logged in to change the status of a product"
+      end
     end
   end
 end
