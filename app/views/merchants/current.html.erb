@@ -9,15 +9,15 @@
 <h3>Paid orders</h3>
     <ul>
         <li>Total number of paid orders: <%= item_hash["paid"].count %></li>
-        <li>Revenue for paid orders: $<%= Order.status_revenue(item_hash["paid"])%></li>
+        <li>Revenue for paid orders: $<%= "%.2f" %  Order.status_revenue(item_hash["paid"])%></li>
     </ul>
 <h3>Complete orders</h3>
     <ul>
-        <li>Total number of paid orders: <%= item_hash["complete"].count %></li>
-        <li>Revenue for paid orders: $<%= Order.status_revenue(item_hash["complete"])%></li>
+        <li>Total number of complete orders: <%= item_hash["complete"].count %></li>
+        <li>Revenue for complete orders: $<%= "%.2f" %  Order.status_revenue(item_hash["complete"])%></li>
     </ul>
 <h3>Total revenue</h3>
-    <p> $<%= Order.status_revenue(item_hash["paid"]) + Order.status_revenue(item_hash["completed"])%> </p>
+    <p> $<%= "%.2f" % ( Order.status_revenue(item_hash["paid"]) + Order.status_revenue(item_hash["completed"]))%> </p>
 
 <h3>Orders by status</h3>
 <%["paid", "complete"].each do |status|%>
@@ -26,7 +26,7 @@
     <table class="table table-sm">
       <thead>
         <tr>
-          <th scope="col">Order ID: <%= order %> </th>
+          <th scope="col"><%= link_to "Order ID: #{Order.find(order).id}", order_path(Order.find(order).id) %> </th>
           <th scope="col">Date & Time of order: <%= Order.find(order).created_at.strftime("%B %d, %T")%></th>
           <th scope="col">Order Status: <%= Order.find(order).status %> </th>
           <th scope="col"> </th>
@@ -75,7 +75,7 @@
           <tr>
             <th scope="row"><%=product.id%></th>
             <td><%=link_to product.name, product_path(product.id) %></td>
-            <td>$<%=product.price / 100.0%></td>
+            <td>$<%= "%.2f" % (product.price / 100.0)%></td>
             <td><%=product.description %></td>   
             <td><%=product.active? ? "Active" : "Retired" %>
             <td><%=link_to "Retire product", toggle_inactive_path(product.id), method: :patch, class: "btn btn-outline-primary" if product.active?%>
