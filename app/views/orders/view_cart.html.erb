@@ -1,21 +1,27 @@
 <section class= "cart">
   <%if @order && @order.items.any? %>
     <h2><%=@order.items.count%> item<%="s" if @order.items.count != 1%> in cart</h2>
+    <div class="flex">
     <%@order.items.each do |item| %>
-      <article class= "item">
-        <h3><%=item.product.name%></h3>
-        <p><%=item.product.description%>
-        <p>quantity: <%=item.quantity%></p>
-        <p>subtotal: $<%=item.subtotal%>
+      <article class= "item card bg-light mb-3">
+      <div class="card-body">
+        <h3 class="card-title text-center"><%=item.product.name%></h3>
+        <p class="card-subtitle mb-2 text-muted">quantity: <%=item.quantity%></p>
+        <p class="card-subtitle mb-2 text-muted">subtotal: $<%=item.subtotal%>
+        <p class="card-text"><%=item.product.description%>
         <% @product = item.product %>
         <%= render partial: "/items/item_form",  locals: {item: item, method_verb: :patch, action: "Update", url_path: item_path(item.id)} %>
-        <%= link_to "Remove item", item_path(item.id), method: :delete, class: "btn btn-secondary btn-sm"%>
+        <%= link_to "Remove item", item_path(item.id), method: :delete, class: "btn btn-outline-secondary remove"%>
+      </div>
       </article>
     <%end%>
-    <%= link_to "Check Out", checkout_cart_path, class: "btn btn-primary"%>
-      <%=link_to "Keep shopping", products_path %>
+    </div>
   <%else%>
   <h2> 0 items in cart</h2>
-  <p class="centered_grey_text"><%= link_to "Discover something intangible to fill it up", products_path %></p>
+  <p class="centered_grey_text"><%= link_to "Discover something intangible to fill it up", products_path%></p>
   <%end%>
 </section>
+<div class="checkout">
+<%= link_to "Check Out", checkout_cart_path, class: "btn btn-outline-success btn-block"%>
+<%=link_to "Keep shopping", products_path, class: "btn btn-info btn-block" %>
+</div>
