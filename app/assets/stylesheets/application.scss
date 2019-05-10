@@ -19,11 +19,55 @@
 .nav-item {
     color: rgba(131, 11, 142, 0.842);
   }
-  .nav_bar {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; 
-    padding: 20px 10px;
-    margin: 0;
-  }
+
+.navbar-brand:hover{
+  font-family: 'League Script', Helvetica, Arial, sans-serif;
+}
+.nav_bar {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+  padding: 20px 10px;
+  margin: 0;
+}
+
+.btn-outline-success {
+    color: rgba(131, 11, 142, 0.842);
+    background-color: transparent;
+    background-image: none;
+    border-color: rgba(131, 11, 142, 0.842);
+}
+
+.btn-outline-success:hover{
+  background-color:  rgba(131, 11, 142, 0.842);
+  border-color: rgba(131, 11, 142, 0.842);
+}
+
+.btn-outline-success:not(:disabled):not(.disabled):active:focus, .btn-outline-success:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-success.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(131, 11, 142, 0.842);
+}
+
+.btn-outline-success:not(:disabled):not(.disabled):active, .btn-outline-success:not(:disabled):not(.disabled).active, .show > .btn-outline-success.dropdown-toggle {
+  color: #fff;
+  background-color: rgba(131, 11, 142, 0.842);
+  border-color: rgba(131, 11, 142, 0.295);
+}
+
+.btn-outline-success:focus, .btn-outline-success.focus {
+    box-shadow: 0 0 0 0.2rem  rgba(131, 11, 142, 0.842);
+}
+
+#cart {
+ margin-right: 10px;
+}
+
+.dash-link {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+
+.log-in {
+  margin-left: 15px;
+  margin-right: 10px;
+}
