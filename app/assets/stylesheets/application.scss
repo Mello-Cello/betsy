@@ -53,6 +53,10 @@
     margin-left: 20px;
 }
 
+.btn-sm, .btn-group-sm > .btn {
+  margin-bottom: 0em;
+}
+
 .btn-outline-success {
     color: rgba(131, 11, 142, 0.842);
     background-color: transparent;
