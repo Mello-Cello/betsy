@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet"
-          href= "https://fonts.googleapis.com/css?family=League+Script:regular;"/>
-<link rel="stylesheet"          
-          href= "https://fonts.googleapis.com/css?family=Mrs+Sheppards:regular;"/>
-<link rel="stylesheet"          
-          href= "https://fonts.googleapis.com/css?family=Raleway+Dots:regular;"/>
 
   <head>
-    <title>SECRETS</title>
+    <title>Intangibly</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href= "https://fonts.googleapis.com/css?family=League+Script:regular;"/>
+    <link rel="stylesheet" href= "https://fonts.googleapis.com/css?family=Mrs+Sheppards:regular;"/>
+    <link rel="stylesheet" href= "https://fonts.googleapis.com/css?family=Raleway+Dots:regular;"/>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag asset_path('intangible.png') %>
   </head>
   <body class="greybg">
     <header class="greybg">
@@ -37,13 +35,13 @@
           <div id="cart">
             <a href="/cart">
               <svg id="i-cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                  <path d="M6 6 L30 6 27 19 9 19 M27 23 L10 23 5 2 2 2" />
-                  <circle cx="25" cy="27" r="2" />
-                  <circle cx="12" cy="27" r="2" />
+                <path d="M6 6 L30 6 27 19 9 19 M27 23 L10 23 5 2 2 2" />
+                <circle cx="25" cy="27" r="2" />
+                <circle cx="12" cy="27" r="2" />
               </svg>
               <%cart = Order.find_by(id: session[:cart_id])%>
               <% if cart%>
-              <span class="badge badge-light"><%=cart.items.sum {|item| item.quantity}%></span>
+                <span class="badge badge-light"><%=cart.items.sum {|item| item.quantity}%></span>
               <%end%>
             </a>
           </div>
