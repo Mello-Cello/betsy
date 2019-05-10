@@ -1,47 +1,51 @@
 <section class="jumbotron">
-  <h3> <%= @product.name %> </h3>
+  <h3 class="bold"> <%= @product.name %> </h3>
 
   <%= image_tag @product.photo_url, alt: "Image of the product", class: "detail" %>
 
-  <h5> <%= @product.description%> </h5>
+<div class="inner-flex">
+  <div>
+    <h5> Price: $ <%= "%.2f" % (@product.price / 100.0) %> </h5>
 
-  <h5> Price: $ <%= "%.2f" % (@product.price / 100.0) %> </h5>
+    <h5> In-Stock: <%= @product.stock%> </h5>
 
-  <h5> In-Stock: <%= @product.stock%> </h5>
+    <%= render partial: "/items/item_form", locals: {item: Item.new, method_verb: :post,
+                                                    action: "Add to Cart", url_path: product_items_path(@product.id)} %>
 
-  <%= render partial: "/items/item_form", locals: {item: Item.new, method_verb: :post,
-                                                  action: "Add to Cart", url_path: product_items_path(@product.id)} %>
+  </div>
+  <div>
+    <h5> Categories </h5>
 
-  <h5> Categories </h5>
+    <% if @product.categories.any? %>
 
-  <% if @product.categories.any? %>
-    <ul>
+        <% @product.categories.each do |category| %>
+          <%= link_to category.name, category_path(category.id) %>
+          <br>
+        <% end %>
 
-      <% @product.categories.each do |category| %>
-        <li><%= link_to category.name, category_path(category.id) %></li>
-      <% end %>
-
-    </ul>
-  <% else %>
-    <p>There are no categories assigned to this product</p>
-  <% end %>
+    <% else %>
+      <p>There are no categories assigned to this product</p>
+    <% end %>
+  </div>
+  </div>
+  <p> <%= @product.description%> </p>
 </section>
 
 <section>
+<%= link_to "Back to all products", products_path, class: "btn btn-outline-success" %> 
+
   <h4>
     Reviews
   </h4>
 
 <% reviews = Review.where(product_id: @product.id)%>
   <% if reviews.any? %>
-    <ul>
-
-      <% reviews.each do |review| %>
-        <li>Rating: <%= review.rating%></li>
-        <li>Comment: <%= review.comment%></li>
+    <% reviews.each do |review| %>
+        <p>Rating: <%= review.rating%> 
+          <br>
+          Comment: <%= review.comment%></p>
+        <br>
       <% end %>
-
-    </ul>
   <% else %>
     <p>There are no reviews for this product</p>
   <% end %>
@@ -51,5 +55,4 @@
 </section>
 
 
-<%= link_to "Back to all products", products_path %> 
 
