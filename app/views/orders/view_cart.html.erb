@@ -1,6 +1,6 @@
 <section class= "cart">
   <%if @order && @order.items.any? %>
-    <h2><%=@order.items.count%> item<%="s" if @order.items.count != 1%> in cart</h2>
+    <h2><%=@order.items.sum {|item| item.quantity}%> item<%="s" if @order.items.count != 1%> in cart</h2>
     <div class="flex">
     <%@order.items.each do |item| %>
       <article class= "item card bg-light mb-3">
