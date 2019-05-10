@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
 
   def new
     if @login_merchant
-      @product = Product.new(photo_url: "http://placekitten.com/200/300")
+      @product = Product.new(photo_url: "https://i.ibb.co/6r2mYnD/wintery.jpg")
     else
       flash[:error] = "You must be logged in to add a new product"
       redirect_to root_path
@@ -77,16 +77,8 @@ class ProductsController < ApplicationController
 
   def toggle_inactive
     if @login_merchant && @product.valid?
-      if @product.merchant_id == @login_merchant.id
-        @product.toggle(:active)
-        # raise
-        is_successful = @product.save
-
-        if is_successful
-          flash[:success] = "Product status changed successfully"
-        else
-          flash[:error] = "Product status not changed successfully"
-        end
+      if @product.merchant_id == @login_merchant.id && @product.toggle(:active).save
+        flash[:success] = "Product status changed successfully"
       else
         flash[:error] = "You may only change the status of your own products"
       end
