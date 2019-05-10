@@ -34,15 +34,27 @@
               <%= link_to "Merchants", merchants_path, class: "nav-link" %>
             </li>
           </ul>
-
+          <div id="cart">
+            <a href="/cart">
+              <svg id="i-cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                  <path d="M6 6 L30 6 27 19 9 19 M27 23 L10 23 5 2 2 2" />
+                  <circle cx="25" cy="27" r="2" />
+                  <circle cx="12" cy="27" r="2" />
+              </svg>
+              <%cart = Order.find_by(id: session[:cart_id])%>
+              <% if cart%>
+              <span class="badge badge-light"><%=cart.items.sum {|item| item.quantity}%></span>
+              <%end%>
+            </a>
+          </div>
           <% if session[:merchant_id] %>
             <% merchant = Merchant.find_by(id: session[:merchant_id]) %>
-            <%= link_to merchant.username, current_merchant_path, class: "nav-link"%>
+            <%= link_to merchant.username, current_merchant_path, class: "dash-link nav-link"%>
             <%= link_to "Log Out", logout_path, method: "delete", class: "btn btn-outline-success my-2 my-sm-0" %>
           <% else %>
-            <%= link_to "Log In", github_login_path, class: "btn btn-outline-success my-2 my-sm-0" %>
+            <%= link_to "Log In", github_login_path, class: "log-in btn btn-outline-success my-2 my-sm-0" %>
           <% end %>
-          <%= link_to "Cart", cart_path, class: "nav-link"%>
+      
           <%# <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
