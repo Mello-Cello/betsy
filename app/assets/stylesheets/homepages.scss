@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 body {
+  // background-image: url("https://picserio.com/data/out/166/winter-scenery-wallpaper-for-desktop_3829525.jpg");
   font-family: Arial, sans-serif;
 }
 
@@ -78,13 +79,12 @@ a:hover {
   text-decoration: none;
 }
 
-.greybg {
-  background-color: rgb(255, 255, 255);
-  
-}
-
 .whitebg {
   background-color: #fff;
+}
+
+#background-image-magical {
+  background-color: transparent;
 }
 
 .centered_grey_text {
