@@ -3,10 +3,11 @@
 
 <% Product.where(active: true).each do |product| %>
 
-  <span >
+  <div class="flex-item-products">
     <%= link_to image_tag(product.photo_url), product_path(product.id) %>
-    <p><%= link_to product.name, product_path(product.id) %></p>
-  </span>
+    <p class="strong"><%= link_to product.name, product_path(product.id) %></p>
+    <p>Price: $ <%= "%.2f" % (product.price / 100.0) %></p>
+  </div>
 <% end %>
 
 </section>

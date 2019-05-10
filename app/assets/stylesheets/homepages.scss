@@ -2,12 +2,26 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 body {
-  font-family: Helvetica, Arial, sans-serif;
- 
+  // background-image: url("https://picserio.com/data/out/166/winter-scenery-wallpaper-for-desktop_3829525.jpg");
+  font-family: Arial, sans-serif;
 }
+
+// possible new fonts: 
+// font-family: Verdana, Geneva
 .centered {
   text-align: center;
 }
+
+
+.bold {
+  font-weight: 900;
+  -webkit-text-stroke: #ff9dff 1px;
+}
+
+.pink {
+  color: #ff9dff;
+}
+
 
 main {
   margin-top: 2.0em;
@@ -17,7 +31,7 @@ main {
 }
 
 h1 {
-  font-family: 'League Script', Helvetica, Arial, sans-serif;
+  font-family: 'League Script', Arial, sans-serif;
   font-weight:bold;
   font-size: 10em;
   color: rgb(198, 158, 255);
@@ -25,7 +39,7 @@ h1 {
 }
 
 h2 {
-  font-family: 'League Script', Helvetica, Arial, sans-serif;
+  font-family: 'League Script', Arial, sans-serif;
   font-size: 70px;
   color: rgb(198, 158, 255);
   text-align: center;
@@ -68,13 +82,12 @@ a:hover {
   text-decoration: none;
 }
 
-.greybg {
-  background-color: rgb(255, 255, 255);
-  
-}
-
 .whitebg {
   background-color: #fff;
+}
+
+#background-image-magical {
+  background-color: transparent;
 }
 
 .centered_grey_text {
@@ -119,7 +132,7 @@ a:hover {
 }
 
 .centered-arial {
-  font-family: helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   
   color:rgb(87, 87, 87);
   font-size: 1.3em;
