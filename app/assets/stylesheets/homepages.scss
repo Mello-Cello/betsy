@@ -2,9 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 body {
-  font-family: Helvetica, Arial, sans-serif;
- 
+  font-family: Arial, sans-serif;
 }
+
+// possible new fonts: 
+// font-family: Verdana, Geneva
 .centered {
   text-align: center;
 }
@@ -25,7 +27,7 @@ main {
 }
 
 h1 {
-  font-family: 'League Script', Helvetica, Arial, sans-serif;
+  font-family: 'League Script', Arial, sans-serif;
   font-weight:bold;
   font-size: 10em;
   color: rgb(198, 158, 255);
@@ -33,7 +35,7 @@ h1 {
 }
 
 h2 {
-  font-family: 'League Script', Helvetica, Arial, sans-serif;
+  font-family: 'League Script', Arial, sans-serif;
   font-size: 70px;
   color: rgb(198, 158, 255);
   text-align: center;
@@ -119,7 +121,7 @@ a:hover {
 }
 
 .centered-arial {
-  font-family: helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   
   color:rgb(87, 87, 87);
   font-size: 1.3em;
