@@ -1,8 +1,8 @@
 <h2>Merchant Dashboard</h2>
 <section class="centered">
   <h4>Welcome <%= @login_merchant.username %></h4>
-  <%= link_to "Add new product", new_product_path, class: "btn btn-outline-primary" %>
-  <%= link_to "Add new category", new_category_path, class: "btn btn-outline-primary" %>
+  <%= link_to "Add new product", new_product_path, class: "btn btn-outline-info" %>
+  <%= link_to "Add new category", new_category_path, class: "btn btn-outline-info" %>
 </section>
 
 <% item_hash = Order.find_merchant_order_items(@login_merchant) %>
@@ -42,7 +42,7 @@
     <table class="table table-sm">
       <thead>
         <tr>
-          <th scope="col"><%= link_to "Order ID: #{Order.find(order).id}", order_path(Order.find(order).id),  class: "btn btn-outline-primary btn-sm" %> </th>
+          <th scope="col"><%= link_to "Order ID: #{Order.find(order).id}", order_path(Order.find(order).id),  class: "btn btn-outline-success btn-sm" %> </th>
           <th scope="col">Date & Time of order: <%= Order.find(order).created_at.strftime("%B %d, %T")%></th>
           <th scope="col">Order Status: <%= Order.find(order).status %> </th>
           <th scope="col"> </th>
@@ -99,9 +99,9 @@
             <td>$<%= "%.2f" % (product.price / 100.0)%></td>
             <td><%=product.description %></td>   
             <td><%=product.active? ? "Active" : "Retired" %>
-            <td><%=link_to "Retire product", toggle_inactive_path(product.id), method: :patch, class: "btn btn-outline-primary btn-sm" if product.active?%>
-            <%=link_to "Activate product", toggle_inactive_path(product.id), method: :patch, class: "btn btn-outline-primary btn-sm" if product.active? == false%></td>
-            <td><%=link_to "Edit product", edit_product_path(product.id), class: "btn btn-outline-primary btn-sm" if product.active?%></td>
+            <td><%=link_to "Retire product", toggle_inactive_path(product.id), method: :patch, class: "btn btn-outline-success btn-sm" if product.active?%>
+            <%=link_to "Activate product", toggle_inactive_path(product.id), method: :patch, class: "btn btn-outline-success btn-sm" if product.active? == false%></td>
+            <td><%=link_to "Edit product", edit_product_path(product.id), class: "btn btn-outline-success btn-sm" if product.active?%></td>
           </tr>
         <%end%>
       </tbody>
