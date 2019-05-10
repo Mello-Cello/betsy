@@ -67,7 +67,7 @@
         <%items.each do |item| %>
           <tr>
             <th scope="row"><%=item.quantity%></th>
-            <td><%=link_to item.product.name, product_path(item.product.id) %></td>
+            <td><%=link_to item.product.name.upcase, product_path(item.product.id) %></td>
             <td>$<%= "%.2f" %  (item.product.price / 100.0)%></td>
             <td>$<%="%.2f" %  (item.subtotal) %></td> 
             <td></td>
@@ -96,7 +96,7 @@
         <% @products.each do |product|%>
           <tr>
             <th scope="row"><%=product.id%></th>
-            <td><%=link_to product.name, product_path(product.id) %></td>
+            <td><%=link_to product.name.upcase, product_path(product.id) %></td>
             <td>$<%= "%.2f" % (product.price / 100.0)%></td>
             <td><%=product.description %></td>   
             <td><%=product.active? ? "Active" : "Retired" %>
