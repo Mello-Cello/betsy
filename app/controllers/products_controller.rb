@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
 
   def new
     if @login_merchant
-      @product = Product.new(photo_url: "http://placekitten.com/200/300")
+      @product = Product.new(photo_url: "https://i.ibb.co/6r2mYnD/wintery.jpg")
     else
       flash[:error] = "You must be logged in to add a new product"
       redirect_to root_path

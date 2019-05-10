@@ -1,21 +1,25 @@
 <section>
-  <h2>
-    Merchant: <%= @merchant.username %>
-  </h2>
+  <h2> Shop <%= @merchant.username %> </h2>
 
-  <h2>Products:</h2>
   <% if @merchant.product_ids.any? %>
-    <ul>
+    <section class="flex-container">
 
-      <% @merchant.product_ids.each do |product| %>
-        <li><%= link_to Product.find(product).name, product_path(product) if Product.find(product).active? %></li>
+      <% @merchant.products.each do |product| %>
+        <div class="flex-item-products">
+        <%= link_to image_tag(product.photo_url), product_path(product.id) %>
+        <p class="strong"> <%= link_to product.name, product_path(product) if product.active %> </p>
+    
+        <p>Price: $ <%= "%.2f" % (product.price / 100.0) %></p>
+        </div>
       <% end %>
 
-    </ul>
+    </section>
   <% else %>
     <p>There are no products for this merchant</p>
   <% end %>
 </section>
 
-<%= link_to "Back to all products", products_path %> 
-<%= link_to "Back to all merchants", merchants_path %> 
+<section class="centered">
+  <%= link_to "Back to all products", products_path, class: "btn btn-outline-success btn-sm" %> 
+  <%= link_to "Back to all merchants", merchants_path, class: "btn btn-outline-success btn-sm" %> 
+</section>
