@@ -1,10 +1,11 @@
 
 <%=form_with model: item , url: url_path, method: method_verb do |f| %>
-  <div class="form-group col-md-1">
+
+  <div>
     <%= f.label :Quantity%>
-    <%= f.number_field :quantity, required: true, in: 1..@product.stock, class: "form-control"%>
+    <%= f.number_field :quantity, required: true, in: 1..@product.stock %>
   </div>
-  <div class="form-group col-md-4">
-    <%= f.submit action, class: "btn btn-sm btn-outline-success" %>
+  <div>
+    <%= f.submit action, class: "btn btn-info" %>
   </div>
 <%end%>

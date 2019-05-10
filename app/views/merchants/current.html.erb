@@ -1,3 +1,4 @@
+<section class="merchant-dashboard">
 <h2>Merchant Dashboard</h2>
 <section class="centered">
   <h4>Welcome <%= @login_merchant.username %></h4>
@@ -7,8 +8,8 @@
 
 <% item_hash = Order.find_merchant_order_items(@login_merchant) %>
 
-<h3>Merchant Metrics</h3>
-<table class="table table-sm">
+<h3>✨Merchant Metrics</h3>
+<table class="table">
   <thead>
     <tr>
       <th scope="col">Status</th>
@@ -30,16 +31,16 @@
     <tr>
       <th scope="row">Total</th>
       <td><%= item_hash["complete"].count + item_hash["paid"].count%></td>
-      <td>$<%= "%.2f" % ( Order.status_revenue(item_hash["paid"]) + Order.status_revenue(item_hash["completed"]))%> </td>
+      <td>$<%= "%.2f" %  (Order.status_revenue(item_hash["paid"]) + Order.status_revenue(item_hash["complete"]))%> </td>
     </tr>
   </tbody>
 </table>
 
-<p>Orders by status</p>
+<h3>✨Orders by status</h3>
 <%["paid", "complete"].each do |status|%>
-  <p>Status: <%=status.capitalize%></p>
+  <h4><%=status.capitalize%> Orders</h4>
   <% item_hash[status].each do |order, items| %> 
-    <table class="table table-sm">
+    <table class="table">
       <thead>
         <tr>
           <th scope="col"><%= link_to "Order ID: #{Order.find(order).id}", order_path(Order.find(order).id),  class: "btn btn-outline-success btn-sm" %> </th>
@@ -47,7 +48,7 @@
           <th scope="col">Order Status: <%= Order.find(order).status %> </th>
           <th scope="col"> </th>
           <% if status == "paid"%>  
-            <th scope="col"><%=link_to "SHIP ORDER", order_path(order.to_i, {order: {status: "complete"}}), method: :patch, class: "btn btn-sm btn-danger"%></th>
+            <th scope="col"><%=link_to "SHIP ORDER", order_path(order.to_i, {order: {status: "complete"}}), method: :patch, class: "btn btn-sm btn-info"%></th>
           <%else%>
             <th scope="col"> </th>
           <%end%>
@@ -78,11 +79,11 @@
 <%end%>
 
 <% @products = Product.where(merchant_id: @login_merchant.id).order(:active).reverse %>
-<h3>All Products</h3>
-    <table class="table table-sm">
+<h3>✨All Products</h3>
+    <table class="table">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col">Item ID</th>
           <th scope="col">Name</th>
           <th scope="col">Price</th>
           <th scope="col">Description</th>
@@ -106,3 +107,4 @@
         <%end%>
       </tbody>
     </table>
+</section>

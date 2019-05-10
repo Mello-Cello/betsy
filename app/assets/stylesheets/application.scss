@@ -63,6 +63,12 @@
     box-shadow: 0 0 0 0.2rem  rgba(131, 11, 142, 0.842);
 }
 
+.btn-outline-success:not(:disabled):not(.disabled):active, .btn-outline-success:not(:disabled):not(.disabled).active, .show > .btn-outline-success.dropdown-toggle {
+  color: #fff;
+  background-color:  rgba(131, 11, 142, 0.842);
+  border-color:  rgba(131, 11, 142, 0.842);
+}
+
 #cart {
  margin-right: 10px;
 }
