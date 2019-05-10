@@ -7,7 +7,7 @@
       <% @merchant.products.each do |product| %>
         <div class="flex-item-products">
         <%= link_to image_tag(product.photo_url), product_path(product.id) %>
-        <p class="strong"> <%= link_to product.name, product_path(product) if product.active %> </p>
+        <p class="strong"> <%= link_to product.name.upcase, product_path(product) if product.active %> </p>
     
         <p>Price: $ <%= "%.2f" % (product.price / 100.0) %></p>
         </div>

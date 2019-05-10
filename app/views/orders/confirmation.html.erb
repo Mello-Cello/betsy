@@ -20,7 +20,7 @@
     <%@order.items.each_with_index do |item| %>
       <tr>
         <th scope="row"><%=item.quantity%></th>
-        <td><%=link_to item.product.name, product_path(item.product.id) %></td>
+        <td><%=link_to item.product.name.upcase, product_path(item.product.id) %></td>
         <td>$<%= "%.2f" % (item.product.price / 100.0)%></td>
         <td>$<%= "%.2f" % item.subtotal %></td>    
       </tr>
