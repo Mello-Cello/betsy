@@ -43,9 +43,15 @@ h4 {
 }  
 
 .strong {
-    font-weight: bolder;
+    font-weight: bold;
 }
 
 .categories input {
-  margin-left: 20px;
+//   margin-left: 20px;
+  margin-right: .4em;
+  margin-bottom: 1.5em;
+}
+
+.form-check.categories {
+    margin-left: 0%;
 }
