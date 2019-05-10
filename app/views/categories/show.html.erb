@@ -1,5 +1,5 @@
 <section>
-  <h2> <%= @category.name %> </h2>
+  <h2> Shop <%= @category.name %> </h2>
 
   <% if @category.product_ids.any? %>
     <section class="flex-container">
@@ -19,6 +19,7 @@
   <% end %>
 </section>
 
-<%= link_to "Back to all products", products_path, class: "btn btn-outline-success btn-sm" %>
-
-<%= link_to "Back to all categories", categories_path, class: "btn btn-outline-success btn-sm" %>
+<section class="centered">
+  <%= link_to "Back to all products", products_path, class: "btn btn-outline-success btn-sm" %>
+  <%= link_to "Back to all categories", categories_path, class: "btn btn-outline-success btn-sm" %>
+</section>
