@@ -1,3 +1,18 @@
 // Place all the styles related to the Orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.item.card {
+  width: 300px;
+  
+}
+
+.flex {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.checkout {
+  margin-top: 2em;
+}

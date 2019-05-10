@@ -68,10 +68,9 @@ class OrdersController < ApplicationController
 
   private
 
-  # only partial params, update if more attributes are required.
   def order_params
     if params[:order][:cc_all]
-      params[:order][:cc_four] = params[:order][:cc_all][-4..-1] # front-end validation requires min 4 char input.
+      params[:order][:cc_four] = params[:order][:cc_all].length <= 4 ? params[:order][:cc_all] : params[:order][:cc_all][-4..-1]
     end
     params.require(:order).permit(:shopper_name, :shopper_email, :shopper_address, :cc_exp, :cc_four, :status)
   end

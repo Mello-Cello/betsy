@@ -23,7 +23,7 @@
       <td></td>
       <td></td>
       <th><h3>Total:</h3></th>   <%# REMOVE h3, temp added to get a feel for style%>
-      <th><h3>$<%=@order.total%></h3></th>
+      <th><h3>$<%="%0.2f" % [@order.total]%></h3></th>
     </tr>
   </tbody>
 </table>
@@ -62,7 +62,7 @@
     </div>
   </div>
   <div>
-  <%=f.submit "Purchase", class:"btn btn-primary"%>
+  <%=f.submit "Purchase", class:"btn btn-outline-info sm-margin btn-block"%>
   </div>
 <%end%>
 
