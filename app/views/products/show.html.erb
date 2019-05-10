@@ -3,8 +3,7 @@
 
   <%= image_tag @product.photo_url, alt: "Image of the product", class: "detail" %>
 
-    <p> <%= @product.description%> </p>
-
+<div class="inner-flex">
   <div>
     <h5> Price: $ <%= "%.2f" % (@product.price / 100.0) %> </h5>
 
@@ -28,6 +27,8 @@
       <p>There are no categories assigned to this product</p>
     <% end %>
   </div>
+  </div>
+  <p> <%= @product.description%> </p>
 </section>
 
 <section>
