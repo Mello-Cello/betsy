@@ -1,7 +1,7 @@
 <section id="mainpadding" id="background-image-magical">
     
     <h1>Intangibly</h1>
-    <p id="tagline" class= "magic roll-in-blurred-left "><%= image_tag "intangible.png", class: "img" %>find your magic</p>
+    <p id="tagline" class= "magic roll-in-blurred-left "><%= image_tag "intangible.png", alt: "logo", class: "img" %>find your magic</p>
     <% if session[:merchant_id] %>
     <% merchant = Merchant.find_by(id: session[:merchant_id]) %>
     <p class="centered-arial"><%= "You are currently logged in as #{merchant.username}" %></p> 
