@@ -18,6 +18,10 @@ body {
   -webkit-text-stroke: #ff9dff 1px;
 }
 
+.bold-grey {
+  -webkit-text-stroke: grey 1px;
+}
+
 .pink {
   color: #ff9dff;
 }
@@ -66,6 +70,7 @@ h4 a:hover {
   font-weight:bold;
   font-size: 30px;
   color: rgb(255, 157, 255);
+  -webkit-text-stroke: rgb(255, 157, 255) 1px;
 }
 
 .bg-purple {
