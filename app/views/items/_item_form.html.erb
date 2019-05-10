@@ -3,9 +3,13 @@
 
   <div>
     <%= f.label :Quantity%>
+    <% if @product.stock > 0%>
     <%= f.number_field :quantity, required: true, in: 1..@product.stock %>
+    <% else %>
+    <%= f.number_field :quantity, required: true, in: 0..1 %>
+    <%end%>
   </div>
   <div>
-    <%= f.submit action, class: "btn btn-info btn-sm sm-margin" %>
+    <%= f.submit action, class: "btn btn-info sm-margin" %>
   </div>
 <%end%>
