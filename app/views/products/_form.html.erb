@@ -11,8 +11,8 @@
     </div>
   </div>
   <div class= "form-row">
-    <div class="form-check">
-      <%=f.label "Categories"%>
+    <div class="form-check categories">
+      <%=f.label "Categories", class: ""%>
       <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name)%>
     </div>
   </div>
@@ -34,6 +34,6 @@
     </div>
   </div>
   <div>
-  <%=f.submit action_name, class:"btn btn-primary"%>
+  <%=f.submit action_name, class:"btn btn-info"%>
   </div>
   <% end %>

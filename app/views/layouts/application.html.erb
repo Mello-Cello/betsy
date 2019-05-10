@@ -61,10 +61,9 @@
       </nav>
       <section class = "flash">
         <% if flash[:success] %>
-          <div class = "success alert alert-primary">
+          <div class = "success alert alert-info">
             <%= flash[:success] %>
           </div>
-      
         <% elsif flash[:error] %>
           <div class = "error alert alert-danger">
             <%= flash[:error] %>
