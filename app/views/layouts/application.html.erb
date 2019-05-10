@@ -64,9 +64,8 @@
           <div class = "success alert alert-info">
             <%= flash[:success] %>
           </div>
-      
         <% elsif flash[:error] %>
-          <div class = "error alert alert-warning">
+          <div class = "error alert alert-danger">
             <%= flash[:error] %>
             <ul>
               <%flash.each do |label, problems|%>
