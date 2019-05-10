@@ -1,5 +1,5 @@
 <section class="jumbotron">
-  <h3 class="bold"> <%= @product.name %> </h3>
+  <h3 class="bold"> <%= @product.name.upcase %> </h3>
 
   <%= image_tag @product.photo_url, alt: "Image of the product", class: "detail" %>
 

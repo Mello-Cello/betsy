@@ -5,7 +5,7 @@
     <%@order.items.each do |item| %>
       <article class= "item card bg-light mb-3">
       <div class="card-body">
-        <h3 class="card-title text-center"><%=item.product.name%></h3>
+        <h3 class="card-title text-center"><%=item.product.name.upcase%></h3>
         <p class="card-subtitle mb-2 text-muted">quantity: <%=item.quantity%></p>
         <p class="card-subtitle mb-2 text-muted">subtotal: $<%=item.subtotal%>
         <p class="card-text"><%=item.product.description%>
