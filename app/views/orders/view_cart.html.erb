@@ -11,7 +11,7 @@
         <p class="card-text"><%=item.product.description%>
         <% @product = item.product %>
         <%= render partial: "/items/item_form",  locals: {item: item, method_verb: :patch, action: "Update", url_path: item_path(item.id)} %>
-        <%= link_to "Remove item", item_path(item.id), method: :delete, class: "btn btn-outline-secondary sm_margin"%>
+        <%= link_to "Remove item", item_path(item.id), method: :delete, class: "btn btn-outline-secondary sm-margin"%>
       </div>
       </article>
     <%end%>
